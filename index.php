@@ -20,8 +20,4 @@ $app->get('/',function () {
 
 })->name('racine');
 
-$app->get('/mmm',function () {
-  echo "cc";
-});
-
 $app->run();
