@@ -17,9 +17,11 @@ $db->bootEloquent();
 
 //affichage de la racine
 $app->get('/',function () {
- $c = new ControleurAffichage();
- $c->racine();
+
 })->name('racine');
 
+$app->get('/mmm',function () {
+  echo "cc";
+});
 
 $app->run();
