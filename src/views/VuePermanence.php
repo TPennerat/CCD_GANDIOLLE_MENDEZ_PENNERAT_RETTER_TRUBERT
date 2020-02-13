@@ -6,7 +6,6 @@ use DateInterval;
 use DateTime;
 use Exception;
 use Slim\Slim;
-
 class VuePermanence
 {
 
@@ -209,150 +208,141 @@ END;
         return <<<END
       <body class="animsition">
   <div class="page-wrapper">
-  <!-- HEADER MOBILE-->
-  <header class="header-mobile d-block d-lg-none">
-    <div class="header-mobile__bar">
-      <div class="container-fluid">
-        <div class="header-mobile-inner">
-          <a class="logo" href="index.html">
-            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
-          </a>
-          <button class="hamburger hamburger--slider" type="button">
-            <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
-            </span>
-          </button>
+    <!-- HEADER MOBILE-->
+    <header class="header-mobile d-block d-lg-none">
+      <div class="header-mobile__bar">
+        <div class="container-fluid">
+          <div class="header-mobile-inner">
+            <a class="logo" href="index.html">
+              <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+            </a>
+            <button class="hamburger hamburger--slider" type="button">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <nav class="navbar-mobile">
-      <div class="container-fluid">
-        <ul class="navbar-mobile__list list-unstyled">
-          <li>
-            <a href="calendar.html">
-              <i class="fas fa-tasks"></i>Planning personnel</a>
-            </li>
-          <li class="has-sub">
-            <a class="js-arrow" href="#">
-              <i class="fa fa-calendar-o"></i>Semaines</a>
-              <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                <li>
-                  <a href="index.html">Semaine 1</a>
-                </li>
-                <li>
-                  <a href="index2.html">Semaine 2</a>
-                </li>
-                <li>
-                  <a href="index3.html">Semaine 3</a>
-                </li>
-                <li>
-                  <a href="index4.html">Semaine 4</a>
-                </li>
-              </ul>
-            </li>
+      <nav class="navbar-mobile">
+        <div class="container-fluid">
+          <ul class="navbar-mobile__list list-unstyled">
             <li>
-              <a href="chart.html">
-                <i class="fas fa-chart-bar"></i>Graphique</a>
+              <a href="calendar.html">
+                <i class="fas fa-calendar-alt"></i>Planning personnel</a>
               </li>
-              <li>
-                <a href="table.html">
-                  <i class="fas fa-heart"></i>Besoins</a>
-                </li>
-                <li>
-                  <a href="form.html">
-                    <i class="fa fa-users"></i>Utilisateurs</a>
+            <li class="has-sub">
+              <a class="js-arrow" href="#">
+                <i class="fas fa-tachometer-alt"></i>Semaines</a>
+                <p>erreur<p>
+                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                  <li>
+                    <a href="index.html">Semaine 1</a>
                   </li>
                   <li>
-                    <a href="calendar.html">
-                      <i class="fas fa-clock"></i>Créneaux</a>
+                    <a href="index2.html">Semaine 2</a>
+                  </li>
+                  <li>
+                    <a href="index3.html">Semaine 3</a>
+                  </li>
+                  <li>
+                    <a href="index4.html">Semaine 4</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="chart.html">
+                  <i class="fas fa-chart-bar"></i>Graphique</a>
+                </li>
+                <li>
+                  <a href="table.html">
+                    <i class="fas fa-table"></i>Besoins</a>
+                  </li>
+                  <li>
+                    <a href="form.html">
+                      <i class="far fa-check-square"></i>Utilisateurs</a>
                     </li>
                     <li>
-                      <a href="map.html">
-                        <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
+                      <a href="calendar.html">
+                        <i class="fas fa-calendar-alt"></i>Créneaux</a>
                       </li>
                       <li>
                         <a href="map.html">
-                          <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                          <i class="fas fa-map-marker-alt"></i>Planning général</a> <!--Que pour administrateur-->
                         </li>
+                        <li>
+                          <a href="map.html">
+                            <i class="fas fa-map-marker-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                          </li>
 
-                          </ul>
+                            </ul>
+                          </div>
+                        </nav>
+                      </header>
+                      <!-- END HEADER MOBILE-->
+
+                      <!-- MENU SIDEBAR-->
+                      <aside class="menu-sidebar d-none d-lg-block">
+                        <div class="logo">
+                          <a href="#">
+                            <img src="images/icon/logo.png" alt="Cool Admin" />
+                          </a>
                         </div>
-                      </nav>
-                    </header>
-                    <!-- END HEADER MOBILE-->
-
-                    <!-- MENU SIDEBAR-->
-                    <aside class="menu-sidebar d-none d-lg-block">
-                      <div class="logo">
-                        <a href="#">
-                          <img src="images/icon/logo.png" alt="Cool Admin" />
-                        </a>
-                      </div>
-                      <div class="menu-sidebar__content js-scrollbar1">
-                        <nav class="navbar-sidebar">
-                          <ul class="list-unstyled navbar__list">
-                            <li class="has-sub">
-                              <a class="js-arrow" href="#">
-                                <i class="fas fa-tasks"></i>Planning personnel</a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                  <li>
-                                    <a href="index.html">Semaine 1</a>
-                                  </li>
-                                  <li>
-                                    <a href="index2.html">Semaine 2</a>
-                                  </li>
-                                  <li>
-                                    <a href="index3.html">Semaine 3</a>
-                                  </li>
-                                  <li>
-                                    <a href="index4.html">Semaine 4</a>
-                                  </li>
-                                </ul>
-                              </li>
+                        <div class="menu-sidebar__content js-scrollbar1">
+                          <nav class="navbar-sidebar">
+                            <ul class="list-unstyled navbar__list">
                               <li>
-                                <a href="chart.html">
-                                  <i class="fa fa-chart-bar"></i>Graphique</a>
+                                <a href="calendar.html">
+                                  <i class="fas fa-calendar-alt"></i>Planning personnel</a>
                                 </li>
-                                  <li class="has-sub">
-                                    <a class="js-arrow" href="#">
-                                      <i class="fa fa-heart"></i>Besoins</a>
-                                      <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                        <li>
-                                          <a href="index.html">Semaine 1</a>
-                                        </li>
-                                        <li>
-                                          <a href="index2.html">Semaine 2</a>
-                                        </li>
-                                        <li>
-                                          <a href="index3.html">Semaine 3</a>
-                                        </li>
-                                        <li>
-                                          <a href="index4.html">Semaine 4</a>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                  <li>
-                                    <a href="form.html">
-                                      <i class="fa fa-users"></i>Utilisateurs</a>
+                              <li class="active has-sub">
+                                <a class="js-arrow" href="#">
+                                  <i class="fas fa-tachometer-alt"></i>Cycles</a>
+                                  <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                    <li>
+                                      <a href="index.html">Cycle 1</a>
                                     </li>
                                     <li>
-                                      <a href="calendar.html">
-                                        <i class="fas fa-clock"></i>Créneaux</a>
+                                      <a href="index2.html">Cycle 2</a>
+                                    </li>
+                                    <li>
+                                      <a href="index3.html">Cycle 3</a>
+                                    </li>
+                                    <li>
+                                      <a href="index4.html">Cycle 4</a>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <a href="chart.html">
+                                    <i class="fas fa-chart-bar"></i>Graphique</a>
+                                  </li>
+                                  <li>
+                                    <a href="table.html">
+                                      <i class="fas fa-table"></i>Besoins</a>
+                                    </li>
+                                    <li>
+                                      <a href="form.html">
+                                        <i class="far fa-check-square"></i>Utilisateurs</a>
                                       </li>
                                       <li>
-                                        <a href="map.html">
-                                          <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
+                                        <a href="calendar.html">
+                                          <i class="fas fa-calendar-alt"></i>Créneaux</a>
                                         </li>
                                         <li>
                                           <a href="map.html">
-                                            <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                                            <i class="fas fa-map-marker-alt"></i>Planning général</a> <!--Que pour administrateur-->
                                           </li>
+                                          <li>
+                                            <a href="map.html">
+                                              <i class="fas fa-map-marker-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                                            </li>
 
-                                          </ul>
-                                        </nav>
-                                      </div>
-                                    </aside>
-                                    <!-- END MENU SIDEBAR-->
+                                            </ul>
+                                          </nav>
+                                        </div>
+                                      </aside>
+                                      <!-- END MENU SIDEBAR-->
 
                                       <!-- PAGE CONTAINER-->
                                       <div class="page-container">
@@ -534,8 +524,7 @@ END;
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine $sem</h2></div>
-        <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+        <div class="col-md-12" style="margin-bottom:20px">
           <button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button>
         </div>
 $adapt
@@ -564,8 +553,11 @@ END;
         $contentCre = "";
         $contentRoles = "";
 
+
+
         foreach ($creneaux as $cre) {
-            $contentCre .= "<option value=\"$cre->id\"> Jour $cre->jour De : $cre->hDeb h à $cre->hFin h </option>";
+            $date = $this->calc_date("2020-02-10",$cre->semaine,$cre->jour,$cre->cycle);
+            $contentCre .= "<option value=\"$cre->id\"> $date->jour_no / $date->mois_no De : $cre->hDeb h à $cre->hFin h </option>";
         }
 
         $html.='<label for="cren">Choisir créneau : </label><select>'.$contentCre.'</select><br>';
@@ -583,6 +575,49 @@ END;
         return $html;
     }
 
+    /**
+     * Fonction de calcul de date.
+     *
+     * @param string $ancre date de départ (ancrage de départ)
+     * @param integer $cycle n° de cycle (premier cycle = 0)
+     * @param string $semaine nom de la semaine (de 'A' à 'D')
+     * @param integer $jour n° du jour (de 1 à 7)
+     * @return object
+     */
+    function calc_date($ancre, $semaine, $jour, $cycle = 0)
+    {
+        // On vérifie les paramètres...
+        if ((gettype($cycle) !== 'integer') || ($cycle < 0))
+            throw new Exception('calc_date : mauvais numéro de cycle');
+
+        if ((gettype($semaine) !== 'string') || (strlen($semaine) != 1) ||
+            (ord($semaine) - ord('A') < 0) || (ord($semaine) - ord('A') > 3))
+            throw new Exception('calc_date : le n° de semaine doit être entre A et D (inclus)');
+
+        if ((gettype($jour) !== 'integer') || ($jour < 1) || ($jour > 7))
+            throw new Exception('calc_date : le n° de jour doit être entre 1 et 7 (inclus)');
+
+        // On calcule le jour recherché (décalage entier par rapport
+        // à la date de départ -- « l'ancre »)
+        $nb_jours = $cycle * 28 + (ord($semaine) - ord('A')) * 7 + $jour - 1;
+        $date_init = new DateTime($ancre);
+        $date_res = $date_init->add(new DateInterval('P' . $nb_jours . 'D'))->format('U');
+
+        // Attention, distinguo Windows/reste du monde (Windows, WinNT, Win32)
+        $format_jour_no = (preg_match('#win[dn3]#', PHP_OS))? '%#d' : '%e';
+
+        // Génération du résultat
+        return (object) [
+            'jour_no' => strftime($format_jour_no, $date_res),
+            'jour_nom_court' => strftime('%a', $date_res),
+            'jour_nom' => strftime('%A', $date_res),
+            'mois_no' => strftime('%m', $date_res),
+            'mois_nom_court' => strftime('%b', $date_res),
+            'mois_nom' => strftime('%B', $date_res),
+            'annee_no' => strftime('%Y', $date_res),
+            'annee_no_court' => strftime('%y', $date_res)
+        ];
+    }
 
     public function render($selecteur)
     {
