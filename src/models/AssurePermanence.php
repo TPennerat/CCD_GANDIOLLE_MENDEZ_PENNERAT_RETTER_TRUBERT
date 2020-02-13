@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssurePermanence extends Model
 {
-    protected $table = "assurePermanence";
+    protected $table = "assurepermanence";
     protected $primaryKey = 'id';
     public $timestamps = false;
 
@@ -21,6 +21,6 @@ class AssurePermanence extends Model
     public function role () {
       return $this->hasOne("epicerie\models\Role","id");
     }
-    
+
 
 }

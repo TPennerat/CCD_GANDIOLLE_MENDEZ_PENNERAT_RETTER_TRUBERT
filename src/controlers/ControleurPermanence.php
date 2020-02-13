@@ -6,6 +6,8 @@ use \epicerie\models\Creneau as Creneau;
 use \epicerie\models\Role as Role;
 
 use epicerie\views\VuePermanence;
+use epicerie\views\VueBesoins as VueBesoins;
+
 use \Exception;
 use Slim\Slim;
 
@@ -42,18 +44,20 @@ class ControleurPermanence {
   }
 
 
+  function afficherMesPermanences($id) {
 
-  function afficherMesPermanences() {
-        $perms = Permanence::where('idUtil', '=', $_SESSION['id_connect'])->get();
-        $view = new VuePermanence($perms);
-        $view->render(2);
-    }
+    $perms = Permanence::where('idUtil','=',$id)->get();
+    $view = new VuePermanence($perms);
+    $view->render(2);
+
+  }
 
   function afficherToutesLesPermanences() {
 
-    $perms = Permanence::where('idUtil','is',null)->get();
-    $view = new VuePermanence($perms);
-    $view->render(2);
+    $perms = Permanence::where('idUtil','=',null)->get();
+    $view = new VueBesoins($perms);
+
+    $view->render(1);
 
   }
 }

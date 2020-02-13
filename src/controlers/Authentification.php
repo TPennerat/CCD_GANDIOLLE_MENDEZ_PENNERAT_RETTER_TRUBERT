@@ -7,7 +7,7 @@ use \epicerie\models\User as User;
 class Authentification
 {
 
-    public static function createUser($login, $password)
+    public static function createUser($login, $password, $droit)
     {
 
         if (User::where('nom', '=', $login)->first() != null) {
@@ -28,9 +28,9 @@ class Authentification
         $u->nom = $login;
         $u->mdp = password_hash($password, PASSWORD_DEFAULT,
             ['cost' => 12]);
+        $u->droit = $droit;
         $u->save();
 
-        self::loadProfile($u->username);
     }
 
     public static function seConnecter($login, $password)

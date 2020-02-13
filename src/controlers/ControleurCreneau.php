@@ -2,6 +2,7 @@
 
 namespace epicerie\controlers;
 
+use epicerie\models\AssurePermanence as Permanence;
 use epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -70,8 +71,8 @@ class ControleurCreneau
     }
 
 
-    public function afficherCreneaux(){
-        $creneaux = Creneau::get();
+    public function afficherCreneaux($sem){
+        $creneaux =  Creneau::where('semaine', '=', $sem)->orderBy('jour','asc')->orderBy('hDeb','asc')->get();
         $vue = new VueCreneau($creneaux);
         $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
     }

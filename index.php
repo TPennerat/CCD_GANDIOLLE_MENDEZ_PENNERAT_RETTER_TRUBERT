@@ -40,18 +40,36 @@ $app->get('/connexion',function () {
 
 })->name('connexion');
 
+$app->get('/deconnexion', function() {
+    $c = new ControleurComptes();
+    $c->seDeconnecter();
+})->name('deco');
 
-$app->get('/afficherMesPermanences/:sem', function($sem) {
+$app->get('/afficherBesoins/:sem', function () {
+    $c = new ControleurPermanence();
+    $c->afficherToutesLesPermanences();
+})->name('besoin');
+
+$app->get('/afficherCreneaux/:sem',function($sem) {
+
+    $c = new ControleurCreneau();
+    $c->afficherCreneaux($sem);
+
+})->name('creneau');
+
+$app->get('/mesPermanences/:sem', function($sem) {
     $cont = new ControleurPermanence();
     $cont->afficherMesPermanences($sem);
 })->name('aff');
 
-$app->get('/afficherCreneaux',function() {
 
-    $c = new ControleurCreneau();
-    $c->afficherCreneaux();
+$app->get('/graphique' , function () {
 
-});
+})->name('graphique');
+
+$app->get('/utilisateurs' , function () {
+
+})->name('users');
 
 $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
@@ -59,26 +77,19 @@ $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
     $c->changerEtat($id, $etat);
 });
 
-
-
 $app->get('/creerBesoin', function() {
     $c = new ControleurPermanence();
     $c->afficherCreationBesoin();
 });
 
 $app->post('/creerBesoin', function() {
-  $c = new ControleurPermanence();
-  $c->creerBesoin();
+    $c = new ControleurPermanence();
+    $c->creerBesoin();
 })->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
-
     $c = new ControleurPermanence();
     $c->inscrireBesoin($id);
-
-});
-
-$app->post('/inscriptionBesoin/:id', function($id) {
 
 });
 
@@ -109,10 +120,10 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 
 
 
-$app->post('/creneau/ajouterCreneau', function () {
+$app->post('/ajouterCreneau', function () {
     $c = new ControleurCreneau();
     $c->ajouterCreneau();
-});
+})->name('ajouterCreneau');
 
 
 $app->post('/connexion',function () {
@@ -123,21 +134,30 @@ $app->post('/connexion',function () {
 })->name('co');
 
 
-//Question 18
-$app->get('affichagePermanences/:idCreneau', function ($idCreneau){
 
-    $c= new ControleurCreneau();
-    $c->afficherTout($idCreneau);
-});
 
-$app->get('/deconnexion', function() {
+$app->get('/modifierCompte', function (){
     $c = new ControleurComptes();
-    $c->seDeconnecter();
-})->name('deco');
+    $c->afficherFormulaireModificationCompte();
+})->name('modifierCompte');
 
-$app->get('/besoin', function () {
-    $c = new ControleurPermanence();
-    $c->afficherToutesLesPermanences();
-})->name('besoin');
+
+$app->post('/modifierCompte', function (){
+    $c = new ControleurComptes();
+    $c->modifierCompte();
+})->name('modifier');
+
+$app->get('/creerCompte', function (){
+    $c = new ControleurComptes();
+    $c->afficherFormulaireCreationCompte();
+})->name('creerC');
+
+
+$app->post('/creerCompte', function (){
+    $c = new ControleurComptes();
+    $c->creerCompte();
+})->name('creerCompte');
+
+
 
 $app->run();
