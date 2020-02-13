@@ -35,9 +35,25 @@ class VueCreationModificationCompte
                 <input type='text' name='username' placeholder=$this->username>
                 <label>Mot de passe : </label>
                <input type='password' name='mdp1' required>
-                <label>Saisir à nouveau : </label>
-               <input type='password' name='mdp2' required>           
+                <label>Saisir à nouveau : </label> 
+                <input type='password' name='mdp2' required>      
+               
+               
+               
+                <label>Type du compte : </label>
+                <div>
+                <input type=radio name=type value=admin checked>
+                <label for=Admin>Admin</label>
+                </div>
+
+                <div>
+                <input  type=radio name=type value=utilisateur checked>
+                <label for=utilisateur>Utilisateur</label>
+                </div>
+                
+                     
                <input type='submit' class='btn' value='Modifier'>
+              
                </form>";
         return $res;
 
@@ -55,10 +71,25 @@ class VueCreationModificationCompte
         $res.= "<form method='post' action='creerCompte'>
                 <label>Nom : </label>
                 <input type='text' name='username' placeholder=$this->username>
+                
                 <label>Mot de passe : </label>
                <input type='password' name='mdp1' required>
                 <label>Saisir à nouveau : </label>
-               <input type='password' name='mdp2' required>           
+       
+               <input type='password' name='mdp2' required>         
+               
+                <label>Type du compte : </label>
+
+                <div>
+                <input type=radio name=type value=admin checked>
+                <label for=Admin>Admin</label>
+                </div>
+
+                <div>
+                <input  type=radio name=type value=utilisateur checked>
+                <label for=utilisateur>Utilisateur</label>
+                </div>
+
                <input type='submit' class='btn' value='Creer'>
                </form>";
 
