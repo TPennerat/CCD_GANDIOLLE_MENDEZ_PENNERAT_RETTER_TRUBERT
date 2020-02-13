@@ -32,7 +32,7 @@ END;
             $res .= <<<END
 
             <div class="col-sm-6 col-lg-3">
-              <div class="overview-item overview-item--c1" style="padding:40px">
+              <div class="overview-item overview-item--c7" style="padding:40px">
                 <div class="overview__inner">
                   <div class="overview-box clearfix">
                     <div class="text-center col-12" style="padding:0px">

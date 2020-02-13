@@ -95,6 +95,8 @@ $app->get('/graphique' , function () {
 
 })->name('graphique');
 
+
+
 $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
     $c = new ControleurCreneau();

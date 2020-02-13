@@ -175,10 +175,11 @@ END;
                 }
 
 
+                $x=null;
                 for($i=0; $i<count($key->estAssure->toArray());$i++){
-                    if($key->estAssure->toArray()!=null){
-                        if($key->estAssure->toArray()['id']==$key->id){
-
+                    if($key->estAssure->toArray()[$i]!=null){
+                        if($key->estAssure->toArray()[$i]['id']==$key->id){
+                            $x=$key->estAssure->toArray()[$i];
                         }
                     }
                 }
@@ -359,7 +360,7 @@ END;
 </div>
 END;
 
-        //echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
+        echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
     }
 
 
