@@ -3152,27 +3152,39 @@ section {
 }
 
 .overview-item--c1 {
-    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
-    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
-    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+    background-image: -moz-linear-gradient(90deg, #7339ED 0%, #6585E4 100%);
+    background-image: -webkit-linear-gradient(90deg, #7339ED 0%, #6585E4 100%);
+    background-image: -ms-linear-gradient(90deg, #7339ED 0%, #6585E4 100%);
 }
 
 .overview-item--c2 {
-    background-image: -moz-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    background-image: -webkit-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    background-image: -ms-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+    background-image: -moz-linear-gradient(90deg, #F49900 0%, #FFD952 100%);
+    background-image: -webkit-linear-gradient(90deg, #F49900 0%, #FFD952 100%);
+    background-image: -ms-linear-gradient(90deg, #F49900 0%, #FFD952 100%);
 }
 
 .overview-item--c3 {
-    background-image: -moz-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
-    background-image: -webkit-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
-    background-image: -ms-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+    background-image: -moz-linear-gradient(90deg, #BF3636 0%, #FA5363 100%);
+    background-image: -webkit-linear-gradient(90deg, #BF3636 0%, #FA5363 100%);
+    background-image: -ms-linear-gradient(90deg, #BF3636 0%, #FA5363 100%);
 }
 
 .overview-item--c4 {
-    background-image: -moz-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -webkit-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -ms-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
+    background-image: -moz-linear-gradient(90deg, #45b649 0%, #ACE15F 100%);
+    background-image: -webkit-linear-gradient(90deg, #45b649 0%, #ACE15F 100%);
+    background-image: -ms-linear-gradient(90deg, #45b649 0%, #ACE15F 100%);
+}
+
+.overview-item--c5 {
+    background-image: -moz-linear-gradient(90deg, #3E78CF 0%, #59BEFF 100%);
+    background-image: -webkit-linear-gradient(90deg, #3E78CF 0%, #59BEFF 100%);
+    background-image: -ms-linear-gradient(90deg, #3E78CF 0%, #59BEFF 100%);
+}
+
+.overview-item--c6 {
+    background-image: -moz-linear-gradient(90deg, #C42A89 0%, #F165C6 100%);
+    background-image: -webkit-linear-gradient(90deg, #C42A89 0%, #F165C6 100%);
+    background-image: -ms-linear-gradient(90deg, #C42A89 0%, #F165C6 100%);
 }
 
 .overview-box .icon {
