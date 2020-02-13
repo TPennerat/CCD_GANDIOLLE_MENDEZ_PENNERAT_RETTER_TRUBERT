@@ -40,6 +40,7 @@ class VuePermanence
       $racine = $app->urlFor('racine');
       $img="";
       $alt="";
+      $gestionCompte ="";
 
       $deco=$app->urlFor('deco');
       $inscription=$app->urlFor('besoin');
@@ -57,8 +58,43 @@ class VuePermanence
                                               <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
                                             </li>
 END;
+            $gestionCompte = <<<END
+           
+      <div class="account-dropdown__body">
+        <div class="account-dropdown__item">
+          <a href="#">
+            <i class="zmdi zmdi-account"></i>Compte</a>
+          </div>
+          <div class="account-dropdown__item">
+            <a href="#">
+              <i class="zmdi zmdi-settings"></i>Paramètres</a>
+            </div>
+            <div class="account-dropdown__footer">
+              <a href="$deco">
+                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+END;
 
-}
+
+}else{ $gestionCompte = <<<END
+           
+      <div class="account-dropdown__body">
+   
+          <div class="account-dropdown__item">
+       
+            <div class="account-dropdown__footer">
+              <a href="$deco">
+                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
+            </div>
+        </div>
+      </div>
+END;
+
+        }
             $img=$app->urlFor('racine').'/web/img/'.$user->urlimage;
             $alt=$user->nom;
 
@@ -66,7 +102,8 @@ END;
         $inscription=$app->urlFor('besoin');
         $graphique=$app->urlFor('graphique');
         $users=$app->urlFor('users');
-        return <<<END
+
+        $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
 
@@ -79,7 +116,7 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>COBOARD</title>
+          <title>EpircerieGenerale</title>
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -426,23 +463,9 @@ END;
           </h5>
         </div>
       </div>
-      <div class="account-dropdown__body">
-        <div class="account-dropdown__item">
-          <a href="#">
-            <i class="zmdi zmdi-account"></i>Compte</a>
-          </div>
-          <div class="account-dropdown__item">
-            <a href="#">
-              <i class="zmdi zmdi-settings"></i>Paramètres</a>
-            </div>
-            <div class="account-dropdown__footer">
-              <a href="$deco">
-                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+ 
+       $gestionCompte
     </div>
   </div>
 </div>
@@ -450,6 +473,7 @@ END;
 <!-- HEADER DESKTOP-->
 
 END;
+        return $res;
 
     }
 

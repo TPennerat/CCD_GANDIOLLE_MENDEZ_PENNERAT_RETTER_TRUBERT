@@ -155,7 +155,7 @@ END;
                     $ancienJour = $jour;
                 }
                 if ($key->jour !== $ancienJour) {
-                        $j = $this->jour($ancienJour);
+                    $j = $this->jour($ancienJour);
                     $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
 $content</div>
@@ -316,7 +316,7 @@ END;
 </div>
 END;
 
-       echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
+        echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
     }
 
 
