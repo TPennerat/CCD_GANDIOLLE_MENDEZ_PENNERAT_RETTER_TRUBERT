@@ -83,7 +83,7 @@ class ControleurCreneau
     }
 
     public function afficherUnCreneaux($id){
-        $creneaux =  AssurePermanence::find($id);
+        $creneaux =  Permanence::where('id','=',$id)->get();
         $vue = new VueCreneau($creneaux);
         $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
     }

@@ -703,7 +703,8 @@ END;
         $contentRoles = "";
 
         foreach ($creneaux as $cre) {
-            $contentCre .= "<option value=\"$cre->id\"> Jour $cre->jour De : $cre->hDeb h à $cre->hFin h </option>";
+            $date = $this->calc_date("2020-02-10",$cre->jour,$cre->semaine,$cre->cycle);
+            $contentCre .= "<option value=\"$cre->id\"> $date->jour_no/$date->mois_no De : $cre->hDeb h à $cre->hFin h </option>";
         }
 
         $html.='<label for="cren">Choisir créneau : </label><select>'.$contentCre.'</select><br>';
@@ -776,5 +777,6 @@ END;
         $html = self::getHeader($app,'Planning Personnel') . $content . self::getFooter($app);
         echo $html;
     }
+
 
 }

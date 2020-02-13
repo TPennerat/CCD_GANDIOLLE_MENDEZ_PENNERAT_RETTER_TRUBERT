@@ -3,6 +3,7 @@
 namespace epicerie\views;
 
 use epicerie\models\Role;
+use epicerie\models\User as User;
 use Slim\Slim;
 use Symfony\Component\Translation\Loader\IniFileLoader;
 
@@ -185,7 +186,6 @@ END;
                 }
 
                 $urlCreneau= Slim::getInstance()->urlFor('creneauSpe',["sem"=>$sem,"id"=>$x]);
-                echo $urlCreneau."\n";
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div id = $key->id class="overview-item overview-item--$class aModifier" style="padding:20px;margin-bottom:10px">
@@ -260,15 +260,15 @@ END;
         $compJour = 0;
         $passageUnique = true;
         $ex=explode('/',Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex)-2];
+        $sem = $ex[count($ex)-1];
         foreach ($this->creneauAffiche as $key) {
-            if ($key->semaine == $sem) {
-                $jour = $key->jour;
+            if ($key->creneau->semaine == $sem) {
+                $jour = $key->creneau->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
                 }
-                if ($key->jour !== $ancienJour) {
+                if ($key->creneau->jour !== $ancienJour) {
                     $j = $this->jour($ancienJour);
                     $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
@@ -278,16 +278,8 @@ END;
                     $compJour = 0;
                     $ancienJour = $jour;
                 }
-
-
-                $deb = $key->hDeb . ":00";
-                $fin = $key->hFin . ":00";
-
-                if($key->estactif==0){
-                    $class="c8";
-                }else{
-                    $class="c7";
-                }
+                $label = $key->role->label;
+                $inscr = $key->user->nom;
 
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
@@ -323,30 +315,40 @@ END;
     public function render($const, $erreur = -1){
         $app = Slim::getInstance();
         $content = '';
+        $ex=explode('/',Slim::getInstance()->request->getPath());
         switch ($const){
             case (self::FORMULAIRE_AJOUT_CRENEAU):
                 $content = $this->afficherFormulaireAjoutCreneau($erreur);
                 break;
             case (self::AFFICHAGE_CRENEAUX):
                 $content = $this->afficherCreneaux();
+                $sem = $ex[count($ex)-1];
+                $cre = "Créneau n° ".$sem;
                 break;
             case (self::AFFICHER_TOUT_CRENEAU):
                 $content = $this->adapt($app->urlFor('racine') . "/Bootstrap");
+                $sem = $ex[count($ex)-1];
+                $cre = "Créneaux de la semaine ".$sem;
                 break;
         }
-        $ex=explode('/',Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex)-1];
-
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+        $admin ="";
         $ajoutCreneau=$app->urlFor('ajouterCreneau');
+        if ($user->droit !=1) {
+            $admin = <<<END
+<div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+          <a href="$ajoutCreneau"><button type="button" class="btn btn-outline-primary btn-lg">Créer un créneau</button></a>
+        </div>
+END;
+        }
+
         $html =<<<END
 <div class="main-content">
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Créneaux de la semaine $sem</h2></div>
-        <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
-          <a href="$ajoutCreneau"><button type="button" class="btn btn-outline-primary btn-lg">Créer un créneau</button></a>
-        </div>
+        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">$cre</h2></div>
+        $admin
     $content
 
       </div>
