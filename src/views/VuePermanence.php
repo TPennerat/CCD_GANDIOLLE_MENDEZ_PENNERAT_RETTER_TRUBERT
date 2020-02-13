@@ -56,6 +56,8 @@ END;
 
         $deco=$app->urlFor('deco');
         $inscription=$app->urlFor('besoin');
+        $creerCompte=$app->urlFor('creerCompte');
+        $modifCompte=$app->urlFor('modifierCompte');
 
         return <<<END
       <!DOCTYPE html>
