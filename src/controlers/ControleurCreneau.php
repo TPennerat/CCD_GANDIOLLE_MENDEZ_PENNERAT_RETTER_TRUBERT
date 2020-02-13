@@ -72,7 +72,7 @@ class ControleurCreneau
 
 
     public function afficherCreneaux($sem){
-        $creneaux =  Creneau::where('semaine', '=', $sem)->orderBy('jour','asc')->get();
+        $creneaux =  Creneau::where('semaine', '=', $sem)->orderBy('jour','asc')->orderBy('hDeb','asc')->get();
         $vue = new VueCreneau($creneaux);
         $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
     }
