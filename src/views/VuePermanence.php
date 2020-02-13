@@ -99,7 +99,7 @@ END;
             $alt=$user->nom;
 
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
+
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
@@ -664,7 +664,7 @@ END;
         $alt="";
 
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
+        $inscription=$app->urlFor('besoin',["sem"=>$sem]);
         return <<<END
 
 <!-- MAIN CONTENT-->

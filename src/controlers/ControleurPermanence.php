@@ -43,6 +43,13 @@ class ControleurPermanence {
 
   }
 
+    public function inscrireBesoin($id) {
+        $perms = Permanence::where('id',"=",$id)->first();
+        $perms->idUtil =$_SESSION['id_connect'];
+        $perms->save();
+        Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+    }
+
 
   function afficherMesPermanences($id) {
 

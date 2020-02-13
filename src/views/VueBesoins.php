@@ -78,13 +78,31 @@ END;
                     $compJour = 0;
                     $ancienJour = $jour;
                 }
-
-
+                switch ($key->role->id) {
+                    case 1:
+                        $class = "c1";
+                        break;
+                    case 2:
+                        $class = "c2";
+                        break;
+                    case 3:
+                        $class = "c3";
+                        break;
+                    case 4:
+                        $class = "c4";
+                        break;
+                    case 5:
+                        $class = "c5";
+                        break;
+                    case 6:
+                        $class = "c6";
+                        break;
+                }
                 $deb = $key->creneau->hDeb . ":00";
                 $fin = $key->creneau->hFin . ":00";
-
+                $inscription = Slim::getInstance()->urlFor('inscrBes',["id"=>$key->id]);
                 $content .= <<<END
-<div class="overview-item overview-item--c1" style="padding:20px;margin-bottom:10px">
+<div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
                 <div class="overview__inner">
@@ -97,7 +115,7 @@ END;
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><i class="fas fa-sign-in-alt"></i>&nbsp; S'inscrire</button>
+                  <button type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><a href="$inscription" style="color: inherit"><i class="fas fa-sign-in-alt"></i>&nbsp; S'inscrire</button></a>
                 </div>
                 </div>
 END;

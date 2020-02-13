@@ -98,8 +98,7 @@ $app->post('/creerBesoin', function() {
 $app->get('/inscriptionBesoin/:id', function($id) {
     $c = new ControleurPermanence();
     $c->inscrireBesoin($id);
-
-});
+})->name('inscrBes');
 
 
 $app->notFound(function () {
