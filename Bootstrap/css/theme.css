@@ -3187,6 +3187,18 @@ section {
     background-image: -ms-linear-gradient(90deg, #C42A89 0%, #F165C6 100%);
 }
 
+.overview-item--c7 {
+    background-image: -moz-linear-gradient(90deg, #2a628f 0%, #3e92cc 100%);
+    background-image: -webkit-linear-gradient(90deg, #2a628f 0%, #3e92cc 100%);
+    background-image: -ms-linear-gradient(90deg, #2a628f 0%, #3e92cc 100%);
+}
+
+.overview-item--c8 {
+    background-image: -moz-linear-gradient(90deg, #555 0%, #AAA 100%);
+    background-image: -webkit-linear-gradient(90deg, #555 0%, #AAA 100%);
+    background-image: -ms-linear-gradient(90deg, #555 0%, #AAA 100%);
+}
+
 .overview-box .icon {
     display: inline-block;
     vertical-align: top;

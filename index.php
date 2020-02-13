@@ -111,7 +111,7 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 
 $app->post('/creneau/ajouterCreneau', function () {
     $c = new ControleurCreneau();
-    $c->ajouterCreneau(null,null);
+    $c->ajouterCreneau();
 });
 
 

@@ -578,7 +578,7 @@ END;
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine $sem</h2></div>
+        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine</h2></div>
         <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
           <button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button>
         </div>
@@ -600,6 +600,8 @@ END;
     private function afficherCréationBesoin($app)
     {
 
+        $html = "";
+
         $creneaux = $this->arr[0];
         $roles = $this->arr[1];
 
@@ -607,14 +609,22 @@ END;
         $contentRoles = "";
 
         foreach ($creneaux as $cre) {
-            $contentCre .= "<option value=\"$cre->id\"> Jour : $cre->jour </option>";
+            $contentCre .= "<option value=\"$cre->id\"> Jour $cre->jour De : $cre->hDeb h à $cre->hFin h </option>";
         }
+
+        $html.='<label for="cren">Choisir créneau : </label><select>'.$contentCre.'</select><br>';
 
         foreach ($roles as $role) {
-            $contentRoles .= "<option value=\"$role->id\"> $role->nomRole </option>";
+            $contentRoles .= "<option value=\"$role->id\"> $role->label </option>";
         }
 
+        $html.='<label for="role">Choisir role : </label><select>'.$contentRoles.'</select>';
+
         $path = $app->urlFor('creerBesoin');
+
+        $html.="<form action=$path  id=\"carform\"><input type=\"submit\"></form>";
+
+        return $html;
     }
 
 
