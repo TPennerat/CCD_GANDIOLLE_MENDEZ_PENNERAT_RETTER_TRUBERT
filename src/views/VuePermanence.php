@@ -2,9 +2,13 @@
 
 namespace epicerie\views;
 
+use DateInterval;
+use DateTime;
+use Exception;
 use Slim\Slim;
 
-class VuePermanence {
+class VuePermanence
+{
 
     public $arr;
 
@@ -13,12 +17,13 @@ class VuePermanence {
         $this->arr = $a;
     }
 
-    public static function getHeader($app) {
+    public static function getHeader($app)
+    {
 
-      $path =  $app->urlFor('racine')."/Bootstrap";
+        $path = $app->urlFor('racine') . "/Bootstrap";
 
 
-      return <<<END
+        return <<<END
       <!DOCTYPE html>
       <html lang="en">
 
@@ -59,11 +64,87 @@ END;
 
     }
 
-    public static function getFooter($app) {
+    public function jour($num)
+    {
+        $res = "";
+        switch ($num) {
+            case 1:
+                $res .= "Lundi";
+                break;
+            case 2:
+                $res .= "Mardi";
+                break;
+            case 3:
+                $res .= "Mercredi";
+                break;
+            case 4:
+                $res .= "Jeudi";
+                break;
+            case 5:
+                $res .= "Vendredi";
+                break;
+            case 6:
+                $res .= "Samedi";
+                break;
+            case 7:
+                $res .= "Dimanche";
+                break;
+        }
+        return $res;
+    }
 
-      $path = $app->urlFor('racine')."/Bootstrap";
+    public function adapt()
+    {
+        $html = "";
+        $ancienJour=0;
+        foreach ($this->arr as $key) {
+                $role = $key->role->label;
+                $jour = $key->creneau->jour;
+                if($jour!==$ancienJour) {
+                    $compJour = 0;
+                    $ancienJour=$jour;
+                    $jour=$this->jour($key->creneau->jour);
+                }
+                $deb=$key->creneau->hDeb.":00";
+                $fin=$key->creneau->hFin.":00";
+                $class = "c1";
+                if ($compJour===1) {
+                    $class = "c2";
+                    $jour="";
+                } elseif ($compJour===2) {
+                    $class = "c3";
+                    $jour="";
+                    $compJour = 0;
+                }
+                $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$jour</h3>
+          <div class="col-12" style="padding:0px">
+            <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
+              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
+              <div class="overview__inner">
+                <div class="overview-box clearfix" style="width:auto">
+                  <div class="text">
+                    <h2 style="font-size:1.2rem">Permanence</h2>
+                    <h2 style="font-size:1rem;font-weight:bold">$role</h2>
+                    <span style="font-size:1rem">de $deb à $fin</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+END;
+                $compJour++;
+            $ancienJour=$key->creneau->jour;
+        }
+        return $html;
+    }
 
-      return <<<END
+    public static function getFooter($app)
+    {
+
+        $path = $app->urlFor('racine') . "/Bootstrap";
+        return <<<END
       <!-- Jquery JS-->
       <script src="$path/vendor/jquery-3.2.1.min.js"></script>
       <!-- Bootstrap JS-->
@@ -94,11 +175,19 @@ END;
 END;
     }
 
+<<<<<<< HEAD
     private function afficherMesPermanences($app) {
 
       $path = $app->urlFor('racine')."/Bootstrap";
 
       return <<<END
+=======
+    private function afficherMesPermanences($app)
+    {
+        $path = $app->urlFor('racine') . "/Bootstrap";
+        $adapt = $this->adapt();
+        return <<<END
+>>>>>>> 947556f18f65b84e5552aa2505932375f093ecf6
       <body class="animsition">
         <div class="page-wrapper">
           <!-- HEADER MOBILE-->
@@ -414,146 +503,7 @@ END;
       <!-- MAIN CONTENT-->
       <div class="main-content">
         <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12" style="margin-bottom:20px">
-                <button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button>
-              </div>
-
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Lundi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Mardi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Mercredi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Jeudi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Vendredi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Samedi</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col" style="padding:5px"><h3 class="text-center h4">Dimanche</h3>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c2"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12" style="padding:0px">
-                  <div class="overview-item overview-item--c3"style="padding:20px;margin-bottom:10px">
-                    <div class="overview__inner">
-                      <div class="overview-box clearfix" style="width:auto">
-                        <div class="text">
-                          <h2 style="font-size:1.2rem">Permanence</h2>
-                          <h2 style="font-size:1rem;font-weight:bold">Vendeur</h2>
-                          <span style="font-size:1rem">de 8:00 à 10:00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="w-100"></div>
+            $adapt
           </div>
         </div>
       </div>
@@ -566,6 +516,7 @@ END;
 END;
     }
 
+<<<<<<< HEAD
     private function afficherCréationBesoin($app){
 
         $creneaux = $this->arr[0];
@@ -585,6 +536,19 @@ END;
         $path = $app->urlFor('creerBesoin');
 
         $html= <<<END
+=======
+    private function afficherCréationBesoin()
+    {
+        $html = "";
+
+        //FORMULAIRE
+        $html .= "<form method=\"post\">";
+        $html .= '<input type="text" name="role" required placeholder="Role">';
+        $html .= '<input type="text" name="creneau" required placeholder="Créneau">';
+        $html .= '<button type=submit name="valider">Envoyer</button>';
+
+        $html .= "</form>";
+>>>>>>> 947556f18f65b84e5552aa2505932375f093ecf6
 
       <form id="ajoutPerm" method="post" action = $path>
       <select name="creneau" form="ajoutPerm">
@@ -617,7 +581,7 @@ END;
                 break;
             }
         }
-        $html = self::getHeader($app) .$content . self::getFooter($app);
+        $html = self::getHeader($app) . $content . self::getFooter($app);
         echo $html;
     }
 

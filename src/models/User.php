@@ -11,7 +11,7 @@ class User extends Model
     public $timestamps = false;
 
     public function participe () {
-        return $this->belongsTo("\epicerie\models\AssurePermanence","id");
+        return $this->belongsTo("epicerie\models\AssurePermanence","id");
     }
 
 }

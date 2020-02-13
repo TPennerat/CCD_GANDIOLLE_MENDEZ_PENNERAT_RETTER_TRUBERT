@@ -11,15 +11,15 @@ class AssurePermanence extends Model
     public $timestamps = false;
 
     public function user () {
-      return $this->hasOne("User","id");
+      return $this->hasOne("epicerie\models\User","id");
     }
 
     public function creneau () {
-      return $this->hasOne("Creneau","id");
+      return $this->hasOne("epicerie\models\Creneau","id");
     }
 
     public function role () {
-      return $this->hasOne("Role","id");
+      return $this->hasOne("epicerie\models\Role","id");
     }
     
 
