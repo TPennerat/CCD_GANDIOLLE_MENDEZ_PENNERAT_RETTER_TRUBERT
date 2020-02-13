@@ -150,9 +150,23 @@ END;
                   <a href="form.html">
                     <i class="fa fa-users"></i>Utilisateurs</a>
                   </li>
-                  <li>
-                    <a href="calendar.html">
+                  <li class="has-sub">
+                    <a class="js-arrow" href="#">
                       <i class="fas fa-clock"></i>Créneaux</a>
+                      <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                          <a href="creneaux.html">Semaine 1</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 2</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 3</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 4</a>
+                        </li>
+                      </ul>
                     </li>
                     $admin
 
