@@ -508,7 +508,7 @@ END;
         return $res;
     }
 
-    public function adapt()
+    public function adapt($path)
     {
         $html = "";
         $content = "";
@@ -556,7 +556,7 @@ END;
                 }
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
-            <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
+            <div id=$key->id class="overview-item overview-item--$class peutEtreSupprime1" style="padding:20px;margin-bottom:10px">
               <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
               <div class="overview__inner">
                 <div class="overview-box clearfix" style="width:auto">
@@ -567,6 +567,8 @@ END;
                   </div>
                 </div>
               </div>
+              <script type="text/javascript" src="$path/js/supprimer.js"> </script>
+
             </div>
           </div>
 END;
@@ -651,7 +653,7 @@ END;
     private function afficherMesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";
-        $adapt = $this->adapt();
+        $adapt = $this->adapt($path);
         $ex=explode('/',$app->request->getPath());
         $sem = $ex[count($ex)-1];
         $sem1=$app->urlFor("aff",["sem"=>"A"]);

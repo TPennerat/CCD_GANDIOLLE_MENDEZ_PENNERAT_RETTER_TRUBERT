@@ -54,6 +54,16 @@ $app->get('/deconnexion', function() {
     $c->seDeconnecter();
 })->name('deco');
 
+$app->get('/supprimerMonOption/:id', function($id) {
+  $c = new ControleurPermanence();
+  $c->supprimerPermanence($id,1);
+});
+
+$app->get('/supprimerUnePermanence/:id', function($id) {
+  $c = new ControleurPermanence();
+  $c->supprimerPermanence($id,2);
+});
+
 $app->get('/afficherBesoins/:sem', function () {
     $c = new ControleurPermanence();
     $c->afficherToutesLesPermanences();

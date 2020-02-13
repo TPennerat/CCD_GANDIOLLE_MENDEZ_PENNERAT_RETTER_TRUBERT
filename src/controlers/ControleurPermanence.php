@@ -4,6 +4,7 @@ namespace epicerie\controlers;
 use \epicerie\models\AssurePermanence as Permanence;
 use \epicerie\models\Creneau as Creneau;
 use \epicerie\models\Role as Role;
+use \epicerie\models\User as User;
 
 use epicerie\views\VuePermanence;
 use epicerie\views\VueBesoins as VueBesoins;
@@ -28,27 +29,50 @@ class ControleurPermanence {
 
   }
 
-  function creerBesoin() {
+  function supprimerPermanence($id,$compte) {
 
-      $creneau = $_POST["creneau"];
-      $role = $_POST["role"];
+    $peutSupprimer = true;
+    if($compte == "admin") {
+      $us = User::where("id","=",$_SESSION["profile"])->first();
+      $peutSupprimer = $us->droit != 1;
+    }
 
-      $perm = new Permanence();
-      $perm->idCreneau = $creneau;
-      $perm->idRole = $role;
-      $perm->save();
-
-      $view = new VuePermanence();
-      $view->render(1);
+    if($peutSupprimer) {
+      echo true;
+      $perm = Permanence::where("id","=",$id)->first();
+      if($compte == "admin") {
+        $perm->delete();
+      } else {
+        $perm->idUtil = null;
+        $perm->save();
+      }
+    } else {
+      echo false;
+    }
 
   }
 
-    public function inscrireBesoin($id) {
-        $perms = Permanence::where('id',"=",$id)->first();
-        $perms->idUtil =$_SESSION['id_connect'];
-        $perms->save();
-        Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
-    }
+  function creerBesoin() {
+
+    $creneau = $_POST["creneau"];
+    $role = $_POST["role"];
+
+    $perm = new Permanence();
+    $perm->idCreneau = $creneau;
+    $perm->idRole = $role;
+    $perm->save();
+
+    $view = new VuePermanence();
+    $view->render(1);
+
+  }
+
+  public function inscrireBesoin($id) {
+    $perms = Permanence::where('id',"=",$id)->first();
+    $perms->idUtil =$_SESSION['id_connect'];
+    $perms->save();
+    Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+  }
 
 
   function afficherMesPermanences($id) {
