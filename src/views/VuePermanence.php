@@ -117,7 +117,8 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>EpircerieGenerale</title>
+          <title>CoBoard</title>
+          <link rel="icon" type="image/png" href="$path/images/icon/logo_fav.png">
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -150,7 +151,7 @@ END;
       <div class="container-fluid">
         <div class="header-mobile-inner">
           <a class="logo" href="$racine">
-            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+            <img class="col-5"src="images/icon/logo.png" alt="" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -760,7 +761,6 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
-        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
