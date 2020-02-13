@@ -148,7 +148,7 @@ END;
         $ex=explode('/',Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex)-1];
         foreach ($this->creneauAffiche as $key) {
-            if ($key->semaine == $sem ) {
+            if ($key->semaine == $sem) {
                 $jour = $key->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
@@ -183,10 +183,12 @@ END;
 END;
 
                 $compJour++;
+                echo "$jour\n\n";
                 if ($jour !== $ancienJour) {
                     if ($passageUnique2) {
                         $j = $this->jour($ancienJour);
                         $passageUnique2 = false;
+
                     } else {
                         $j = $this->jour($jour);
 
