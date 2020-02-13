@@ -19,36 +19,53 @@ class ControleurCreneau
 
 
 
-    public function ajouterCreneau(Request $rq, Response $rs){
+    public function ajouterCreneau(){
 
         $vue = new vueCreneau('');
 
-        $deb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
-        $fin = htmlspecialchars(filter_var($rq->getParams()['hfin'], FILTER_SANITIZE_STRING ));
+        $deb = htmlspecialchars(filter_var($_POST['hDeb'], FILTER_SANITIZE_STRING ));
+        $fin = htmlspecialchars(filter_var($_POST['hFin'], FILTER_SANITIZE_STRING ));
 
-        $creneauxIncorrects1 = Creneau::where('hdeb', '>=', $deb, 'hfin', '>=', $deb)->first();
+        $creneauxIncorrects1 = Creneau::where('hDeb', '>=', $deb)->get();
+        $exc = false;
+        foreach ($creneauxIncorrects1 as $c1){
+            if($c1->hFin >= $deb){
+                $exc = true;
+            }
+        }
 
-        $creneauxIncorrects2 = Creneau::where('hdeb', '<=', $fin, '&&', 'hfin', '>=', $fin)->first();
-
-        $creneauxIncorrects3 = Creneau::where('hdeb', '>=', $deb, '&&', 'hfin', '<=', $fin)->first();
-
-        if($creneauxIncorrects1 != null || $creneauxIncorrects2 != null || $creneauxIncorrects3!= null){
-            $html = $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU, 1);
-            $rs->getBody()->write($html);
-            return $rs;
+        $creneauxIncorrects2 = Creneau::where('hDeb', '<=', $fin)->get();
+        foreach ($creneauxIncorrects2 as $c2){
+            if($c2->hFin >= $fin){
+                $exc = true;
+            }
         }
 
 
-        $creneau = new Creneau();
-        $creneau->hDeb = $deb;
-        $creneau->hFin = $fin;
-        $creneau->jour = $_POST['jour'];
-        $creneau->semaine = $_POST['semaine'];
-        $creneau->cycle = 0;
-        $creneau->save();
+        $creneauxIncorrects3 = Creneau::where('hDeb', '>=', $deb);
+        foreach ($creneauxIncorrects3 as $c3){
+            if($c3->hFin <= $fin){
+                $exc = true;
+            }
+        }
 
-        $lien =$this->index->router->pathFor('racine');
-        return $rs->withRedirect("$lien",301);
+
+        if($exc){
+            $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU, 1);
+        }else{
+            $creneau = new Creneau();
+            $creneau->hDeb = $deb;
+            $creneau->hFin = $fin;
+            $creneau->jour = $_POST['jour'];
+            $creneau->semaine = $_POST['semaine'];
+            $creneau->cycle = 0;
+            $creneau->save();
+
+            $vue->render(VueCreneau::FORMULAIRE_AJOUT_CRENEAU);
+        }
+
+
+
 
     }
 
