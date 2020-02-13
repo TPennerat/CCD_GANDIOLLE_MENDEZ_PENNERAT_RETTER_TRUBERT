@@ -76,10 +76,6 @@ $app->get('/graphique' , function () {
 
 })->name('graphique');
 
-$app->get('/utilisateurs' , function () {
-
-})->name('users');
-
 $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
     $c = new ControleurCreneau();
