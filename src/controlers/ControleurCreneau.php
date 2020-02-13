@@ -1,8 +1,8 @@
 <?php
 
-namespace controlers;
+namespace epicerie\controlers;
 
-use models\Creneau;
+use \epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use views\vueCreneau;
