@@ -1,18 +1,13 @@
 <?php
-namespace epicerie\models;
 
-class User extends \Illuminate\Database\Eloquent\Model {
-  protected $table = 'user';
-  protected $primaryKey = 'idu';
+namespace mywishlist\models;
 
-  public $timestamps = false;
+use Illuminate\Database\Eloquent\Model;
 
-  public function listes(){
-    return $this->hasMany('Liste','idu');
-  }
-
-  public function participations() {
-    return $this->hasMany('Participation','idu');
-  }
+class User extends Model
+{
+    protected $table = 'user';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
 }
