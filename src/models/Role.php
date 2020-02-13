@@ -10,8 +10,8 @@ class Role extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function estAssure (d) {
-        return $this->belongsTo("AssurePermanence","id");
+    public function estOccupe () {
+        return $this->hasMany("AssurePermanence","id");
     }
 
 }
