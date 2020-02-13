@@ -51,6 +51,11 @@ class VueCreationModificationCompte
                 <label for=utilisateur>Utilisateur</label>
                 </div>
                 
+                
+                <label for=avatar>Choisir une photo de profil :</label>
+
+                <input type=file id=avatar name=avatar accept='.png, .jpeg'>
+                
                      
                <input type='submit' class='btn' value='Modifier'>
               
@@ -89,6 +94,11 @@ class VueCreationModificationCompte
                 <input  type=radio name=type value=utilisateur checked>
                 <label for=utilisateur>Utilisateur</label>
                 </div>
+                
+                
+                <label for=avatar>Choisir une photo de profil :</label>
+
+                <input type=file id=avatar name=avatar accept='.png, .jpeg'>
 
                <input type='submit' class='btn' value='Creer'>
                </form>";
