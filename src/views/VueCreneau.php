@@ -49,57 +49,91 @@ class VueCreneau
                 break;
         }
 
-        $res .= "<section>
-                  <label>Ajouter un creneau  : </label>
-                 <form id=formulaireAjout method=post action =ajouterCreneau enctype=multipart/form-data>
-               
-               <div class='form-group'>
-                                <label for='selection'>Jour : </label>
-                                <select id='selection' class='form-control' name='jour'>
-                              
-                                
-                                <option value=1>Lundi</option>
-                            <option value=2>Mardi</option>
-                             <option value=3>Mercredi</option>
-                        <option value=4>Jeudi</option>
-                         <option value=5>Vendredi</option>
-                         <option value=6>Samedi</option>
-                         <option value=7>Dimanche</option>
-                       
-                    </select>
-                    </div>
-                  
-                    
-                            <div class='form-group'>
+        $res .= <<<END
+        <form class="col-12" method="post" action="ajouterCreneau" enctype="multipart/form-data">
+          <div class="form-group col-12">
+            <label class="col-2">Jour</label>
+            <select class="col-2 custom-select" name="jour">
+              <option value="1">Lundi</option>
+              <option value="2">Mardi</option>
+              <option value="3">Mercredi</option>
+              <option value="4">Jeudi</option>
+              <option value="5">Vendredi</option>
+              <option value="6">Samedi</option>
+              <option value="7">Dimanche</option>
 
-                     <label>Semaine : </label>
-
-                    <select  id='selection' class='form-control' name=semaine>
-                         <option value=A>A</option>
-                            <option value=B>B</option>
-                             <option value=C>C</option>
-                        <option value=D>D</option>
-        
-                    </select>
-                    </div>
-                    
-                    <label>
-                    Heure de debut : 
-                    </label>
-                    <input type='number' name='hDeb' required>
-                 
-                    
-                    <label>
-                    Heure de fin : 
-                    </label>
-                    <input type='number' name='hFin' required>
-           
-                 
- 
-                 <input type=submit class=btn value=Ajouter>          
-        
-                 </form>
-                 </section>";
+            </select>
+            </div>
+            <div class="form-group col-12">
+              <label class="col-2">Semaine</label>
+              <select class="col-2 custom-select" name="semaine">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+            </div>
+            <div class="form-group col-12">
+              <label class="col-2">Heure de début</label>
+              <select class="col-2 custom-select" name="semaine">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select>
+            </div>
+            <div class="form-group col-12">
+              <label class="col-2">Heure de fin</label>
+              <select class="col-2 custom-select" name="semaine">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select>
+            </div>
+            <button type="submit" class="btn col-4 btn-primary">Submit</button>
+          </form>
+END;
         return $res;
     }
 
@@ -267,7 +301,7 @@ END;
           <a href="#"><button type="button" class="btn btn-outline-primary btn-lg">Créer un créneau</button></a>
         </div>
     $content
-    
+
       </div>
       <div class="w-100"></div>
     </div>

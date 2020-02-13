@@ -71,17 +71,11 @@ $app->get('/utilisateurs' , function () {
 
 })->name('users');
 
-
-
-
-
 $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
     $c = new ControleurCreneau();
     $c->changerEtat($id, $etat);
 });
-
-
 
 $app->get('/creerBesoin', function() {
     $c = new ControleurPermanence();
@@ -89,18 +83,13 @@ $app->get('/creerBesoin', function() {
 });
 
 $app->post('/creerBesoin', function() {
-  $c = new ControleurPermanence();
-  $c->creerBesoin();
+    $c = new ControleurPermanence();
+    $c->creerBesoin();
 })->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
-
     $c = new ControleurPermanence();
     $c->inscrireBesoin($id);
-
-});
-
-$app->post('/inscriptionBesoin/:id', function($id) {
 
 });
 
@@ -137,14 +126,38 @@ $app->post('/creneau/ajouterCreneau', function () {
 });
 
 
-
-
-
 $app->post('/connexion',function () {
 
     $cont = new ControleurComptes();
     $cont->verifierConnexion();
 
 })->name('co');
+
+
+
+
+$app->get('/modifierCompte', function (){
+    $c = new ControleurComptes();
+    $c->afficherFormulaireModificationCompte();
+})->name('modifierCompte');
+
+
+$app->post('/modifierCompte', function (){
+    $c = new ControleurComptes();
+    $c->modifierCompte();
+})->name('modifier');
+
+$app->get('/creerCompte', function (){
+    $c = new ControleurComptes();
+    $c->afficherFormulaireCreationCompte();
+})->name('creerC');
+
+
+$app->post('/creerCompte', function (){
+    $c = new ControleurComptes();
+    $c->creerCompte();
+})->name('creerCompte');
+
+
 
 $app->run();

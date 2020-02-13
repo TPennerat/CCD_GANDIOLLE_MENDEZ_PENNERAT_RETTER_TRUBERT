@@ -126,14 +126,19 @@ class ControleurComptes {
         if($mdp1 == $mdp2){
             if(!password_verify($mdp1, $compte->mdp)){
                 $compte->mdp = password_hash($mdp1, PASSWORD_BCRYPT);
+                if($_POST['type'] == 'admin'){
+                    $compte->droit = 2;
+                }else{
+                    $compte->droit = 1;
+                }
+                $compte->save();
+                Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
             }
         }else{
             $vue = new VueCreationModificationCompte($compte->nom);
             $vue->render(VueCreationModificationCompte::AFFICHER_FORMULAIRE_MODIFICATION, 1);
         }
-        $compte->save();
 
-        Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
 
 
     }
@@ -148,17 +153,27 @@ class ControleurComptes {
 
     public function creerCompte(){
 
-        $compte = new Compte();
+        $compte = new User();
         $mdp1 = htmlspecialchars(filter_var($_POST['mdp1'], FILTER_SANITIZE_STRING ));
         $mdp2 = htmlspecialchars(filter_var($_POST['mdp2'], FILTER_SANITIZE_STRING ));
         if($mdp1 == $mdp2){
             $compte->mdp = password_hash($mdp1, PASSWORD_BCRYPT);
+            if($_POST['type'] == 'admin'){
+                $compte->droit = 2;
+            }else{
+                $compte->droit = 1;
+            }
+            $compte->nom =  htmlspecialchars(filter_var($_POST['username'], FILTER_SANITIZE_STRING ));
+            $compte->save();
+            Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+
         }else{
-            $vue = new VueCreationModificationCompte($compte->nom);
+
+            $vue = new VueCreationModificationCompte();
             $vue->render(VueCreationModificationCompte::FORMULAIRE_CREATION, 1);
         }
-        $compte->nom =  htmlspecialchars(filter_var($_POST['username'], FILTER_SANITIZE_STRING ));
-        Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+
+
     }
 
 
