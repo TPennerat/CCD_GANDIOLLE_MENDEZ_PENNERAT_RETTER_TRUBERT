@@ -48,38 +48,40 @@ class VueCreneau
             default :
                 break;
         }
-        $res .= "<section>
-                  <h1>Ajouter un creneau  : </h1>
-                 <form id=formulaireAjout method=post action =ajouterCreneau enctype=multipart/form-data>
-                    
-                      
-                      
-       
-                         
-                 
-                 <label>Jour : </label>
 
-                    <select name=jour>
-                         <option value=1>Lundi</option>
+        $res .= "<section>
+                  <label>Ajouter un creneau  : </label>
+                 <form id=formulaireAjout method=post action =ajouterCreneau enctype=multipart/form-data>
+               
+               <div class='form-group'>
+                                <label for='selection'>Jour : </label>
+                                <select id='selection' class='form-control' name='jour'>
+                              
+                                
+                                <option value=1>Lundi</option>
                             <option value=2>Mardi</option>
                              <option value=3>Mercredi</option>
                         <option value=4>Jeudi</option>
                          <option value=5>Vendredi</option>
                          <option value=6>Samedi</option>
                          <option value=7>Dimanche</option>
+                       
                     </select>
+                    </div>
                   
                     
-             
+                            <div class='form-group'>
+
                      <label>Semaine : </label>
 
-                    <select name=semaine>
+                    <select  id='selection' class='form-control' name=semaine>
                          <option value=A>A</option>
                             <option value=B>B</option>
                              <option value=C>C</option>
                         <option value=D>D</option>
         
                     </select>
+                    </div>
                     
                     <label>
                     Heure de debut : 
@@ -235,6 +237,7 @@ END;
         }
         return $res;
     }
+
 
     public function render($const, $erreur = -1){
 
