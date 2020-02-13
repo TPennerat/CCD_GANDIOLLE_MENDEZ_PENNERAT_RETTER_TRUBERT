@@ -39,8 +39,6 @@ class VueCreationModificationCompte
                <input type='password' name='mdp2' required>           
                <input type='submit' class='btn' value='Modifier'>
                </form>";
-
-
         return $res;
 
     }

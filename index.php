@@ -159,7 +159,7 @@ $app->get('/
 creerCompte', function (){
     $c = new ControleurComptes();
     $c->afficherFormulaireCreationCompte();
-})->name('modifierCompte');
+})->name('creerC');
 
 
 $app->post('/creerCompte', function (){
