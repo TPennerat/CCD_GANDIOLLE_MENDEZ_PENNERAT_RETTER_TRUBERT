@@ -48,58 +48,6 @@ class VueCreneau
             default :
                 break;
         }
-<<<<<<< HEAD
-        $res .= "<section>
-                  <h1>Ajouter un creneau  : </h1>
-                 <form id=formulaireAjout method=post action =ajouterCreneau enctype=multipart/form-data>
-
-
-
-
-
-
-                 <label>Jour : </label>
-
-                    <select name=jour>
-                         <option value=1>Lundi</option>
-                            <option value=2>Mardi</option>
-                             <option value=3>Mercredi</option>
-                        <option value=4>Jeudi</option>
-                         <option value=5>Vendredi</option>
-                         <option value=6>Samedi</option>
-                         <option value=7>Dimanche</option>
-                    </select>
-
-
-
-                     <label>Semaine : </label>
-
-                    <select name=semaine>
-                         <option value=A>A</option>
-                            <option value=B>B</option>
-                             <option value=C>C</option>
-                        <option value=D>D</option>
-
-                    </select>
-
-                    <label>
-                    Heure de debut :
-                    </label>
-                    <input type='number' name='hDeb' required>
-
-
-                    <label>
-                    Heure de fin :
-                    </label>
-                    <input type='number' name='hFin' required>
-
-
-
-                 <input type=submit class=btn value=Ajouter>
-
-                 </form>
-                 </section>";
-=======
 
         $res .= <<<END
         <form class="col-12" method="post" action="ajouterCreneau" enctype="multipart/form-data">
@@ -186,7 +134,6 @@ class VueCreneau
             <button type="submit" class="btn col-4 btn-primary">Submit</button>
           </form>
 END;
->>>>>>> 09211a4aed12def1e9fd126e3a6fbffa2c6dbfd3
         return $res;
     }
 
