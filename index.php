@@ -48,7 +48,25 @@ $app->get('/afficherMesPermanences/:id', function($id) {
     $cont->afficherMesPermanences($id);
 });
 
+$app->get('/afficherCreneaux',function() {
 
+});
+
+$app->get('/creerBesoin', function() {
+
+});
+
+$app->post('/creerBesoin', function() {
+
+});
+
+$app->get('/inscriptionBesoin/:id', function($id) {
+
+});
+
+$app->post('/inscriptionBesoin/:id', function($id) {
+
+});
 
 
 $app->notFound(function () {
@@ -66,7 +84,6 @@ $app->get('/creneau/ajouterCreneau', function () {
 
 
 $app->post('/creneau/ajouterCreneau', ControleurCreneau::class.':ajouterCreneau');
-
 
 
 $app->run();

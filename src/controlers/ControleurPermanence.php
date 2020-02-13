@@ -5,6 +5,8 @@ use \epicerie\views\VueComptes as VueComptes;
 use \epicerie\views\VueAccueil as VueAccueil;
 use \epicerie\models\Authentification as Authentification;
 use \epicerie\models\User as User;
+use \epicerie\models\AssurePermanence as Permanence;
+
 use \Exception;
 use Slim\Slim;
 
@@ -17,7 +19,9 @@ class ControleurPermanence {
         $view->render(1);
     }
 
-    function afficherPermanenceMembres () {
-       
+    function afficherMesPermanences($id) {
+        $perms = Permanence::where('idUtil','=',$id)->get();
+        $view = new VuePermanence($perms);
+        $view->render(2);
     }
 }
