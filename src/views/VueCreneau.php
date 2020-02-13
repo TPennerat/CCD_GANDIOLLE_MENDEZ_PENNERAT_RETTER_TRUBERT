@@ -7,6 +7,8 @@ class VueCreneau
 
     const FORMULAIRE_AJOUT_CRENEAU = 1;
 
+    const AFFICHAGE_CRENEAUX = 2;
+
     /**
      * L'item
      */
@@ -63,12 +65,27 @@ class VueCreneau
         return $res;
     }
 
+    public function afficherCreneaux(){
+        $res = "";
+        foreach ($this->creneauAffiche as $creneau){
+            $res .= "Jour : $creneau->jour <br>
+                     Semaine : $creneau->semaine <br>
+                     Heure de debut : $creneau->hdeb <br>
+                     Heure de fin : $creneau->hfin <br>";
+        }
+        return $res;
+    }
+
+
     public function render($const, $erreur = -1){
 
         $content = '';
         switch ($const){
             case (self::FORMULAIRE_AJOUT_CRENEAU):
                 $content = $this->afficherFormulaireAjoutCreneau($erreur);
+                break;
+            case (self::AFFICHAGE_CRENEAUX):
+                $content = $this->afficherCreneaux();
                 break;
         }
 

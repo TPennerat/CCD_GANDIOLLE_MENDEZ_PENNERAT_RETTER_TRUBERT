@@ -47,6 +47,9 @@ $app->get('/afficherMesPermanences/:id', function($id) {
 
 $app->get('/afficherCreneaux',function() {
 
+    $c = new ControleurCreneau();
+    $c->afficherCreneaux();
+
 });
 
 $app->get('/creerBesoin', function() {
