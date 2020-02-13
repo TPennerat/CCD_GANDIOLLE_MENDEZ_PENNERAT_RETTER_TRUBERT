@@ -89,7 +89,8 @@ END;
   public function renderConnexion($app,$erreur) {
 
     $path = $app->urlFor('racine')."/Bootstrap";
-
+    $racine = $app->urlFor('racine');
+    $post_co =$app->urlFor('co');
     $html = self::getHeader($app) . <<<END
 
     <body class="animsition">
@@ -99,21 +100,21 @@ END;
                     <div class="login-wrap">
                         <div class="login-content">
                             <div class="login-logo">
-                                <a href="#">
+                                <a href="$racine">
                                     <img src="$path/images/icon/logo.png" alt="CoolAdmin">
                                 </a>
                             </div>
                             <div><p class="text-danger">$erreur</p></div>
                             <div class="login-form">
-                                <form action="" method="post">
+                                <form action="$post_co" method="post">
                                     <div class="form-group">
                                         <label>Login</label>
-                                        <input class="au-input au-input--full" type="text" name="login" placeholder="Votre login">
+                                        <input class="au-input au-input--full" type="text" name="login" placeholder="Votre login" required>
 
                                     </div>
                                     <div class="form-group">
                                         <label>Mot de passe</label>
-                                        <input class="au-input au-input--full" type="password" name="password" placeholder="Votre mot de passe">
+                                        <input class="au-input au-input--full" type="password" name="password" placeholder="Votre mot de passe" required>
                                     </div>
                                     <div class="login-checkbox">
                                     </div>

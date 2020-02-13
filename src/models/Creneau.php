@@ -11,7 +11,7 @@ class Creneau extends Model
     public $timestamps = false;
 
     public function estAssure () {
-        return $this->hasMany("AssurePermanence","id");
+        return $this->hasMany("\epicerie\models\AssurePermanence","id");
     }
 
 

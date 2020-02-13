@@ -2,10 +2,7 @@
 namespace epicerie\controlers;
 
 use \epicerie\views\VueComptes as VueComptes;
-use \epicerie\views\VueAccueil as VueAccueil;
-use \epicerie\models\Authentification as Authentification;
-use \epicerie\models\User as User;
-use \Exception;
+use \epicerie\controlers\Authentification as Authentification;
 use Slim\Slim;
 
 
@@ -14,9 +11,13 @@ class ControleurComptes {
 
   //Affiche la page de connexion
   function afficherConnexion() {
+    if (isset($_SESSION['id_connect'])) {
+        Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+    } else {
+        $view = new VueComptes();
+        $view->renderConnexion(Slim::getInstance(), "");
+    }
 
-    $view = new VueComptes();
-    $view->renderConnexion(Slim::getInstance(), "");
 
   }
 
@@ -29,74 +30,72 @@ class ControleurComptes {
 
   //Verifie l'inscription
   function verifierEnregistrement() {
-      $data = $rq->getParsedBody();
-      if(isset($data["password"]) && isset($data["login"]) && !empty($data["password"]) && !empty($data["login"])) {
+      $app = Slim::getInstance();
+      if(isset($_POST["password"]) && isset($_POST["login"]) && !empty($_POST["password"]) && !empty($_POST["login"])) {
 
-        $login = filter_var($data["login"],FILTER_SANITIZE_STRING);
-        $password = $data["password"];
+        $login = filter_var($_POST["login"],FILTER_SANITIZE_STRING);
+        $password = $_POST["password"];
 
-        if($login != $data["login"]) {
+        if($login != $_POST["login"]) {
 
           $view = new VueComptes();
-          return $rs->getBody()->write($view->render($app, "Le login contient des caracteres non autorisés
-          (chiffres et lettres majuscules/minuscules avec ou sans accent)"));
+          $view->renderConnexion($app,"Le login contient des caracteres non autorisés
+          (chiffres et lettres majuscules/minuscules avec ou sans accent)");
 
         }
 
         try {
           Authentification::createUser($login,$password);
-          $url = $app->router->pathFor('route_index');
-          return $rs->withRedirect($url);
+          $url = $app->urlFor('accueil');
+          $app->redirect($url);
         } catch (\Exception $e){
           $view = new VueComptes();
-          return $rs->getBody()->write($view->render($app, $e->getMessage()));
+          $view->renderConnexion($app, $e->getMessage());
         }
-      } elseif (empty($data["password"] || empty($data["login"]))) {
+      } elseif (empty($_POST["password"] || empty($_POST["login"]))) {
 
           $view = new VueComptes();
-          return $rs->getBody()->write($view->render($app, "Login ou mot de passe vide"));
+          $view->renderConnexion($app, "Login ou mot de passe vide");
 
       }
-
-      return $rs->withRedirect($app->router->pathFor("enregistrement"));
 
   }
 
   //Verifie la connexion d'un utilisateur
   function verifierConnexion() {
-      $data = $rq->getParsedBody();
-      if(isset($data["password"]) && isset($data["login"]) && !empty($data["password"]) && !empty($data["login"])) {
+      $app = Slim::getInstance();
+      if(isset($_POST["password"]) && isset($_POST["login"]) && !empty($_POST["password"]) && !empty($_POST["login"])) {
 
-          $login = filter_var($data["login"],FILTER_SANITIZE_STRING);
+          $login = filter_var($_POST["login"],FILTER_SANITIZE_STRING);
 
-          if($login != $data["login"]) {
+          if($login != $_POST["login"]) {
 
             $view = new VueComptes();
-            return $rs->getBody()->write($view->render($app, "Le login contient des caracteres non autorisés
-            (chiffres et lettres majuscules/minuscules avec ou sans accent)"));
+            $view->renderConnexion($app, "Le login contient des caracteres non autorisés
+            (chiffres et lettres majuscules/minuscules avec ou sans accent)");
 
           }
 
-          $password = $data["password"];
+          $password = $_POST["password"];
 
           try {
             Authentification::seConnecter($login,$password);
-            $url = $app->router->pathFor('route_index');
-            return $rs->withRedirect($url);
+            $url = $app->urlFor('racine');
+            $app->redirect($url);
           } catch (\Exception $e){
             $view = new VueComptes();
-            return $rs->getBody()->write($view->render($app, $e->getMessage()));
+            $view->renderConnexion($app, $e->getMessage());
           }
 
 
-      } elseif ($data["password"] == "" || $data["login"] == "") {
+      } elseif ($_POST["password"] == "" || $_POST["login"] == "") {
 
           $view = new VueComptes();
-          return $rs->getBody()->write($view->render($app, "Champs vides"));
+          $view->renderConnexion($app, "Champs vides");
 
       } else {
-        $url = $app->router->pathFor('connexion');
-        return $rs->withRedirect($url);
+        $url = $app->urlFor('connexion');
+        $app->redirect($url);
       }
   }
 

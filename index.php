@@ -8,6 +8,7 @@ use controlers\ControleurCreneau;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
 
+use \epicerie\controlers\ControleurAffichage as ControleurAffichage;
 use Slim\Slim;
 
 require_once('vendor/autoload.php');
@@ -19,13 +20,37 @@ $db->addConnection(parse_ini_file('src/conf/conf.ini'));
 $db->setAsGlobal();
 $db->bootEloquent();
 
-//affichage de la racine
+
 $app->get('/',function () {
+
+    $cont = new ControleurAffichage();
+    $cont->racine();
+
+})->name('racine');
+
+
+$app->get('/connexion',function () {
 
   $cont = new ControleurComptes();
   $cont->afficherConnexion();
 
-})->name('racine');
+})->name('connexion');
+
+$app->post('/connexion',function () {
+
+    $cont = new ControleurComptes();
+    $cont->verifierConnexion();
+
+})->name('co');
+
+
+
+
+
+$app->notFound(function () {
+    $cont = new ControleurAffichage();
+    $cont->err();
+});
 
 
 $app->get('/creneau/ajouterCreneau', function () {

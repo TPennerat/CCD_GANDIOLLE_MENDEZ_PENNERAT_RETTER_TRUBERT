@@ -11,7 +11,7 @@ class Role extends Model
     public $timestamps = false;
 
     public function estOccupe () {
-        return $this->hasMany("AssurePermanence","id");
+        return $this->hasMany("\epicerie\models\AssurePermanence","id");
     }
 
 }

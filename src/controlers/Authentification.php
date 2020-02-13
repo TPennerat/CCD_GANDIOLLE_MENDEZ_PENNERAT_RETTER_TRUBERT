@@ -1,6 +1,6 @@
 <?php
 
-namespace epicerie\models;
+namespace epicerie\controlers;
 
 use \epicerie\models\User as User;
 
@@ -25,8 +25,8 @@ class Authentification
         }
 
         $u = new User();
-        $u->username = $login;
-        $u->hash = password_hash($password, PASSWORD_DEFAULT,
+        $u->nom = $login;
+        $u->mdp = password_hash($password, PASSWORD_DEFAULT,
             ['cost' => 12]);
         $u->save();
 
@@ -35,14 +35,13 @@ class Authentification
 
     public static function seConnecter($login, $password)
     {
-
-        $u = User::where('login', '=', $login)->first();
+        $u = User::where('nom', '=', $login)->first();
 
         if ($u == null) {
             throw new \Exception("Utilisateur inexistant");
         }
 
-        if (password_verify($password, $u->hash)) {
+        if (password_verify($password, $u->mdp)) {
             self::loadProfile($login);
         } else {
             throw new \Exception("Mauvais mot de passe");
@@ -53,7 +52,7 @@ class Authentification
     private static function loadProfile($login)
     {
 
-        $_SESSION['id_connect'] = User::where('login', '=', $login)->first()->id;
+        $_SESSION['id_connect'] = User::where('nom', '=', $login)->first()->id;
 
     }
 
