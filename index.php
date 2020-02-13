@@ -7,7 +7,7 @@ session_start();
 use controlers\ControleurCreneau;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
-
+use \epicerie\controlers\ControleurPermanence as ControleurPermanence;
 use \epicerie\controlers\ControleurAffichage as ControleurAffichage;
 use Slim\Slim;
 
@@ -43,6 +43,10 @@ $app->post('/connexion',function () {
 
 })->name('co');
 
+$app->get('/afficherMesPermanences/:id', function($id) {
+    $cont = new ControleurPermanence();
+    $cont->afficherMesPermanences($id);
+});
 
 
 

@@ -16,4 +16,8 @@ class ControleurPermanence {
         $view = new VuePermanence();
         $view->render(1);
     }
+
+    function afficherPermanenceMembres () {
+       
+    }
 }
