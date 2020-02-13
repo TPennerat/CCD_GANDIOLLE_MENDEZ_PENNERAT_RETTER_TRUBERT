@@ -62,12 +62,14 @@ $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
 
 $app->get('/creerBesoin', function() {
-
+    $c = new ControleurPermanence();
+    $c->afficherCreationBesoin();
 });
 
 $app->post('/creerBesoin', function() {
-
-});
+  $c = new ControleurPermanence();
+  $c->creerBesoin();
+})->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
 
@@ -106,10 +108,10 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 })->name('modifierEtatCreneau');
 
 
-$app->post('/creneau/ajouterCreneau', function (){
-    $c = new ControleurCreneau($this);
 
-    $c->ajouterCreneau(null, null);
+$app->post('/creneau/ajouterCreneau', function () {
+    $c = new ControleurCreneau();
+    $c->ajouterCreneau(null,null);
 });
 
 
