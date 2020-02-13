@@ -55,7 +55,7 @@ $app->get('/afficherCreneaux/:sem',function($sem) {
     $c = new ControleurCreneau();
     $c->afficherCreneaux($sem);
 
-});
+})->name('creneau');
 
 $app->get('/mesPermanences/:sem', function($sem) {
     $cont = new ControleurPermanence();
@@ -63,7 +63,13 @@ $app->get('/mesPermanences/:sem', function($sem) {
 })->name('aff');
 
 
+$app->get('/graphique' , function () {
 
+})->name('graphique');
+
+$app->get('/utilisateurs' , function () {
+
+})->name('users');
 
 
 
