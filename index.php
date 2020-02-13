@@ -4,6 +4,7 @@ namespace CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN\www;
 /*https://webetu.iutnc.univ-lorraine.fr/www/pennerat7u/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/*/
 session_start();
 
+use epicerie\controlers\ControleurBesoin;
 use \epicerie\controlers\ControleurCreneau;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
@@ -52,15 +53,28 @@ $app->get('/afficherCreneaux',function() {
 
 });
 
-$app->get('/creerBesoin', function() {
+$app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 
+    $c = new ControleurCreneau();
+    $c->changerEtat($id, $etat);
+});
+
+
+
+$app->get('/creerBesoin', function() {
+    $c = new ControleurPermanence();
+    $c->afficherCreationBesoin();
 });
 
 $app->post('/creerBesoin', function() {
-
-});
+  $c = new ControleurPermanence();
+  $c->creerBesoin();
+})->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
+
+    $c = new ControleurPermanence();
+    $c->inscrireBesoin($id);
 
 });
 
@@ -94,7 +108,11 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 })->name('modifierEtatCreneau');
 
 
-$app->post('/creneau/ajouterCreneau', ControleurCreneau::class.'ajouterCreneau');
+
+$app->post('/creneau/ajouterCreneau', function () {
+    $c = new ControleurCreneau();
+    $c->ajouterCreneau(null,null);
+});
 
 
 $app->post('/connexion',function () {
@@ -103,6 +121,14 @@ $app->post('/connexion',function () {
     $cont->verifierConnexion();
 
 })->name('co');
+
+
+//Question 18
+$app->get('affichagePermanences/:idCreneau', function ($idCreneau){
+
+    $c= new ControleurCreneau();
+    $c->afficherTout($idCreneau);
+});
 
 
 $app->run();
