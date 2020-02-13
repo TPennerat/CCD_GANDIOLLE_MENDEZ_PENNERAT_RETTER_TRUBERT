@@ -31,7 +31,7 @@ class VuePermanence {
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>COBOARD</title>
+          <title>Login</title>
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -95,7 +95,9 @@ END;
     }
 
     private function afficherMesPermanences($app) {
-        $path = $app->urlFor('racine')."/Bootstrap";
+
+      $path = $app->urlFor('racine')."/Bootstrap";
+
       return <<<END
       <body class="animsition">
         <div class="page-wrapper">
@@ -105,7 +107,7 @@ END;
               <div class="container-fluid">
                 <div class="header-mobile-inner">
                   <a class="logo" href="index.html">
-                    <img class="col-5"src=$path."images/icon/logo.png" alt="CoolAdmin" />
+                    <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
                   </a>
                   <button class="hamburger hamburger--slider" type="button">
                     <span class="hamburger-box">
@@ -175,7 +177,7 @@ END;
                             <aside class="menu-sidebar d-none d-lg-block">
                               <div class="logo">
                                 <a href="#">
-                                  <img src=$path."images/icon/logo.png" alt="Cool Admin" />
+                                  <img src="images/icon/logo.png" alt="Cool Admin" />
                                 </a>
                               </div>
                               <div class="menu-sidebar__content js-scrollbar1">
@@ -260,7 +262,7 @@ END;
                                                     </div>
                                                     <div class="mess__item">
                                                     <div class="image img-cir img-40">
-                                                    <img src=$path."images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                                   </div>
                                                   <div class="content">
                                                   <h6>Michelle Moreno</h6>
@@ -270,7 +272,7 @@ END;
                                               </div>
                                               <div class="mess__item">
                                               <div class="image img-cir img-40">
-                                              <img src=$path."images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                              <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
                                             </div>
                                             <div class="content">
                                             <h6>Diane Myers</h6>
@@ -564,17 +566,37 @@ END;
 END;
     }
 
-    private function afficherCréationBesoin(){
-        $html="";
+    private function afficherCréationBesoin($app){
 
-        //FORMULAIRE
-        $html .="<form method=\"post\">";
-        $html .= '<input type="text" name="role" required placeholder="Role">';
-        $html .= '<input type="text" name="creneau" required placeholder="Créneau">';
-        $html .= '<button type=submit name="valider">Envoyer</button>';
+        $creneaux = $this->arr[0];
+        $roles = $this->arr[1];
 
-        $html.="</form>";
+        $contentCre = "";
+        $contentRoles = "";
 
+        foreach ($creneaux as $cre) {
+            $contentCre .= "<option value=\"$cre->id\"> Jour : $cre->jour </option>";
+        }
+
+        foreach ($roles as $role) {
+            $contentRoles .= "<option value=\"$role->id\"> $role->nomRole </option>";
+        }
+
+        $path = $app->urlFor('creerBesoin');
+
+        $html= <<<END
+
+      <form id="ajoutPerm" method="post" action = $path>
+      <select name="creneau" form="ajoutPerm">
+      $contentCre
+      </select>
+      <select name="role" form="ajoutPerm">
+      $contentRoles
+      </select>
+
+      </form>";
+
+END;
 
         return $html;
     }
@@ -586,7 +608,7 @@ END;
         switch ($selecteur) {
             case 1:
             {
-                $content = $this->afficherCréationBesoin();
+                $content = $this->afficherCréationBesoin($app);
                 break;
             }
             case 2:

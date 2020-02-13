@@ -58,7 +58,7 @@ $app->get('/creerBesoin', function() {
 
 $app->post('/creerBesoin', function() {
 
-});
+})->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
 
