@@ -42,6 +42,7 @@ $app->get('/connexion',function () {
 
 $app->get('/changerActivitee/:id',function ($id) {
 
+
    $c = new ControleurCreneau();
    $c->desactiverCreneau($id);
 

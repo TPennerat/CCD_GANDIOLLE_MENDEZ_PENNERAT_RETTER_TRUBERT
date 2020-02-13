@@ -168,9 +168,15 @@ END;
                 $deb = $key->hDeb . ":00";
                 $fin = $key->hFin . ":00";
 
+                if($key->estactif==0){
+                  $class="c8";
+                }else{
+                  $class="c7";
+                }
+
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
-            <div  class="overview-item overview-item--c7 aModifier" style="padding:20px;margin-bottom:10px">
+            <div id = $key->id class="overview-item overview-item--$class aModifier" style="padding:20px;margin-bottom:10px">
 
               <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right aModifier2 fa fa-refresh"></i></p>
               <div class="overview__inner">
