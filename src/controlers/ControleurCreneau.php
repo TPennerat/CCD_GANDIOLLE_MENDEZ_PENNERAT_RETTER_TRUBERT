@@ -2,10 +2,10 @@
 
 namespace epicerie\controlers;
 
-use \epicerie\models\Creneau;
+use epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use \epicerie\views\VueCreneau;
+use epicerie\views\VueCreneau;
 
 class ControleurCreneau
 {

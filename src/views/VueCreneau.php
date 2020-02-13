@@ -24,8 +24,6 @@ class VueCreneau
     public function __construct($arr)
     {
         $this->creneauAffiche = $arr;
-        $this->rq= $rq;
-        $this->index=$index;
     }
 
 
@@ -47,6 +45,30 @@ class VueCreneau
                  <label for=formulaire1>Jour du creneau : </label>           
                  <input type=number step=1 name=jour placeholder=1-2-3-... required> 
                  
+                 <label>Jour : </label>
+
+                    <select name=jour>
+                        <option value=\>--Choisissez le jour--</option>
+                         <option value=1>Lundi</option>
+                            <option value=2>Mardi</option>
+                             <option value=3>Mercredi</option>
+                        <option value=4>Jeudi</option>
+                         <option value=5>Vendredi</option>
+                         <option value=6>Samedi</option>
+                         <option value=7>Dimanche</option>
+                    </select>
+                    
+                     <label>Semaine : </label>
+
+                    <select name=semaine>
+                        <option value=\\>--Choisissez la semaine--</option>
+                         <option value=A>A</option>
+                            <option value=B>B</option>
+                             <option value=C>C</option>
+                        <option value=D>D</option>
+        
+                    </select>
+                 
                   <label for=formulaire1>Semaine du creneau : </label>     
                    <input type=text name=semaine  placeholder=A-B-C-... required>                    
                         
@@ -66,17 +88,14 @@ class VueCreneau
     }
 
 
-    public function ajouterCreneau(){
-
-    }
 
     public function afficherCreneaux(){
         $res = "";
         foreach ($this->creneauAffiche as $creneau){
             $res .= "Jour : $creneau->jour <br>
                      Semaine : $creneau->semaine <br>
-                     Heure de debut : $creneau->hdeb <br>
-                     Heure de fin : $creneau->hfin <br>";
+                     Heure de debut : $creneau->hDeb <br>
+                     Heure de fin : $creneau->hFin <br>";
         }
         return $res;
     }
