@@ -48,9 +48,11 @@ class VueCreneau
         $res .= "<section>
                   <h1>Ajouter un creneau  : </h1>
                  <form id=formulaireAjout method=post action =ajouterCreneau enctype=multipart/form-data>
-                       
-                 <label for=formulaire1>Jour du creneau : </label>           
-                 <input type=number step=1 name=jour placeholder=1-2-3-... required> 
+                    
+                      
+                      
+       
+                         
                  
                  <label>Jour : </label>
 
@@ -63,7 +65,9 @@ class VueCreneau
                          <option value=6>Samedi</option>
                          <option value=7>Dimanche</option>
                     </select>
+                  
                     
+             
                      <label>Semaine : </label>
 
                     <select name=semaine>
@@ -73,11 +77,22 @@ class VueCreneau
                         <option value=D>D</option>
         
                     </select>
+                    
+                    <label>
+                    Heure de debut : 
+                    </label>
+                    <input type='number' name='hDeb' required>
+                 
+                    
+                    <label>
+                    Heure de fin : 
+                    </label>
+                    <input type='number' name='hFin' required>
+           
                  
  
                  <input type=submit class=btn value=Ajouter>          
-                    
-                   
+        
                  </form>
                  </section>";
         return $res;
