@@ -598,7 +598,7 @@ END;
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine</h2></div>
+        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine $sem</h2></div>
         <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
           <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button></a>
         </div>
