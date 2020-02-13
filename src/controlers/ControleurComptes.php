@@ -17,15 +17,13 @@ class ControleurComptes {
         $view = new VueComptes();
         $view->renderConnexion(Slim::getInstance(), "");
     }
-
-
   }
 
   //Affiche la page d'inscription
   function afficherEnregistrement() {
 
     $view = new VueComptes();
-    return $rs->getBody()->write($view->render($app, ""));
+
   }
 
   //Verifie l'inscription
