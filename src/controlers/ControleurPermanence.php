@@ -34,12 +34,11 @@ class ControleurPermanence {
 
     $peutSupprimer = true;
     if($compte == "admin") {
-      $us = User::where("id","=",$_SESSION["profile"])->first();
+      $us = User::where("id","=",$_SESSION["id_connect"])->first();
       $peutSupprimer = $us->droit != 1;
     }
 
     if($peutSupprimer) {
-      echo true;
       $perm = Permanence::where("id","=",$id)->first();
       if($compte == "admin") {
         $perm->delete();
@@ -47,8 +46,6 @@ class ControleurPermanence {
         $perm->idUtil = null;
         $perm->save();
       }
-    } else {
-      echo false;
     }
 
   }
@@ -86,9 +83,8 @@ class ControleurPermanence {
 
   function afficherToutesLesPermanences() {
 
-      $perms = Permanence::join('creneau','idCreneau','=','creneau.id')->orderBy('jour','asc')->orderBy('hDeb','asc')->where('idUtil','=',null)->get();
+      $perms = Permanence::join('creneau','idCreneau','=','creneau.id')->join('role','idRole','=','role.id')->orderBy('jour','asc')->orderBy('hDeb','asc')->where('idUtil','=',null)->get();
     $view = new VueBesoins($perms);
-
     $view->render(1);
 
   }

@@ -116,13 +116,20 @@ END;
                 $deb = $key->creneau->hDeb . ":00";
                 $fin = $key->creneau->hFin . ":00";
                 $inscription = Slim::getInstance()->urlFor('inscrBes',["id"=>$key->id]);
+                $user = User::where("id","=",$_SESSION["id_connect"])->first();
+                $ad="";
+                if ($user->droit !=1) {
+                    $ad = <<<END
+<p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times peutEtreSupprime2"></i></p>
+                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
+END;
+                }
                 $content .= <<<END
 <div id=$key->id class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
-                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
-                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
+                $ad
 
                 <div class="overview__inner">
-                  <div class="peutEtreSupprime2 overview-box clearfix" style="width:auto">
+                  <div class="overview-box clearfix" style="width:auto">
                     <div class="text">
                       <h2 style="font-size:1.2rem">Permanence</h2>
                       <h2 style="font-size:1rem;font-weight:bold">$role</h2>

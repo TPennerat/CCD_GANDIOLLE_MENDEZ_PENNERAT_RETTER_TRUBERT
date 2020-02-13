@@ -61,7 +61,7 @@ $app->get('/supprimerMonOption/:id', function($id) {
 
 $app->get('/supprimerUnePermanence/:id', function($id) {
   $c = new ControleurPermanence();
-  $c->supprimerPermanence($id,2);
+  $c->supprimerPermanence($id,"admin");
 });
 
 $app->get('/afficherBesoins/:sem', function () {

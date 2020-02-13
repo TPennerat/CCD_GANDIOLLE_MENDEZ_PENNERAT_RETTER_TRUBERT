@@ -566,9 +566,9 @@ END;
                         break;
                 }
                 $content .= <<<END
-<div class="col-12" style="padding:0px">
+<div id=$key->id class="col-12" style="padding:0px">
             <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
-              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
+              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times peutEtreSupprime1"></i></p>
               <div class="overview__inner">
                 <div class="overview-box clearfix" style="width:auto">
                   <div class="text">
