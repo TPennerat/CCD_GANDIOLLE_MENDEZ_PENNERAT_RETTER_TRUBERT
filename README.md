@@ -17,7 +17,22 @@ RAJOUTER UN COMPTE EN TANT QU'ADMIN
 
 # Liste des fonctionalités : 
 - LISTER LES FONCTIONALITES
--
--
--
--
+-   Gestion des comptes utilisateurs : 
+      Création d'un nouveau compte par un administrateur
+      Accès avec l'authentification
+      Modification d'un compte par un administrateur
+      Affichage de la liste des utilisateurs
+      Compte administrateur
+-   Gestion des créneaux :
+      Création d'un créneau
+      Activation/Désactivation d'un créneau
+      Affichage de la liste des créneaux
+-   Gestion des besoins :
+      Création d'un besoin par un administrateur
+      Liste des besoins
+-   Prévisions de permanence d'un membre :
+      Inscription à un besoin
+-   Prévisions de permanence pour la coopérative :
+      Affichage des permanences d'un créneau
+      Affichage de toutes les permanences
+      
