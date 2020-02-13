@@ -46,7 +46,7 @@ class ControleurPermanence {
 
   function afficherMesPermanences($id) {
 
-    $perms = Permanence::where('idUtil','=',$id)->get();
+    $perms = Permanence::where('idUtil','=',$_SESSION['id_connect'])->get();
     $view = new VuePermanence($perms);
     $view->render(2);
 
