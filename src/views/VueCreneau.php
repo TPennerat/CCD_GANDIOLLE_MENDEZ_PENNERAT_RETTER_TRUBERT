@@ -131,7 +131,7 @@ class VueCreneau
                 <option value="23">23</option>
               </select>
             </div>
-            <button type="submit" class="btn col-4 btn-primary">Submit</button>
+            <button type="submit" class="btn col-4 btn-primary">Valider</button>
           </form>
 END;
         return $res;
