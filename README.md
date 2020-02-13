@@ -3,11 +3,14 @@ Equipe : Les Zoulettes
 Membres : Retter / Pennerat / Jenin / Trubert / Gandiole / Mendez (SI1)
 
 # Lien vers le projet (webetu) : 
-METTRE LE LIEN
+https://webetu.iutnc.univ-lorraine.fr/www/pennerat7u/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/
+
+# Lien vers le dépôt (github) :
+https://github.com/TPennerat/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/
 
 # Pour accéder au site :
-Cassandre / azertyui
-RAJOUTER UN COMPTE EN TANT QU'ADMIN
+Cassandre / azertyui (user)
+Tom / azertyui (admin)
 
 # Pour configurer le site en local : 
 - Récupérer l'archive sur arche et l'extraire
@@ -16,7 +19,6 @@ RAJOUTER UN COMPTE EN TANT QU'ADMIN
 - Créer un fichier .htaccess
 
 # Liste des fonctionalités : 
-- LISTER LES FONCTIONALITES
 -   Gestion des comptes utilisateurs : 
       Création d'un nouveau compte par un administrateur
       Accès avec l'authentification
