@@ -1,12 +1,9 @@
 <?php
 namespace epicerie\controlers;
 
-use \epicerie\views\VueComptes as VueComptes;
-use \epicerie\views\VueAccueil as VueAccueil;
-use \epicerie\models\Authentification as Authentification;
-use \epicerie\models\User as User;
 use \epicerie\models\AssurePermanence as Permanence;
 
+use epicerie\views\VuePermanence;
 use \Exception;
 use Slim\Slim;
 

@@ -5,34 +5,23 @@ namespace epicerie\controlers;
 use \epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use views\vueCreneau;
+use \epicerie\views\VueCreneau;
 
 class ControleurCreneau
 {
 
-    private $index;
 
-    public function __construct($i)
-    {
-        $this->index=$i;
-    }
+    public function afficherFormulaireCreneau(){
 
-
-
-
-    public function afficherFormulaireCreneau(Request $rq, Response$rs){
-
-        $vue = new vueCreneau('', $rq,$this->index);
-        $html = $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU);
-        $rs->getBody()->write($html);
-        return $rs;
+        $vue = new VueCreneau('');
+        $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU);
     }
 
 
 
     public function ajouterCreneau(Request $rq, Response $rs){
 
-        $vue = new vueCreneau('', $rq, $this->index);
+        $vue = new vueCreneau('');
 
 
         $dernierCreneau = Creneau::tail();

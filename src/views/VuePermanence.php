@@ -2,6 +2,8 @@
 
 namespace epicerie\views;
 
+use Slim\Slim;
+
 class VuePermanence {
 
     public $arr;
@@ -36,10 +38,9 @@ class VuePermanence {
                 $content = $this->afficherCréationBesoin();
                 break;
             }
-            $html = "contenu à créer (Marius/valentin) + ".$content." + contenu à créer (Marius/valentin)";
-            return content;
-
         }
+        $html = "contenu à créer (Marius/valentin) + ".$content." + contenu à créer (Marius/valentin)";
+        echo $html;
     }
 
 }

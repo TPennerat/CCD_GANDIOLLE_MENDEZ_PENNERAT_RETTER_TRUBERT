@@ -1,8 +1,8 @@
 <?php
 
-namespace views;
+namespace epicerie\views;
 
-class vueCreneau
+class VueCreneau
 {
 
     const FORMULAIRE_AJOUT_CRENEAU = 1;
@@ -11,14 +11,7 @@ class vueCreneau
      * L'item
      */
     private $creneauAffiche;
-    /**
-     * Requête http
-     */
-    private $rq;
-    /**
-     * Le container
-     */
-    private $index;
+
     /**
      * vueItem constructor.
      * @param $arr : objet à afficher
@@ -26,11 +19,9 @@ class vueCreneau
      * @param $index : container
      */
 
-    public function __construct($arr, $rq,$index)
+    public function __construct($arr)
     {
         $this->creneauAffiche = $arr;
-        $this->rq= $rq;
-        $this->index=$index;
     }
 
 
@@ -77,7 +68,7 @@ class vueCreneau
                 break;
         }
 
-        return $content;
+       echo $content;
     }
 
 
