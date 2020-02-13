@@ -18,7 +18,7 @@ class VuePermanence
         $this->arr = $a;
     }
 
-    public static function getHeader($app)
+    public static function getHeader($app,$page)
     {
 
       $path = $app->urlFor('racine') . "/Bootstrap";
@@ -28,6 +28,14 @@ class VuePermanence
       $sem2=$app->urlFor("aff",["sem"=>"B"]);
       $sem3=$app->urlFor("aff",["sem"=>"C"]);
       $sem4=$app->urlFor("aff",["sem"=>"D"]);
+        $sem1bes=$app->urlFor("besoin",["sem"=>"A"]);
+        $sem2bes=$app->urlFor("besoin",["sem"=>"B"]);
+        $sem3bes=$app->urlFor("besoin",["sem"=>"C"]);
+        $sem4bes=$app->urlFor("besoin",["sem"=>"D"]);
+        $sem1cre=$app->urlFor("creneau",["sem"=>"A"]);
+        $sem2cre=$app->urlFor("creneau",["sem"=>"B"]);
+        $sem3cre=$app->urlFor("creneau",["sem"=>"C"]);
+        $sem4cre=$app->urlFor("creneau",["sem"=>"D"]);
       $admin="";
       $racine = $app->urlFor('racine');
       $img="";
@@ -56,7 +64,8 @@ END;
 
         $deco=$app->urlFor('deco');
         $inscription=$app->urlFor('besoin');
-
+        $graphique=$app->urlFor('graphique');
+        $users=$app->urlFor('users');
         return <<<END
       <!DOCTYPE html>
       <html lang="en">
@@ -121,21 +130,21 @@ END;
               <i class="fas fa-tasks"></i>Planning personnel</a>
               <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                 <li>
-                  <a href="$sem1">Semaine 1</a>
+                  <a href="$sem1">Semaine A</a>
                 </li>
                 <li>
-                  <a href="$sem2">Semaine 2</a>
+                  <a href="$sem2">Semaine B</a>
                 </li>
                 <li>
-                  <a href="$sem3">Semaine 3</a>
+                  <a href="$sem3">Semaine C</a>
                 </li>
                 <li>
-                  <a href="$sem4">Semaine 4</a>
+                  <a href="$sem4">Semaine D</a>
                 </li>
               </ul>
             </li>
               <li>
-                <a href="chart.html">
+                <a href="$graphique">
                   <i class="fas fa-chart-bar"></i>Graphique</a>
                 </li>
                 <li class="has-sub">
@@ -143,21 +152,21 @@ END;
                     <i class="fas fa-heart"></i>Besoins</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                       <li>
-                        <a href="$sem1">Semaine 1</a>
+                        <a href="$sem1">Semaine A</a>
                       </li>
                       <li>
-                        <a href="$sem2">Semaine 2</a>
+                        <a href="$sem2">Semaine B</a>
                       </li>
                       <li>
-                        <a href="$sem3">Semaine 3</a>
+                        <a href="$sem3">Semaine C</a>
                       </li>
                       <li>
-                        <a href="$sem4">Semaine 4</a>
+                        <a href="$sem4">Semaine D</a>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <a href="form.html">
+                    <a href="$users">
                       <i class="fa fa-users"></i>Utilisateurs</a>
                     </li>
                     <li class="has-sub">
@@ -165,17 +174,17 @@ END;
                         <i class="fas fa-clock"></i>Créneaux</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                           <li>
-                            <a href="creneaux.html">Semaine 1</a>
-                          </li>
-                          <li>
-                            <a href="creneaux.html">Semaine 2</a>
-                          </li>
-                          <li>
-                            <a href="creneaux.html">Semaine 3</a>
-                          </li>
-                          <li>
-                            <a href="creneaux.html">Semaine 4</a>
-                          </li>
+                                            <a href="$sem1cre">Semaine A</a>
+                                          </li>
+                                          <li>
+                                            <a href="$sem2cre">Semaine B</a>
+                                          </li>
+                                          <li>
+                                            <a href="$sem3cre">Semaine C</a>
+                                          </li>
+                                          <li>
+                                            <a href="$sem4cre">Semaine D</a>
+                                          </li>
                         </ul>
                       </li>
                       $admin
@@ -215,7 +224,7 @@ END;
                                 </ul>
                               </li>
                               <li>
-                                <a href="chart.html">
+                                <a href="$graphique">
                                   <i class="fa fa-chart-bar"></i>Graphique</a>
                                 </li>
                                   <li class="has-sub">
@@ -223,21 +232,21 @@ END;
                                       <i class="fa fa-heart"></i>Besoins</a>
                                       <ul class="list-unstyled navbar__sub-list js-sub-list">
                                         <li>
-                                    <a href="$sem1">Semaine A</a>
+                                    <a href="$sem1bes">Semaine A</a>
                                   </li>
                                   <li>
-                                    <a href="$sem2">Semaine B</a>
+                                    <a href="$sem2bes">Semaine B</a>
                                   </li>
                                   <li>
-                                    <a href="$sem3">Semaine C</a>
+                                    <a href="$sem3bes">Semaine C</a>
                                   </li>
                                   <li>
-                                    <a href="$sem4">Semaine D</a>
+                                    <a href="$sem4bes">Semaine D</a>
                                   </li>
                                       </ul>
                                     </li>
                                   <li>
-                                    <a href="form.html">
+                                    <a href="$users">
                                       <i class="fa fa-users"></i>Utilisateurs</a>
                                     </li>
                                     <li class="has-sub">
@@ -245,16 +254,16 @@ END;
                                         <i class="fas fa-clock"></i>Créneaux</a>
                                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                                           <li>
-                                            <a href="creneaux.html">Semaine 1</a>
+                                            <a href="$sem1cre">Semaine A</a>
                                           </li>
                                           <li>
-                                            <a href="creneaux.html">Semaine 2</a>
+                                            <a href="$sem2cre">Semaine B</a>
                                           </li>
                                           <li>
-                                            <a href="creneaux.html">Semaine 3</a>
+                                            <a href="$sem3cre">Semaine C</a>
                                           </li>
                                           <li>
-                                            <a href="creneaux.html">Semaine 4</a>
+                                            <a href="$sem4cre">Semaine D</a>
                                           </li>
                                         </ul>
                                       </li>
@@ -273,7 +282,7 @@ END;
                                           <div class="section__content section__content--p30">
                                             <div class="container-fluid">
                                               <div class="header-wrap">
-                                                <h2 class="title-1">Planning personnel</h2>
+                                                <h2 class="title-1">$page</h2>
                                                 <!--<form class="form-header" action="" method="POST">
                                                 <input class="au-input au-input--xl" type="text" name="search" placeholder="Recherche" />
                                                 <button class="au-btn--submit" type="submit">
@@ -738,7 +747,7 @@ END;
                 break;
             }
         }
-        $html = self::getHeader($app) . $content . self::getFooter($app);
+        $html = self::getHeader($app,'Planning Personnel') . $content . self::getFooter($app);
         echo $html;
     }
 

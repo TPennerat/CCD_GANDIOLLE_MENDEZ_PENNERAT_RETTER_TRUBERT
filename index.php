@@ -120,10 +120,10 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 
 
 
-$app->post('/creneau/ajouterCreneau', function () {
+$app->post('/ajouterCreneau', function () {
     $c = new ControleurCreneau();
     $c->ajouterCreneau();
-});
+})->name('ajouterCreneau');
 
 
 $app->post('/connexion',function () {
