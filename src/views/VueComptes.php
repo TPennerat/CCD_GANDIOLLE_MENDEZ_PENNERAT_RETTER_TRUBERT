@@ -7,7 +7,7 @@ class VueComptes {
 
   public static function getHeader($app) {
 
-    $path = $app->router->pathFor('route_index') + "/Bootstrap";
+    $path =  $app->urlFor('racine') + "/Bootstrap";
 
     return <<<END
     <!DOCTYPE html>
@@ -50,7 +50,9 @@ END;
 
   }
 
-  public footer($app) {
+  public static function getFooter($app) {
+
+    $path = $app->urlFor('racine') + "/Bootstrap";
 
     return <<<END
     <!-- Jquery JS-->
@@ -83,51 +85,55 @@ END;
 END;
   }
 
-  public renderConnexion($app,$type,$erreur) {
+  public function renderConnexion($app,$erreur) {
+
+    $html = self::getHeader($app) . <<<END
+
+    <body class="animsition">
+        <div class="page-wrapper">
+            <div class="page-content--bge5">
+                <div class="container">
+                    <div class="login-wrap">
+                        <div class="login-content">
+                            <div class="login-logo">
+                                <a href="#">
+                                    <img src="images/icon/logo.png" alt="CoolAdmin">
+                                </a>
+                            </div>
+                            <div class="login-form">
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <label>Adresse Email</label>
+                                        <input class="au-input au-input--full" type="email" name="email" placeholder="Votre email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mot de passe</label>
+                                        <input class="au-input au-input--full" type="password" name="password" placeholder="Votre mot de passe">
+                                    </div>
+                                    <div class="login-checkbox">
+                                    </div>
+                                    <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Valider</button>
+                                  </form>
+                                <div class="register-link">
+                                    <p>
+                                        Vous n'avez pas encore de compte ?
+                                        <a href="#">S'enregistrer Ici</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+END;
+
+    $html = $html . self::getFooter($app);
+
+    echo $html;
 
   }
-
-  $url = $app->router->pathFor("route_index");
-
-  switch($type) {
-    case "con":
-    $envoie = $app->router->pathFor("connexion");
-    $intitule = "Connexion";
-    break;
-    case "auth":
-    $intitule = "Enregistrement";
-    $envoie = $app->router->pathFor("enregistrement");
-    break;
-  }
-
-  $html = self::getHeader($app) . <<<END
-
-  <div id="zone">
-  <center>
-  <h1>
-  $intitule
-  </h1>
-  <form action="$envoie" method="post">
-
-  Login :
-  <input type="text" name="login">
-  Mot de passe :
-  <input type="password" name="password">
-
-  <input type="submit" value="Valider" </input>
-  </br>
-  $erreur
-
-  </form>
-  </center>
-  </div>
-  </body>
-  END;
-
-  $html = $html . self::getFooter();
-
-  return $html;
-
-}
 
 }
