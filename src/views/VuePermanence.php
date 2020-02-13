@@ -103,7 +103,7 @@ END;
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
-        $users = $app->urlFor('afficherUsers');
+        $users = $app->urlFor('users');
         $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
