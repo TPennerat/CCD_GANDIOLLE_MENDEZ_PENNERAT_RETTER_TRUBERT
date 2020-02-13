@@ -570,7 +570,6 @@ END;
                   </div>
                 </div>
               </div>
-              <script type="text/javascript" src="$path/js/supprimer.js"> </script>
 
             </div>
           </div>
@@ -686,6 +685,8 @@ $adapt
     </div>
   </div>
 </div>
+<script type="text/javascript" src="$path/js/supprimer.js"> </script>
+
 <!-- END MAIN CONTENT-->
 <!-- END PAGE CONTAINER-->
 </div>
