@@ -759,6 +759,7 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
+        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
