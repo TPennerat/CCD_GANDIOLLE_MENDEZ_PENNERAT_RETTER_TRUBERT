@@ -174,6 +174,16 @@ END;
                   $class="c7";
                 }
 
+
+                for($i=0; $i<count($key->estAssure->toArray());$i++){
+                    if($key->estAssure->toArray()!=null){
+                        if($key->estAssure->toArray()['id']==$key->id){
+
+                        }
+                    }
+                }
+
+                $urlCreneau= Slim::getInstance()->urlFor('creneauSpe',["sem"=>$sem,"id"=>1]);
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div id = $key->id class="overview-item overview-item--$class aModifier" style="padding:20px;margin-bottom:10px">
@@ -190,7 +200,7 @@ END;
                 </div>
               </div>
               <div class="text-center">
-                <button onclick="window.location.href='uncreneau.html'" type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><i class="fa fa-list"></i>&nbsp; Voir les tâches</button>
+                <button onclick="window.location.href=''" type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><a href="$urlCreneau" style="color: inherit"><i class="fa fa-list"></i>&nbsp; Voir les tâches</button></a>
               </div>
             </div>
           </div>
@@ -242,42 +252,70 @@ END;
 
 
     public function afficherCreneaux(){
-        $res = "";
-        $html="";
-        foreach ($this->creneauAffiche as $creneau){
-            $res .= "Jour : $creneau->jour <br>
-                     Semaine : $creneau->semaine <br>
-                     Heure de debut : $creneau->hDeb <br>
-                     Heure de fin : $creneau->hFin <br>";
-            if($creneau->estActif == 0){
-                $res .= "Etat : Incatif";
-            }else{
-                $res .= "Etat : Actif";
+        $html = "";
+        $content = "";
+        $ancienJour=0;
+        $compJour = 0;
+        $passageUnique = true;
+        $ex=explode('/',Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex)-2];
+        foreach ($this->creneauAffiche as $key) {
+            if ($key->semaine == $sem) {
+                $jour = $key->jour;
+                if ($passageUnique) {
+                    $passageUnique = false;
+                    $ancienJour = $jour;
+                }
+                if ($key->jour !== $ancienJour) {
+                    $j = $this->jour($ancienJour);
+                    $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
+                    $content = "";
+                    $compJour = 0;
+                    $ancienJour = $jour;
+                }
+
+
+                $deb = $key->hDeb . ":00";
+                $fin = $key->hFin . ":00";
+
+                if($key->estactif==0){
+                    $class="c8";
+                }else{
+                    $class="c7";
+                }
+
+                $content .= <<<END
+<div class="col-12" style="padding:0px">
+            <div class="overview-item overview-item--c3"style="padding:20px;margin-bottom:10px">
+
+              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
+              <div class="overview__inner">
+                <div class="overview-box clearfix" style="width:auto">
+                  <div class="text col-12">
+                    <div class="row">
+
+                      <div class="col"><h2 style="font-size:1.2rem">Poste : $label</h2></div>
+                      <div class="col"><h2 style="font-size:1.2rem">Inscrit : $inscr</h2></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+END;
+
+                $compJour++;
+
+
             }
-            $res .= "<br>";
         }
 
-        return $res;
+        return $html;
     }
 
-    public function afficherToutCreneau(){
-
-        $res = $this->afficherCreneaux();
-        foreach ($this->permanencesAffiche as $perm){
-
-            // A changer, car faire des requettes dans une vue c'est horrible
-
-            $role = Role::where('id', '=', $perm->idRole)->first();
-
-            $res .= "Role : $role->label <br>";
-
-            if($perm->idUtil == null){
-                //mettre un code couleur
-                $res .= "Assure par personne <br>";
-            }
-        }
-        return $res;
-    }
 
 
     public function render($const, $erreur = -1){
@@ -288,10 +326,10 @@ END;
                 $content = $this->afficherFormulaireAjoutCreneau($erreur);
                 break;
             case (self::AFFICHAGE_CRENEAUX):
-                $content = $this->adapt($app->urlFor('racine') . "/Bootstrap");
+                $content = $this->afficherCreneaux();
                 break;
             case (self::AFFICHER_TOUT_CRENEAU):
-                $content = $this->afficherToutCreneau();
+                $content = $this->adapt($app->urlFor('racine') . "/Bootstrap");
                 break;
         }
         $ex=explode('/',Slim::getInstance()->request->getPath());
@@ -321,7 +359,7 @@ END;
 </div>
 END;
 
-        echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
+        //echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
     }
 
 

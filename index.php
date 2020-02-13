@@ -59,12 +59,21 @@ $app->get('/afficherBesoins/:sem', function () {
     $c->afficherToutesLesPermanences();
 })->name('besoin');
 
+$app->get('/afficherCreneaux/:sem/:id',function($sem,$id) {
+
+    $c = new ControleurCreneau();
+    $c->afficherUnCreneaux($id);
+
+})->name('creneauSpe');
+
 $app->get('/afficherCreneaux/:sem',function($sem) {
 
     $c = new ControleurCreneau();
     $c->afficherCreneaux($sem);
 
 })->name('creneau');
+
+
 
 $app->get('/mesPermanences/:sem', function($sem) {
     $cont = new ControleurPermanence();
