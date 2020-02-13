@@ -80,6 +80,8 @@ END;
 END;
 
 
+
+
 }else{ $gestionCompte = <<<END
 
       <div class="account-dropdown__body">
@@ -103,7 +105,7 @@ END;
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
-        $users = $app->urlFor('afficherUsers');
+        $users = $app->urlFor('users');
         $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
@@ -151,7 +153,7 @@ END;
       <div class="container-fluid">
         <div class="header-mobile-inner">
           <a class="logo" href="$racine">
-            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+            <img class="col-5"src="images/icon/logo.png" alt="" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -511,7 +513,7 @@ END;
         return $res;
     }
 
-    public function adapt()
+    public function adapt($path)
     {
         $html = "";
         $content = "";
@@ -559,7 +561,7 @@ END;
                 }
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
-            <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
+            <div id=$key->id class="overview-item overview-item--$class peutEtreSupprime1" style="padding:20px;margin-bottom:10px">
               <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
               <div class="overview__inner">
                 <div class="overview-box clearfix" style="width:auto">
@@ -570,6 +572,7 @@ END;
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 END;
@@ -654,7 +657,7 @@ END;
     private function afficherMesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";
-        $adapt = $this->adapt();
+        $adapt = $this->adapt($path);
         $ex=explode('/',$app->request->getPath());
         $sem = $ex[count($ex)-1];
         $sem1=$app->urlFor("aff",["sem"=>"A"]);
@@ -666,8 +669,21 @@ END;
         $img="";
         $alt="";
 
+
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin',["sem"=>$sem]);$inscription=$app->urlFor('besoin',["sem"=>$sem]);
+        $inscription=$app->urlFor('besoin',["sem"=>$sem]);
+        $btn = "";
+
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+
+        if ($user->droit !=1) {
+            $btn =   $btn =  <<<END
+                <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button></a>
+        </div>     
+        }
+       
+END;
         return <<<END
 
 <!-- MAIN CONTENT-->
@@ -685,6 +701,8 @@ $adapt
     </div>
   </div>
 </div>
+<script type="text/javascript" src="$path/js/supprimer.js"> </script>
+
 <!-- END MAIN CONTENT-->
 <!-- END PAGE CONTAINER-->
 </div>
@@ -692,7 +710,7 @@ $adapt
 </div>
 
 END;
-    }
+    }}
 
     private function afficherCréationBesoin($app)
     {
@@ -764,7 +782,6 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
-        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
