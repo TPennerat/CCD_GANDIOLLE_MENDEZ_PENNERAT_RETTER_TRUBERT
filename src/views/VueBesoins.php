@@ -1,4 +1,5 @@
 <?php
+
 namespace epicerie\views;
 
 use DateInterval;
@@ -29,11 +30,12 @@ class VueBesoins
             }
 
         }
-        $html = VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
-        //echo $html;
+        $html = VuePermanence::getHeader($app, "Besoins") . $content . VuePermanence::getFooter($app);
+        echo $html;
     }
 
-    public static function changeSem($sem) {
+    public static function changeSem($sem)
+    {
         switch ($sem) {
             case 1 :
                 return "A";
@@ -56,14 +58,14 @@ class VueBesoins
     {
         $html = "";
         $content = "";
-        $ancienJour=0;
+        $ancienJour = 0;
         $compJour = 0;
         $passageUnique = true;
-        $ex=explode('/',Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex)-1];
+        $ex = explode('/', Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex) - 1];
         foreach ($this->arr as $key) {
-            if ($key->semaine == $sem) {
-                $role= $key->role->label;
+            if ($key->creneau->semaine == $sem) {
+                $role = $key->role->label;
                 $jour = $key->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
@@ -84,7 +86,7 @@ END;
                 $deb = $key->hDeb . ":00";
                 $fin = $key->hFin . ":00";
 
-$content .= <<<END
+                $content .= <<<END
 <div class="overview-item overview-item--c1" style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
@@ -104,10 +106,7 @@ $content .= <<<END
 
 END;
 
-                var_dump($content);
                 $compJour++;
-
-
             }
         }
         $j = $this->jour($ancienJour);
@@ -146,23 +145,24 @@ END;
         }
         return $res;
     }
+
     private function afficherToutesLesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";
         $adapt = $this->adapt();
-        $ex=explode('/',$app->request->getPath());
-        $sem = $ex[count($ex)-1];
-        $sem1=$app->urlFor("aff",["sem"=>"A"]);
-        $sem2=$app->urlFor("aff",["sem"=>"B"]);
-        $sem3=$app->urlFor("aff",["sem"=>"C"]);
-        $sem4=$app->urlFor("aff",["sem"=>"D"]);
-        $admin="";
+        $ex = explode('/', $app->request->getPath());
+        $sem = $ex[count($ex) - 1];
+        $sem1 = $app->urlFor("aff", ["sem" => "A"]);
+        $sem2 = $app->urlFor("aff", ["sem" => "B"]);
+        $sem3 = $app->urlFor("aff", ["sem" => "C"]);
+        $sem4 = $app->urlFor("aff", ["sem" => "D"]);
+        $admin = "";
         $racine = $app->urlFor('racine');
-        $img="";
-        $alt="";
+        $img = "";
+        $alt = "";
 
-        $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
+        $deco = $app->urlFor('deco');
+        $inscription = $app->urlFor('besoin');
         return <<<END
 
 <!-- MAIN CONTENT-->
