@@ -2,6 +2,7 @@
 
 namespace epicerie\controlers;
 
+use epicerie\models\AssurePermanence;
 use epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -22,12 +23,6 @@ class ControleurCreneau
     public function ajouterCreneau(Request $rq, Response $rs){
 
         $vue = new vueCreneau('');
-
-
-
-
-
-
 
         $deb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
         $fin = htmlspecialchars(filter_var($rq->getParams()['hfin'], FILTER_SANITIZE_STRING ));
@@ -53,8 +48,14 @@ class ControleurCreneau
         $creneau->cycle = 0;
         $creneau->save();
 
+
+        $vue = new VueCreneau('');
+        $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
+
+        /**
         $lien =$this->index->router->pathFor('racine');
         return $rs->withRedirect("$lien",301);
+         * */
 
     }
 
@@ -63,6 +64,29 @@ class ControleurCreneau
         $creneaux = Creneau::get();
         $vue = new VueCreneau($creneaux);
         $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
+    }
+
+
+    public function changerEtat($id, $etat){
+
+        $cr = Creneau::where('id', '=', $id)->first();
+        $cr->estActif = $etat;
+
+        $vue = new VueCreneau('');
+        $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
+
+    }
+
+    public function  afficherTout($idCreneau){
+
+        $cren = Creneau::where('id', '=', $idCreneau)->first();
+        $permanences = AssurePermanence::where('idCreneau', '=', $idCreneau)->get();
+
+        $vue = new VueCreneau($cren, $permanences);
+
+
+        $vue->render(VueCreneau::AFFICHER_TOUT);
+
     }
 
 
