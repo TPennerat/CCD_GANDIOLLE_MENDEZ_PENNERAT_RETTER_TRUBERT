@@ -2,9 +2,6 @@
 
 namespace epicerie\views;
 
-use DateInterval;
-use DateTime;
-use Exception;
 use Slim\Slim;
 use \epicerie\models\User as User;
 
@@ -81,13 +78,31 @@ END;
                     $compJour = 0;
                     $ancienJour = $jour;
                 }
-
-
-                $deb = $key->hDeb . ":00";
-                $fin = $key->hFin . ":00";
-
+                switch ($key->role->id) {
+                    case 1:
+                        $class = "c1";
+                        break;
+                    case 2:
+                        $class = "c2";
+                        break;
+                    case 3:
+                        $class = "c3";
+                        break;
+                    case 4:
+                        $class = "c4";
+                        break;
+                    case 5:
+                        $class = "c5";
+                        break;
+                    case 6:
+                        $class = "c6";
+                        break;
+                }
+                $deb = $key->creneau->hDeb . ":00";
+                $fin = $key->creneau->hFin . ":00";
+                $inscription = Slim::getInstance()->urlFor('inscrBes',["id"=>$key->id]);
                 $content .= <<<END
-<div class="overview-item overview-item--c1" style="padding:20px;margin-bottom:10px">
+<div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
                 <div class="overview__inner">
@@ -99,11 +114,10 @@ END;
                     </div>
                   </div>
                 </div>
-                </div>
                 <div class="text-center">
-                  <button type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><i class="fas fa-sign-in-alt"></i>&nbsp; S'inscrire</button>
+                  <button type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><a href="$inscription" style="color: inherit"><i class="fas fa-sign-in-alt"></i>&nbsp; S'inscrire</button></a>
                 </div>
-
+                </div>
 END;
 
                 $compJour++;
@@ -148,21 +162,19 @@ END;
 
     private function afficherToutesLesPermanences($app)
     {
-        $path = $app->urlFor('racine') . "/Bootstrap";
         $adapt = $this->adapt();
         $ex = explode('/', $app->request->getPath());
         $sem = $ex[count($ex) - 1];
-        $sem1 = $app->urlFor("aff", ["sem" => "A"]);
-        $sem2 = $app->urlFor("aff", ["sem" => "B"]);
-        $sem3 = $app->urlFor("aff", ["sem" => "C"]);
-        $sem4 = $app->urlFor("aff", ["sem" => "D"]);
-        $admin = "";
-        $racine = $app->urlFor('racine');
-        $img = "";
-        $alt = "";
-
-        $deco = $app->urlFor('deco');
-        $inscription = $app->urlFor('besoin');
+        $creerBesoin = $app->urlFor('creerbes');
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+        $ad="";
+        if ($user->droit !=1) {
+            $ad=<<<END
+<div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+          <a href="$creerBesoin"><button type="button" class="btn btn-outline-primary btn-lg">Creer un besoin</button></a>
+        </div>
+END;
+        }
         return <<<END
 
 <!-- MAIN CONTENT-->
@@ -171,9 +183,7 @@ END;
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Besoins de la semaine $sem</h2></div>
-        <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
-          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">Creer un besoin</button></a>
-        </div>
+        $ad
 $adapt
       </div>
       <div class="w-100"></div>

@@ -6,6 +6,7 @@ session_start();
 
 use epicerie\controlers\ControleurBesoin;
 use \epicerie\controlers\ControleurCreneau;
+use epicerie\controlers\ControleurPersonne;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
 
@@ -88,7 +89,7 @@ $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 $app->get('/creerBesoin', function() {
     $c = new ControleurPermanence();
     $c->afficherCreationBesoin();
-});
+})->name('creerbes');
 
 $app->post('/creerBesoin', function() {
     $c = new ControleurPermanence();
@@ -98,8 +99,7 @@ $app->post('/creerBesoin', function() {
 $app->get('/inscriptionBesoin/:id', function($id) {
     $c = new ControleurPermanence();
     $c->inscrireBesoin($id);
-
-});
+})->name('inscrBes');
 
 
 $app->notFound(function () {
@@ -167,5 +167,15 @@ $app->post('/creerCompte', function (){
 })->name('creerCompte');
 
 
+$app->get('/afficherUsers', function (){
+    $c = new ControleurPersonne();
+    $c->afficherToutLeMonde();
+})->name('afficherUsers');
+
+
+$app->get('/afficherUser/:id', function ($id){
+    $c = new ControleurPersonne();
+    $c->afficherUser($id);
+})->name('afficher1User');
 
 $app->run();
