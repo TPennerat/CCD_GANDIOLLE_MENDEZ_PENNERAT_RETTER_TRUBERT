@@ -40,6 +40,13 @@ $app->get('/connexion',function () {
 
 })->name('connexion');
 
+$app->get('/changerActivitee/:id',function ($id) {
+
+   $c = new ControleurCreneau();
+   $c->desactiverCreneau($id);
+
+});
+
 $app->get('/deconnexion', function() {
     $c = new ControleurComptes();
     $c->seDeconnecter();
