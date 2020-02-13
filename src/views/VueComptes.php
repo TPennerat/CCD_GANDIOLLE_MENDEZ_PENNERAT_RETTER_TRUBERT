@@ -107,8 +107,9 @@ END;
                             <div class="login-form">
                                 <form action="" method="post">
                                     <div class="form-group">
-                                        <label>Adresse Email</label>
-                                        <input class="au-input au-input--full" type="email" name="email" placeholder="Votre email">
+                                        <label>Login</label>
+                                        <input class="au-input au-input--full" type="text" name="login" placeholder="Votre login">
+
                                     </div>
                                     <div class="form-group">
                                         <label>Mot de passe</label>
@@ -118,12 +119,6 @@ END;
                                     </div>
                                     <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Valider</button>
                                   </form>
-                                <div class="register-link">
-                                    <p>
-                                        Vous n'avez pas encore de compte ?
-                                        <a href="#">S'enregistrer Ici</a>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
