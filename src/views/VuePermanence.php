@@ -18,7 +18,7 @@ class VuePermanence
         $this->arr = $a;
     }
 
-    public static function getHeader($app,$page)
+    public static function getHeader($app)
     {
 
       $path = $app->urlFor('racine') . "/Bootstrap";
@@ -28,19 +28,10 @@ class VuePermanence
       $sem2=$app->urlFor("aff",["sem"=>"B"]);
       $sem3=$app->urlFor("aff",["sem"=>"C"]);
       $sem4=$app->urlFor("aff",["sem"=>"D"]);
-        $sem1bes=$app->urlFor("besoin",["sem"=>"A"]);
-        $sem2bes=$app->urlFor("besoin",["sem"=>"B"]);
-        $sem3bes=$app->urlFor("besoin",["sem"=>"C"]);
-        $sem4bes=$app->urlFor("besoin",["sem"=>"D"]);
-        $sem1cre=$app->urlFor("creneau",["sem"=>"A"]);
-        $sem2cre=$app->urlFor("creneau",["sem"=>"B"]);
-        $sem3cre=$app->urlFor("creneau",["sem"=>"C"]);
-        $sem4cre=$app->urlFor("creneau",["sem"=>"D"]);
       $admin="";
       $racine = $app->urlFor('racine');
       $img="";
       $alt="";
-      $gestionCompte ="";
 
       $deco=$app->urlFor('deco');
       $inscription=$app->urlFor('besoin');
@@ -58,52 +49,15 @@ class VuePermanence
                                               <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
                                             </li>
 END;
-            $gestionCompte = <<<END
-           
-      <div class="account-dropdown__body">
-        <div class="account-dropdown__item">
-          <a href="#">
-            <i class="zmdi zmdi-account"></i>Compte</a>
-          </div>
-          <div class="account-dropdown__item">
-            <a href="#">
-              <i class="zmdi zmdi-settings"></i>Paramètres</a>
-            </div>
-            <div class="account-dropdown__footer">
-              <a href="$deco">
-                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-END;
 
-
-}else{ $gestionCompte = <<<END
-           
-      <div class="account-dropdown__body">
-   
-          <div class="account-dropdown__item">
-       
-            <div class="account-dropdown__footer">
-              <a href="$deco">
-                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
-            </div>
-        </div>
-      </div>
-END;
-
-        }
+}
             $img=$app->urlFor('racine').'/web/img/'.$user->urlimage;
             $alt=$user->nom;
 
         $deco=$app->urlFor('deco');
         $inscription=$app->urlFor('besoin');
-        $graphique=$app->urlFor('graphique');
-        $users=$app->urlFor('users');
 
-        $res = <<<END
+        return <<<END
       <!DOCTYPE html>
       <html lang="en">
 
@@ -116,7 +70,7 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>EpircerieGenerale</title>
+          <title>COBOARD</title>
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -162,9 +116,13 @@ END;
     <nav class="navbar-mobile">
       <div class="container-fluid">
         <ul class="navbar-mobile__list list-unstyled">
+          <li>
+            <a href="calendar.html">
+              <i class="fas fa-tasks"></i>Planning personnel</a>
+            </li>
           <li class="has-sub">
             <a class="js-arrow" href="#">
-              <i class="fas fa-tasks"></i>Planning personnel</a>
+              <i class="fa fa-calendar-o"></i>Semaines</a>
               <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                 <li>
                   <a href="$sem1">Semaine A</a>
@@ -180,62 +138,48 @@ END;
                 </li>
               </ul>
             </li>
+            <li>
+              <a href="chart.html">
+                <i class="fas fa-chart-bar"></i>Graphique</a>
+              </li>
               <li>
-                <a href="$graphique">
-                  <i class="fas fa-chart-bar"></i>Graphique</a>
+                <a href="table.html">
+                  <i class="fas fa-heart"></i>Besoins</a>
                 </li>
-                <li class="has-sub">
-                  <a class="js-arrow" href="#">
-                    <i class="fas fa-heart"></i>Besoins</a>
-                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                      <li>
-                        <a href="$sem1">Semaine A</a>
-                      </li>
-                      <li>
-                        <a href="$sem2">Semaine B</a>
-                      </li>
-                      <li>
-                        <a href="$sem3">Semaine C</a>
-                      </li>
-                      <li>
-                        <a href="$sem4">Semaine D</a>
-                      </li>
-                    </ul>
+                <li>
+                  <a href="form.html">
+                    <i class="fa fa-users"></i>Utilisateurs</a>
                   </li>
-                  <li>
-                    <a href="$users">
-                      <i class="fa fa-users"></i>Utilisateurs</a>
+                  <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                      <i class="fas fa-clock"></i>Créneaux</a>
+                      <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                          <a href="creneaux.html">Semaine 1</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 2</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 3</a>
+                        </li>
+                        <li>
+                          <a href="creneaux.html">Semaine 4</a>
+                        </li>
+                      </ul>
                     </li>
-                    <li class="has-sub">
-                      <a class="js-arrow" href="#">
-                        <i class="fas fa-clock"></i>Créneaux</a>
-                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                          <li>
-                                            <a href="$sem1cre">Semaine A</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem2cre">Semaine B</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem3cre">Semaine C</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem4cre">Semaine D</a>
-                                          </li>
-                        </ul>
-                      </li>
-                      $admin
+                    $admin
 
-                        </ul>
-                      </div>
-                    </nav>
-                  </header>
-                  <!-- END HEADER MOBILE-->
+                          </ul>
+                        </div>
+                      </nav>
+                    </header>
+                    <!-- END HEADER MOBILE-->
 
                     <!-- MENU SIDEBAR-->
                     <aside class="menu-sidebar d-none d-lg-block">
                       <div class="logo">
-                        <a href="$racine">
+                        <a href="#">
                           <img src="$path/images/icon/logo.png" alt="Cool Admin" />
                         </a>
                       </div>
@@ -261,7 +205,7 @@ END;
                                 </ul>
                               </li>
                               <li>
-                                <a href="$graphique">
+                                <a href="chart.html">
                                   <i class="fa fa-chart-bar"></i>Graphique</a>
                                 </li>
                                   <li class="has-sub">
@@ -269,40 +213,26 @@ END;
                                       <i class="fa fa-heart"></i>Besoins</a>
                                       <ul class="list-unstyled navbar__sub-list js-sub-list">
                                         <li>
-                                    <a href="$sem1bes">Semaine A</a>
+                                    <a href="$sem1">Semaine A</a>
                                   </li>
                                   <li>
-                                    <a href="$sem2bes">Semaine B</a>
+                                    <a href="$sem2">Semaine B</a>
                                   </li>
                                   <li>
-                                    <a href="$sem3bes">Semaine C</a>
+                                    <a href="$sem3">Semaine C</a>
                                   </li>
                                   <li>
-                                    <a href="$sem4bes">Semaine D</a>
+                                    <a href="$sem4">Semaine D</a>
                                   </li>
                                       </ul>
                                     </li>
                                   <li>
-                                    <a href="$users">
+                                    <a href="form.html">
                                       <i class="fa fa-users"></i>Utilisateurs</a>
                                     </li>
-                                    <li class="has-sub">
-                                      <a class="js-arrow" href="#">
+                                    <li>
+                                      <a href="calendar.html">
                                         <i class="fas fa-clock"></i>Créneaux</a>
-                                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                          <li>
-                                            <a href="$sem1cre">Semaine A</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem2cre">Semaine B</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem3cre">Semaine C</a>
-                                          </li>
-                                          <li>
-                                            <a href="$sem4cre">Semaine D</a>
-                                          </li>
-                                        </ul>
                                       </li>
                                       $admin
 
@@ -319,7 +249,7 @@ END;
                                           <div class="section__content section__content--p30">
                                             <div class="container-fluid">
                                               <div class="header-wrap">
-                                                <h2 class="title-1">$page</h2>
+                                                <h2 class="title-1">Planning personnel</h2>
                                                 <!--<form class="form-header" action="" method="POST">
                                                 <input class="au-input au-input--xl" type="text" name="search" placeholder="Recherche" />
                                                 <button class="au-btn--submit" type="submit">
@@ -463,9 +393,23 @@ END;
           </h5>
         </div>
       </div>
-      
- 
-       $gestionCompte
+      <div class="account-dropdown__body">
+        <div class="account-dropdown__item">
+          <a href="#">
+            <i class="zmdi zmdi-account"></i>Compte</a>
+          </div>
+          <div class="account-dropdown__item">
+            <a href="#">
+              <i class="zmdi zmdi-settings"></i>Paramètres</a>
+            </div>
+            <div class="account-dropdown__footer">
+              <a href="$deco">
+                <i class="zmdi zmdi-power"></i>Se déconnecter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -473,7 +417,6 @@ END;
 <!-- HEADER DESKTOP-->
 
 END;
-        return $res;
 
     }
 
@@ -580,8 +523,7 @@ END;
                     }
                     $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
-$content
-</div>
+$content</div>
 END;
                     $content = "";
                     $compJour = 0;
@@ -759,7 +701,6 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
-        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
@@ -772,7 +713,7 @@ END;
                 break;
             }
         }
-        $html = self::getHeader($app,'Planning Personnel') . $content . self::getFooter($app);
+        $html = self::getHeader($app) . $content . self::getFooter($app);
         echo $html;
     }
 
