@@ -4,15 +4,15 @@ namespace epicerie\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Creneau extends Model
 {
-    protected $table = 'role';
+    protected $table = 'creneau';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     public function permRole()
     {
-        return $this->hasOneThrough(
+        return $this->hasManyThrough(
             '\epicerie\models\Creneau',
             '\epicerie\models\Role',
             'id', // Foreign key on users table...
