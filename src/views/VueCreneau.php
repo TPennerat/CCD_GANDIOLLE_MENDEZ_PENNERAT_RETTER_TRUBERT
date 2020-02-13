@@ -131,7 +131,7 @@ class VueCreneau
                 <option value="23">23</option>
               </select>
             </div>
-            <button type="submit" class="btn col-4 btn-primary">Submit</button>
+            <button type="submit" class="btn col-4 btn-primary">Valider</button>
           </form>
 END;
         return $res;
@@ -178,13 +178,14 @@ END;
                 $x=null;
                 for($i=0; $i<count($key->estAssure->toArray());$i++){
                     if($key->estAssure->toArray()[$i]!=null){
-                        if($key->estAssure->toArray()[$i]['id']==$key->id){
-                            $x=$key->estAssure->toArray()[$i];
+                        if($key->estAssure->toArray()[$i]['idUtil']==$_SESSION['id_connect'] && $key->estAssure->toArray()[$i]['idCreneau']==$key->id){
+                            $x=$key->estAssure->toArray()[$i]['id'];
                         }
                     }
                 }
 
-                $urlCreneau= Slim::getInstance()->urlFor('creneauSpe',["sem"=>$sem,"id"=>1]);
+                $urlCreneau= Slim::getInstance()->urlFor('creneauSpe',["sem"=>$sem,"id"=>$x]);
+                echo $urlCreneau."\n";
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div id = $key->id class="overview-item overview-item--$class aModifier" style="padding:20px;margin-bottom:10px">
@@ -360,7 +361,7 @@ END;
 </div>
 END;
 
-        echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
+       echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
     }
 
 

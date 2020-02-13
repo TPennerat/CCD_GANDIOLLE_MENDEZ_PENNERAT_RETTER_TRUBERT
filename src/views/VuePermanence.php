@@ -80,6 +80,8 @@ END;
 END;
 
 
+
+
 }else{ $gestionCompte = <<<END
 
       <div class="account-dropdown__body">
@@ -103,7 +105,7 @@ END;
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
-        $users = $app->urlFor('afficherUsers');
+        $users = $app->urlFor('users');
         $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
@@ -117,7 +119,8 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>EpircerieGenerale</title>
+          <title>CoBoard</title>
+          <link rel="icon" type="image/png" href="$path/images/icon/logo_fav.png">
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -150,7 +153,7 @@ END;
       <div class="container-fluid">
         <div class="header-mobile-inner">
           <a class="logo" href="$racine">
-            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+            <img class="col-5"src="images/icon/logo.png" alt="" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -306,7 +309,10 @@ END;
                                         </ul>
                                       </li>
                                       $admin
-
+                                      <li>
+                                        <a href="https://www.grandeepiceriegenerale.fr/"  target = "_blank">
+                                          <i class="fa fa-mouse-pointer"></i>Visitez notre site</a>
+                                        </li>
                                           </ul>
                                         </nav>
                                       </div>
@@ -663,8 +669,21 @@ END;
         $img="";
         $alt="";
 
+
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin',["sem"=>$sem]);$inscription=$app->urlFor('besoin',["sem"=>$sem]);
+        $inscription=$app->urlFor('besoin',["sem"=>$sem]);
+        $btn = "";
+
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+
+        if ($user->droit !=1) {
+            $btn =   $btn =  <<<END
+                <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button></a>
+        </div>     
+        }
+       
+END;
         return <<<END
 
 <!-- MAIN CONTENT-->
@@ -691,7 +710,7 @@ $adapt
 </div>
 
 END;
-    }
+    }}
 
     private function afficherCréationBesoin($app)
     {
@@ -763,7 +782,6 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
-        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
