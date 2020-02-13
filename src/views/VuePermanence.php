@@ -59,7 +59,7 @@ class VuePermanence
                                             </li>
 END;
             $gestionCompte = <<<END
-           
+
       <div class="account-dropdown__body">
         <div class="account-dropdown__item">
           <a href="#">
@@ -81,11 +81,11 @@ END;
 
 
 }else{ $gestionCompte = <<<END
-           
+
       <div class="account-dropdown__body">
-   
+
           <div class="account-dropdown__item">
-       
+
             <div class="account-dropdown__footer">
               <a href="$deco">
                 <i class="zmdi zmdi-power"></i>Se déconnecter</a>
@@ -100,8 +100,8 @@ END;
 
         $deco=$app->urlFor('deco');
         $inscription=$app->urlFor('besoin');
-        $graphique=$app->urlFor('graphique');
-        $users=$app->urlFor('users');
+        $creerCompte=$app->urlFor('creerCompte');
+        $modifCompte=$app->urlFor('modifierCompte');
 
         $res = <<<END
       <!DOCTYPE html>
@@ -463,8 +463,8 @@ END;
           </h5>
         </div>
       </div>
-      
- 
+
+
        $gestionCompte
     </div>
   </div>
