@@ -54,8 +54,7 @@ class ControleurPermanence {
 
   function afficherToutesLesPermanences() {
 
-    $perms = Permanence::where('idUtil','is not',null)->get();
-    var_dump($perms);
+    $perms = Permanence::where('idUtil','=',null)->get();
     $view = new VueBesoins($perms);
 
     $view->render(1);

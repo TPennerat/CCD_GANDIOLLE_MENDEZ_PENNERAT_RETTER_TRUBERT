@@ -29,7 +29,8 @@ class VueBesoins
             }
 
         }
-        $html = VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
+        //VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
+        $html = $content;
         echo $html;
     }
 
@@ -63,7 +64,9 @@ class VueBesoins
         $passageUnique2 = true;
         $ex=explode('/',Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex)-1];
+
         foreach ($this->arr as $key) {
+
             if ($key->creneau->semaine == $sem ) {
                 $role = $key->role->label;
                 $jour = $key->creneau->jour;
@@ -93,9 +96,6 @@ class VueBesoins
                 <div class="text-center">
                   <button type="button" style="margin-top:15px" class="btn btn-block btn-info btn-sm"><i class="fas fa-sign-in-alt"></i>&nbsp; S'inscrire</button>
                 </div>
-              </div>
-            </div>
-          </div>
 
 END;
 
@@ -112,7 +112,10 @@ END;
                     <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
                       <div class="col-12" style="padding:0px">
                         <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
-$content</div>
+$content
+</div>
+</div>
+</div>
 END;
                     $content = "";
                     $compJour = 0;
@@ -147,9 +150,9 @@ END;
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine</h2></div>
+        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Besoins de la semaine</h2></div>
         <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
-          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button></a>
+          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">Creer un besoin</button></a>
         </div>
 $adapt
       </div>
@@ -159,9 +162,6 @@ $adapt
 </div>
 <!-- END MAIN CONTENT-->
 <!-- END PAGE CONTAINER-->
-</div>
-
-</div>
 
 END;
     }
