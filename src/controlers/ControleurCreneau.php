@@ -27,10 +27,9 @@ class ControleurCreneau
 
     public function ajouterCreneau(){
 
-        $vue = new vueCreneau('');
-
-        $deb = htmlspecialchars(filter_var($_POST['hDeb'], FILTER_SANITIZE_STRING ));
-        $fin = htmlspecialchars(filter_var($_POST['hFin'], FILTER_SANITIZE_STRING ));
+        $vue = new VueCreneau('');
+        $deb = htmlspecialchars(filter_var($_POST['deb'], FILTER_SANITIZE_STRING ));
+        $fin = htmlspecialchars(filter_var($_POST['fin'], FILTER_SANITIZE_STRING ));
 
         $creneauxIncorrects1 = Creneau::where('hDeb', '>=', $deb)->get();
         $exc = false;
@@ -57,7 +56,7 @@ class ControleurCreneau
 
 
         if($exc){
-            $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU, 1);
+            $vue->render(VueCreneau::FORMULAIRE_AJOUT_CRENEAU, 1);
         }else{
             $creneau = new Creneau();
             $creneau->hDeb = $deb;

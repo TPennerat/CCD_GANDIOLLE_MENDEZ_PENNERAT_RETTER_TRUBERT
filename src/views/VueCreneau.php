@@ -44,18 +44,18 @@ class VueCreneau
 
         switch ($erreur){
             case(1) :
-                $res .=  "<h2 class=erreur> ERREUR DANS LE CHEVAUCHEMENT DES CRENEAUX </h2>";
+                $res .=  "<p class='text-danger'> ERREUR DANS LE CHEVAUCHEMENT DES CRENEAUX </p>";
                 break;
             default :
                 break;
         }
-
+        $cre = Slim::getInstance()->urlFor('ajouterCreneau');
         $res .= <<<END
-        <form class="col-12" method="post" action="ajouterCreneau" enctype="multipart/form-data">
+        <form class="col-12" method="post" action="$cre" enctype="multipart/form-data">
           <div class="form-group col-12">
             <label class="col-2">Jour</label>
             <select class="col-2 custom-select" name="jour">
-              <option value="1">Lundi</option>
+              <option selected value="1">Lundi</option>
               <option value="2">Mardi</option>
               <option value="3">Mercredi</option>
               <option value="4">Jeudi</option>
@@ -68,7 +68,7 @@ class VueCreneau
             <div class="form-group col-12">
               <label class="col-2">Semaine</label>
               <select class="col-2 custom-select" name="semaine">
-                <option value="A">A</option>
+                <option selected value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
                 <option value="D">D</option>
@@ -76,8 +76,8 @@ class VueCreneau
             </div>
             <div class="form-group col-12">
               <label class="col-2">Heure de début</label>
-              <select class="col-2 custom-select" name="semaine">
-                <option value="0">0</option>
+              <select class="col-2 custom-select" name="deb">
+                <option selected value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -105,8 +105,8 @@ class VueCreneau
             </div>
             <div class="form-group col-12">
               <label class="col-2">Heure de fin</label>
-              <select class="col-2 custom-select" name="semaine">
-                <option value="0">0</option>
+              <select class="col-2 custom-select" name="fin">
+                <option selected value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -316,9 +316,14 @@ END;
         $app = Slim::getInstance();
         $content = '';
         $ex=explode('/',Slim::getInstance()->request->getPath());
+        $cre="";
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+        $center="";
         switch ($const){
             case (self::FORMULAIRE_AJOUT_CRENEAU):
                 $content = $this->afficherFormulaireAjoutCreneau($erreur);
+                $user->droit = 1;
+                $center="text-center";
                 break;
             case (self::AFFICHAGE_CRENEAUX):
                 $content = $this->afficherCreneaux();
@@ -331,9 +336,9 @@ END;
                 $cre = "Créneaux de la semaine ".$sem;
                 break;
         }
-        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+
         $admin ="";
-        $ajoutCreneau=$app->urlFor('ajouterCreneau');
+        $ajoutCreneau=$app->urlFor('formulaireCreneau');
         if ($user->droit !=1) {
             $admin = <<<END
 <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
@@ -346,7 +351,7 @@ END;
 <div class="main-content">
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row $center">
         <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">$cre</h2></div>
         $admin
     $content

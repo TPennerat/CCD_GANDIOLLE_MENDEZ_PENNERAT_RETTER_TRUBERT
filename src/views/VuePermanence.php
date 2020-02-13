@@ -694,7 +694,7 @@ $adapt
 END;
     }
 
-    private function afficherCréationBesoin($app)
+    private function afficherCreationBesoin($app)
     {
 
         $html = "";
@@ -768,7 +768,7 @@ END;
         switch ($selecteur) {
             case 1:
             {
-                $content = $this->afficherCréationBesoin($app);
+                $content = $this->afficherCreationBesoin($app);
                 break;
             }
             case 2:
