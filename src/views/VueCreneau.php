@@ -278,7 +278,7 @@ END;
 </div>
 END;
 
-       echo VuePermanence::getHeader(Slim::getInstance()).$html.VuePermanence::getFooter(Slim::getInstance());
+       echo VuePermanence::getHeader(Slim::getInstance(),"Créneaux").$html.VuePermanence::getFooter(Slim::getInstance());
     }
 
 

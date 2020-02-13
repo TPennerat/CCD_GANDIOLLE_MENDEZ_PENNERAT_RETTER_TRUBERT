@@ -18,7 +18,7 @@ class VuePermanence
         $this->arr = $a;
     }
 
-    public static function getHeader($app)
+    public static function getHeader($app,$page)
     {
 
       $path = $app->urlFor('racine') . "/Bootstrap";
@@ -127,7 +127,7 @@ END;
         <ul class="navbar-mobile__list list-unstyled">
           <li class="has-sub">
             <a class="js-arrow" href="#">
-              <i class="fas fa-tasks"></i>Planning personnel</a>
+              <i class="fas fa-tasks"></i>$page</a>
               <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                 <li>
                   <a href="$sem1">Semaine A</a>
@@ -282,7 +282,7 @@ END;
                                           <div class="section__content section__content--p30">
                                             <div class="container-fluid">
                                               <div class="header-wrap">
-                                                <h2 class="title-1">Planning personnel</h2>
+                                                <h2 class="title-1">$page</h2>
                                                 <!--<form class="form-header" action="" method="POST">
                                                 <input class="au-input au-input--xl" type="text" name="search" placeholder="Recherche" />
                                                 <button class="au-btn--submit" type="submit">
@@ -735,7 +735,7 @@ END;
                 break;
             }
         }
-        $html = self::getHeader($app) . $content . self::getFooter($app);
+        $html = self::getHeader($app,"Planning personnel") . $content . self::getFooter($app);
         echo $html;
     }
 
