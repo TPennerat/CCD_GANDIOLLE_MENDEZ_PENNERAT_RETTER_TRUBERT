@@ -53,6 +53,11 @@ class VueBesoins
 
     public function adapt()
     {
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+        $app = Slim::getInstance();
+
+
+        $coin ="";
         $html = "";
         $content = "";
         $ancienJour = 0;
@@ -61,6 +66,16 @@ class VueBesoins
         $ex = explode('/', Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex) - 1];
         foreach ($this->arr as $key) {
+            if ($user->droit !=1) {
+                $coin = <<<END
+                <a href="$app->urlFor('supprimerBesoin', [id=>$key->id]);">
+                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
+                </a>
+                <a href="$app->urlFor('modifierBesoin', [id=>$key->id]);">
+               <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
+</a>
+END;
+            }
             if ($key->creneau->semaine == $sem) {
                 $role = $key->role->label;
                 $jour = $key->jour;
@@ -103,8 +118,7 @@ END;
                 $inscription = Slim::getInstance()->urlFor('inscrBes',["id"=>$key->id]);
                 $content .= <<<END
 <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
-                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
-                <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
+                $coin
                 <div class="overview__inner">
                   <div class="overview-box clearfix" style="width:auto">
                     <div class="text">
@@ -168,11 +182,15 @@ END;
         $creerBesoin = $app->urlFor('creerbes');
         $user = User::where("id","=",$_SESSION["id_connect"])->first();
         $ad="";
+        $coin ="";
         if ($user->droit !=1) {
             $ad=<<<END
 <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
           <a href="$creerBesoin"><button type="button" class="btn btn-outline-primary btn-lg">Creer un besoin</button></a>
         </div>
+END;
+            $coin = <<<END
+
 END;
         }
         return <<<END
