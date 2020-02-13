@@ -99,11 +99,11 @@ END;
             $alt=$user->nom;
 
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
+
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
-        $users = $app->urlFor('users');
+        $users = $app->urlFor('afficherUsers');
         $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
@@ -117,8 +117,7 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>CoBoard</title>
-          <link rel="icon" type="image/png" href="$path/images/icon/logo_fav.png">
+          <title>EpircerieGenerale</title>
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -151,7 +150,7 @@ END;
       <div class="container-fluid">
         <div class="header-mobile-inner">
           <a class="logo" href="$racine">
-            <img class="col-5"src="images/icon/logo.png" alt="" />
+            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -307,13 +306,9 @@ END;
                                         </ul>
                                       </li>
                                       $admin
-                                      <li>
-                                        <a href="https://www.grandeepiceriegenerale.fr/">
-                                          <i class="fa fa-mouse-pointer"></i>Visitez notre site</a>
-                                        </li>
+
                                           </ul>
                                         </nav>
-
                                       </div>
                                     </aside>
                                     <!-- END MENU SIDEBAR-->
@@ -447,6 +442,7 @@ END;
 </div>-->
 <!--Notification-->
 </div>
+
 <div class="account-wrap">
   <div class="account-item clearfix js-item-menu">
     <div class="image">
@@ -627,6 +623,7 @@ END;
       <script src="$path/js/main.js"></script>
 
   </body>
+
   </html>
 END;
     }
@@ -666,7 +663,7 @@ END;
         $alt="";
 
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
+        $inscription=$app->urlFor('besoin',["sem"=>$sem]);$inscription=$app->urlFor('besoin',["sem"=>$sem]);
         return <<<END
 
 <!-- MAIN CONTENT-->
@@ -763,6 +760,7 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
+        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
