@@ -7,7 +7,8 @@ class VueComptes {
 
   public static function getHeader($app) {
 
-    $path =  $app->urlFor('racine') + "/Bootstrap";
+    $path =  $app->urlFor('racine')."/Bootstrap";
+
 
     return <<<END
     <!DOCTYPE html>
@@ -52,7 +53,7 @@ END;
 
   public static function getFooter($app) {
 
-    $path = $app->urlFor('racine') + "/Bootstrap";
+    $path = $app->urlFor('racine')."/Bootstrap";
 
     return <<<END
     <!-- Jquery JS-->
@@ -87,6 +88,8 @@ END;
 
   public function renderConnexion($app,$erreur) {
 
+    $path = $app->urlFor('racine')."/Bootstrap";
+
     $html = self::getHeader($app) . <<<END
 
     <body class="animsition">
@@ -97,14 +100,16 @@ END;
                         <div class="login-content">
                             <div class="login-logo">
                                 <a href="#">
-                                    <img src="images/icon/logo.png" alt="CoolAdmin">
+                                    <img src="$path/images/icon/logo.png" alt="CoolAdmin">
                                 </a>
                             </div>
+                            <div><p class="text-danger">$erreur</p></div>
                             <div class="login-form">
                                 <form action="" method="post">
                                     <div class="form-group">
-                                        <label>Adresse Email</label>
-                                        <input class="au-input au-input--full" type="email" name="email" placeholder="Votre email">
+                                        <label>Login</label>
+                                        <input class="au-input au-input--full" type="text" name="login" placeholder="Votre login">
+
                                     </div>
                                     <div class="form-group">
                                         <label>Mot de passe</label>
@@ -114,12 +119,6 @@ END;
                                     </div>
                                     <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Valider</button>
                                   </form>
-                                <div class="register-link">
-                                    <p>
-                                        Vous n'avez pas encore de compte ?
-                                        <a href="#">S'enregistrer Ici</a>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>

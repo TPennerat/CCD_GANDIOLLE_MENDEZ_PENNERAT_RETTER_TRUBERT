@@ -21,14 +21,14 @@ class ControleurComptes {
   }
 
   //Affiche la page d'inscription
-  function afficherEnregistrement($rs,$app) {
+  function afficherEnregistrement() {
 
     $view = new VueComptes();
     return $rs->getBody()->write($view->render($app, ""));
   }
 
   //Verifie l'inscription
-  function verifierEnregistrement($rq,$rs,$app) {
+  function verifierEnregistrement() {
       $data = $rq->getParsedBody();
       if(isset($data["password"]) && isset($data["login"]) && !empty($data["password"]) && !empty($data["login"])) {
 
@@ -63,7 +63,7 @@ class ControleurComptes {
   }
 
   //Verifie la connexion d'un utilisateur
-  function verifierConnexion($rq,$rs,$app) {
+  function verifierConnexion() {
       $data = $rq->getParsedBody();
       if(isset($data["password"]) && isset($data["login"]) && !empty($data["password"]) && !empty($data["login"])) {
 
