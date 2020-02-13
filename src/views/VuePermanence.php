@@ -6,6 +6,7 @@ use DateInterval;
 use DateTime;
 use Exception;
 use Slim\Slim;
+use \epicerie\models\User as User;
 
 class VuePermanence
 {
@@ -20,8 +21,41 @@ class VuePermanence
     public static function getHeader($app)
     {
 
-        $path = $app->urlFor('racine') . "/Bootstrap";
+      $path = $app->urlFor('racine') . "/Bootstrap";
+      $ex=explode('/',$app->request->getPath());
+      $sem = $ex[count($ex)-1];
+      $sem1=$app->urlFor("aff",["sem"=>"A"]);
+      $sem2=$app->urlFor("aff",["sem"=>"B"]);
+      $sem3=$app->urlFor("aff",["sem"=>"C"]);
+      $sem4=$app->urlFor("aff",["sem"=>"D"]);
+      $admin="";
+      $racine = $app->urlFor('racine');
+      $img="";
+      $alt="";
 
+      $deco=$app->urlFor('deco');
+      $inscription=$app->urlFor('besoin');
+
+        $user = User::where("id","=",$_SESSION["id_connect"])->first();
+
+        if ($user->droit !=1) {
+            $admin = <<<END
+        <li>
+                                          <a href="map.html">
+                                            <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
+                                          </li>
+                                          <li>
+                                            <a href="map.html">
+                                              <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                                            </li>
+END;
+
+}
+            $img=$app->urlFor('racine').'/web/img/'.$user->urlimage;
+            $alt=$user->nom;
+
+        $deco=$app->urlFor('deco');
+        $inscription=$app->urlFor('besoin');
 
         return <<<END
       <!DOCTYPE html>
@@ -60,213 +94,7 @@ class VuePermanence
           <link href="$path/css/theme.css" rel="stylesheet" media="all">
 
       </head>
-END;
 
-    }
-
-    public function jour($num)
-    {
-        $res = "";
-        switch ($num) {
-            case 1:
-                $res .= "Lundi";
-                break;
-            case 2:
-                $res .= "Mardi";
-                break;
-            case 3:
-                $res .= "Mercredi";
-                break;
-            case 4:
-                $res .= "Jeudi";
-                break;
-            case 5:
-                $res .= "Vendredi";
-                break;
-            case 6:
-                $res .= "Samedi";
-                break;
-            case 7:
-                $res .= "Dimanche";
-                break;
-        }
-        return $res;
-    }
-
-    public function adapt()
-    {
-        $html = "";
-        $content = "";
-        $ancienJour=0;
-        $compJour = 0;
-        $jour=0;
-        $passageUnique = true;
-        $passageUnique2 = true;
-        $ex=explode('/',Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex)-1];
-        foreach ($this->arr as $key) {
-            if ($key->creneau->semaine == $sem ) {
-                $role = $key->role->label;
-                $jour = $key->creneau->jour;
-                if ($passageUnique) {
-                    $passageUnique = false;
-                    $ancienJour = $jour;
-                }
-                $deb = $key->creneau->hDeb . ":00";
-                $fin = $key->creneau->hFin . ":00";
-
-                if ($compJour !== 0) {
-                    $jour = "";
-                }
-
-                switch ($key->role->id) {
-                    case 1:
-                        $class = "c1";
-                        break;
-                    case 2:
-                        $class = "c2";
-                        break;
-                    case 3:
-                        $class = "c3";
-                        break;
-                    case 4:
-                        $class = "c4";
-                        break;
-                    case 5:
-                        $class = "c5";
-                        break;
-                    case 6:
-                        $class = "c6";
-                        break;
-                }
-                $content .= <<<END
-<div class="col-12" style="padding:0px">
-            <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
-              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
-              <div class="overview__inner">
-                <div class="overview-box clearfix" style="width:auto">
-                  <div class="text">
-                    <h2 style="font-size:1.2rem">Permanence</h2>
-                    <h2 style="font-size:1rem;font-weight:bold">$role</h2>
-                    <span style="font-size:1rem">de $deb à $fin</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-END;
-
-                $compJour++;
-                if ($jour !== $ancienJour) {
-                    if ($passageUnique2) {
-                        $j = $this->jour($ancienJour);
-                        $passageUnique2 = false;
-                    } else {
-                        $j = $this->jour($jour);
-
-                    }
-                    $html .= <<<END
-<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
-$content</div>
-END;
-                    $content = "";
-                    $compJour = 0;
-                }
-            }
-        }
-
-        return $html;
-    }
-
-    public static function getFooter($app)
-    {
-
-        $path = $app->urlFor('racine') . "/Bootstrap";
-        return <<<END
-      <!-- Jquery JS-->
-      <script src="$path/vendor/jquery-3.2.1.min.js"></script>
-      <!-- Bootstrap JS-->
-      <script src="$path/vendor/bootstrap-4.1/popper.min.js"></script>
-      <script src="$path/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-      <!-- Vendor JS       -->
-      <script src="$path/vendor/slick/slick.min.js">
-      </script>
-      <script src="$path/vendor/wow/wow.min.js"></script>
-      <script src="$path/vendor/animsition/animsition.min.js"></script>
-      <script src="$path/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-      </script>
-      <script src="$path/vendor/counter-up/jquery.waypoints.min.js"></script>
-      <script src="$path/vendor/counter-up/jquery.counterup.min.js">
-      </script>
-      <script src="$path/vendor/circle-progress/circle-progress.min.js"></script>
-      <script src="$path/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-      <script src="$path/vendor/chartjs/Chart.bundle.min.js"></script>
-      <script src="$path/vendor/select2/select2.min.js">
-      </script>
-
-      <!-- Main JS-->
-      <script src="$path/js/main.js"></script>
-
-  </body>
-
-  </html>
-END;
-    }
-
-    public static function changeSem($sem) {
-        switch ($sem) {
-            case 1 :
-                return "A";
-                break;
-            case 2:
-                return "B";
-                break;
-            case 3:
-                return "C";
-                break;
-            case 4:
-                return "D";
-                break;
-
-        }
-        return 'A';
-    }
-
-    private function afficherMesPermanences($app)
-    {
-        $path = $app->urlFor('racine') . "/Bootstrap";
-        $adapt = $this->adapt();
-        $ex=explode('/',$app->request->getPath());
-        $sem = $ex[count($ex)-1];
-        $sem1=$app->urlFor("aff",["sem"=>"A"]);
-        $sem2=$app->urlFor("aff",["sem"=>"B"]);
-        $sem3=$app->urlFor("aff",["sem"=>"C"]);
-        $sem4=$app->urlFor("aff",["sem"=>"D"]);
-        $admin="";
-        $racine = $app->urlFor('racine');
-        $img="";
-        $alt="";
-        foreach ($this->arr as $key) {
-            if ($key->user->droit !=1) {
-                $admin = <<< END
-<li>
-                                          <a href="map.html">
-                                            <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
-                                          </li>
-                                          <li>
-                                            <a href="map.html">
-                                              <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
-                                            </li>
-END;
-
-            }
-            $img=$app->urlFor('racine').'/web/img/'.$key->user->urlimage;
-            $alt=$key->user->nom;
-            break;
-        }
-        $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin');
-        return <<<END
       <body class="animsition">
   <div class="page-wrapper">
   <!-- HEADER MOBILE-->
@@ -574,6 +402,197 @@ END;
 </header>
 <!-- HEADER DESKTOP-->
 
+END;
+
+    }
+
+    public function jour($num)
+    {
+        $res = "";
+        switch ($num) {
+            case 1:
+                $res .= "Lundi";
+                break;
+            case 2:
+                $res .= "Mardi";
+                break;
+            case 3:
+                $res .= "Mercredi";
+                break;
+            case 4:
+                $res .= "Jeudi";
+                break;
+            case 5:
+                $res .= "Vendredi";
+                break;
+            case 6:
+                $res .= "Samedi";
+                break;
+            case 7:
+                $res .= "Dimanche";
+                break;
+        }
+        return $res;
+    }
+
+    public function adapt()
+    {
+        $html = "";
+        $content = "";
+        $ancienJour=0;
+        $compJour = 0;
+        $jour=0;
+        $passageUnique = true;
+        $passageUnique2 = true;
+        $ex=explode('/',Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex)-1];
+        foreach ($this->arr as $key) {
+            if ($key->creneau->semaine == $sem ) {
+                $role = $key->role->label;
+                $jour = $key->creneau->jour;
+                if ($passageUnique) {
+                    $passageUnique = false;
+                    $ancienJour = $jour;
+                }
+                $deb = $key->creneau->hDeb . ":00";
+                $fin = $key->creneau->hFin . ":00";
+
+                if ($compJour !== 0) {
+                    $jour = "";
+                }
+
+                switch ($key->role->id) {
+                    case 1:
+                        $class = "c1";
+                        break;
+                    case 2:
+                        $class = "c2";
+                        break;
+                    case 3:
+                        $class = "c3";
+                        break;
+                    case 4:
+                        $class = "c4";
+                        break;
+                    case 5:
+                        $class = "c5";
+                        break;
+                    case 6:
+                        $class = "c6";
+                        break;
+                }
+                $content .= <<<END
+<div class="col-12" style="padding:0px">
+            <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
+              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
+              <div class="overview__inner">
+                <div class="overview-box clearfix" style="width:auto">
+                  <div class="text">
+                    <h2 style="font-size:1.2rem">Permanence</h2>
+                    <h2 style="font-size:1rem;font-weight:bold">$role</h2>
+                    <span style="font-size:1rem">de $deb à $fin</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+END;
+
+                $compJour++;
+                if ($jour !== $ancienJour) {
+                    if ($passageUnique2) {
+                        $j = $this->jour($ancienJour);
+                        $passageUnique2 = false;
+                    } else {
+                        $j = $this->jour($jour);
+
+                    }
+                    $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
+                    $content = "";
+                    $compJour = 0;
+                }
+            }
+        }
+
+        return $html;
+    }
+
+    public static function getFooter($app)
+    {
+
+        $path = $app->urlFor('racine') . "/Bootstrap";
+        return <<<END
+      <!-- Jquery JS-->
+      <script src="$path/vendor/jquery-3.2.1.min.js"></script>
+      <!-- Bootstrap JS-->
+      <script src="$path/vendor/bootstrap-4.1/popper.min.js"></script>
+      <script src="$path/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+      <!-- Vendor JS       -->
+      <script src="$path/vendor/slick/slick.min.js">
+      </script>
+      <script src="$path/vendor/wow/wow.min.js"></script>
+      <script src="$path/vendor/animsition/animsition.min.js"></script>
+      <script src="$path/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+      </script>
+      <script src="$path/vendor/counter-up/jquery.waypoints.min.js"></script>
+      <script src="$path/vendor/counter-up/jquery.counterup.min.js">
+      </script>
+      <script src="$path/vendor/circle-progress/circle-progress.min.js"></script>
+      <script src="$path/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+      <script src="$path/vendor/chartjs/Chart.bundle.min.js"></script>
+      <script src="$path/vendor/select2/select2.min.js">
+      </script>
+
+      <!-- Main JS-->
+      <script src="$path/js/main.js"></script>
+
+  </body>
+
+  </html>
+END;
+    }
+
+    public static function changeSem($sem) {
+        switch ($sem) {
+            case 1 :
+                return "A";
+                break;
+            case 2:
+                return "B";
+                break;
+            case 3:
+                return "C";
+                break;
+            case 4:
+                return "D";
+                break;
+
+        }
+        return 'A';
+    }
+
+    private function afficherMesPermanences($app)
+    {
+        $path = $app->urlFor('racine') . "/Bootstrap";
+        $adapt = $this->adapt();
+        $ex=explode('/',$app->request->getPath());
+        $sem = $ex[count($ex)-1];
+        $sem1=$app->urlFor("aff",["sem"=>"A"]);
+        $sem2=$app->urlFor("aff",["sem"=>"B"]);
+        $sem3=$app->urlFor("aff",["sem"=>"C"]);
+        $sem4=$app->urlFor("aff",["sem"=>"D"]);
+        $admin="";
+        $racine = $app->urlFor('racine');
+        $img="";
+        $alt="";
+
+        $deco=$app->urlFor('deco');
+        $inscription=$app->urlFor('besoin');
+        return <<<END
+
 <!-- MAIN CONTENT-->
 <div class="main-content">
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
@@ -626,6 +645,41 @@ END;
         $html.="<form action=$path  id=\"carform\"><input type=\"submit\"></form>";
 
         return $html;
+    }
+
+    function calc_date($ancre, $semaine, $jour, $cycle = 0)
+    {
+        // On vérifie les paramètres...
+        if ((gettype($cycle) !== 'integer') || ($cycle < 0))
+            throw new Exception('calc_date : mauvais numéro de cycle');
+
+        if ((gettype($semaine) !== 'string') || (strlen($semaine) != 1) ||
+            (ord($semaine) - ord('A') < 0) || (ord($semaine) - ord('A') > 3))
+            throw new Exception('calc_date : le n° de semaine doit être entre A et D (inclus)');
+
+        if ((gettype($jour) !== 'integer') || ($jour < 1) || ($jour > 7))
+            throw new Exception('calc_date : le n° de jour doit être entre 1 et 7 (inclus)');
+
+        // On calcule le jour recherché (décalage entier par rapport
+        // à la date de départ -- « l'ancre »)
+        $nb_jours = $cycle * 28 + (ord($semaine) - ord('A')) * 7 + $jour - 1;
+        $date_init = new DateTime($ancre);
+        $date_res = $date_init->add(new DateInterval('P' . $nb_jours . 'D'))->format('U');
+
+        // Attention, distinguo Windows/reste du monde (Windows, WinNT, Win32)
+        $format_jour_no = (preg_match('#win[dn3]#', PHP_OS))? '%#d' : '%e';
+
+        // Génération du résultat
+        return (object) [
+            'jour_no' => strftime($format_jour_no, $date_res),
+            'jour_nom_court' => strftime('%a', $date_res),
+            'jour_nom' => strftime('%A', $date_res),
+            'mois_no' => strftime('%m', $date_res),
+            'mois_nom_court' => strftime('%b', $date_res),
+            'mois_nom' => strftime('%B', $date_res),
+            'annee_no' => strftime('%Y', $date_res),
+            'annee_no_court' => strftime('%y', $date_res)
+        ];
     }
 
 
