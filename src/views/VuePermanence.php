@@ -198,7 +198,7 @@ END;
                     <!-- MENU SIDEBAR-->
                     <aside class="menu-sidebar d-none d-lg-block">
                       <div class="logo">
-                        <a href="#">
+                        <a href="$racine">
                           <img src="$path/images/icon/logo.png" alt="Cool Admin" />
                         </a>
                       </div>
@@ -556,7 +556,8 @@ END;
                     }
                     $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
-$content</div>
+$content
+</div>
 END;
                     $content = "";
                     $compJour = 0;
