@@ -31,7 +31,7 @@ class VuePermanence {
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>Login</title>
+          <title>COBOARD</title>
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -95,9 +95,7 @@ END;
     }
 
     private function afficherMesPermanences($app) {
-
-      $path = $app->urlFor('racine')."/Bootstrap";
-
+        $path = $app->urlFor('racine')."/Bootstrap";
       return <<<END
       <body class="animsition">
         <div class="page-wrapper">
@@ -107,7 +105,7 @@ END;
               <div class="container-fluid">
                 <div class="header-mobile-inner">
                   <a class="logo" href="index.html">
-                    <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+                    <img class="col-5"src=$path."images/icon/logo.png" alt="CoolAdmin" />
                   </a>
                   <button class="hamburger hamburger--slider" type="button">
                     <span class="hamburger-box">
@@ -177,7 +175,7 @@ END;
                             <aside class="menu-sidebar d-none d-lg-block">
                               <div class="logo">
                                 <a href="#">
-                                  <img src="images/icon/logo.png" alt="Cool Admin" />
+                                  <img src=$path."images/icon/logo.png" alt="Cool Admin" />
                                 </a>
                               </div>
                               <div class="menu-sidebar__content js-scrollbar1">
@@ -262,7 +260,7 @@ END;
                                                     </div>
                                                     <div class="mess__item">
                                                     <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                    <img src=$path."images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                                   </div>
                                                   <div class="content">
                                                   <h6>Michelle Moreno</h6>
@@ -272,7 +270,7 @@ END;
                                               </div>
                                               <div class="mess__item">
                                               <div class="image img-cir img-40">
-                                              <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                              <img src=$path."images/icon/avatar-04.jpg" alt="Diane Myers" />
                                             </div>
                                             <div class="content">
                                             <h6>Diane Myers</h6>

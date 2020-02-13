@@ -46,7 +46,7 @@ $app->post('/connexion',function () {
 $app->get('/afficherMesPermanences/:id', function($id) {
     $cont = new ControleurPermanence();
     $cont->afficherMesPermanences($id);
-});
+})->name('aff');
 
 $app->get('/afficherCreneaux',function() {
 

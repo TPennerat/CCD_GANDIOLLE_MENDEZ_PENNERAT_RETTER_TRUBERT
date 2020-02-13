@@ -11,8 +11,7 @@ class ControleurAffichage
 {
     public function racine() {
         if (isset($_SESSION['id_connect'])) {
-            $cont = new ControleurAffichage();
-            $cont->afficherMesPermanences(); 
+            Slim::getInstance()->redirect(Slim::getInstance()->urlFor('aff',['id'=>$_SESSION['id_connect']]));
         } else {
             Slim::getInstance()->redirect(Slim::getInstance()->urlFor('connexion'));
         }
