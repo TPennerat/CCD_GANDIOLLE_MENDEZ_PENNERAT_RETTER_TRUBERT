@@ -18,7 +18,11 @@ class ControleurCreneau
         $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU);
     }
 
-
+    public function desactiverCreneau($id) {
+        $cre = Creneau::where("id","=",$id)->first();
+        $cre->estactif = $cre->estactif == 1 ? 0 : 1;
+        $cre->save();
+    }
 
     public function ajouterCreneau(){
 

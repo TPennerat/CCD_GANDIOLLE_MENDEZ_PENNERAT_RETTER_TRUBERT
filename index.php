@@ -6,6 +6,7 @@ session_start();
 
 use epicerie\controlers\ControleurBesoin;
 use \epicerie\controlers\ControleurCreneau;
+use epicerie\controlers\ControleurPersonne;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
 
@@ -39,6 +40,13 @@ $app->get('/connexion',function () {
   $cont->afficherConnexion();
 
 })->name('connexion');
+
+$app->get('/changerActivitee/:id',function ($id) {
+
+   $c = new ControleurCreneau();
+   $c->desactiverCreneau($id);
+
+});
 
 $app->get('/deconnexion', function() {
     $c = new ControleurComptes();
@@ -159,5 +167,15 @@ $app->post('/creerCompte', function (){
 })->name('creerCompte');
 
 
+$app->get('/afficherUsers', function (){
+    $c = new ControleurPersonne();
+    $c->afficherToutLeMonde();
+})->name('afficherUsers');
+
+
+$app->get('/afficherUser/:id', function ($id){
+    $c = new ControleurPersonne();
+    $c->afficherUser($id);
+})->name('afficher1User');
 
 $app->run();
