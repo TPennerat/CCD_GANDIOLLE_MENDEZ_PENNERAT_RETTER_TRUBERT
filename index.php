@@ -80,7 +80,7 @@ $app->get('/creneau/:id/modifierCreneau/:etat', function($id, $etat){
 $app->get('/creerBesoin', function() {
     $c = new ControleurPermanence();
     $c->afficherCreationBesoin();
-});
+})->name('creerbes');
 
 $app->post('/creerBesoin', function() {
     $c = new ControleurPermanence();
