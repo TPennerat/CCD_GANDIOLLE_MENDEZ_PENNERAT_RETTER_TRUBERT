@@ -111,30 +111,23 @@ END;
             }
             $deb = $key->creneau->hDeb . ":00";
             $fin = $key->creneau->hFin . ":00";
-
-            if($compJour!==0){
+            $class = "c1";
+            if ($compJour === 1) {
+                $class = "c2";
                 $jour = "";
-            }
-
-            switch ($key->role->id) {
-                case 1:
-                    $class = "c1";
-                    break;
-                case 2:
-                    $class = "c2";
-                    break;
-                case 3:
-                    $class = "c3";
-                    break;
-                case 4:
-                    $class = "c4";
-                    break;
-                case 5:
-                    $class = "c5";
-                    break;
-                case 6:
-                    $class = "c6";
-                    break;
+            } elseif ($compJour === 2) {
+                $class = "c3";
+                $jour = "";
+            } elseif ($compJour === 3) {
+                $class = "c4";
+                $jour = "";
+            } elseif ($compJour === 4) {
+                $class = "c5";
+                $jour = "";
+            } elseif ($compJour === 5) {
+                $class = "c6";
+                $jour = "";
+                $compJour = 0;
             }
             $content .= <<<END
 <div class="col-12" style="padding:0px">
@@ -553,6 +546,8 @@ END;
     private function afficherCréationBesoin($app)
     {
 
+        $html = "";
+
         $creneaux = $this->arr[0];
         $roles = $this->arr[1];
 
@@ -560,14 +555,22 @@ END;
         $contentRoles = "";
 
         foreach ($creneaux as $cre) {
-            $contentCre .= "<option value=\"$cre->id\"> Jour : $cre->jour </option>";
+            $contentCre .= "<option value=\"$cre->id\"> Jour $cre->jour De : $cre->hDeb h à $cre->hFin h </option>";
         }
+
+        $html.='<label for="cren">Choisir créneau : </label><select>'.$contentCre.'</select><br>';
 
         foreach ($roles as $role) {
-            $contentRoles .= "<option value=\"$role->id\"> $role->nomRole </option>";
+            $contentRoles .= "<option value=\"$role->id\"> $role->label </option>";
         }
 
+        $html.='<label for="role">Choisir role : </label><select>'.$contentRoles.'</select>';
+
         $path = $app->urlFor('creerBesoin');
+
+        $html.="<form action=$path  id=\"carform\"><input type=\"submit\"></form>";
+
+        return $html;
     }
 
 

@@ -1,7 +1,6 @@
 <?php
 namespace epicerie\controlers;
 
-use epicerie\models\AssurePermanence;
 use \epicerie\models\AssurePermanence as Permanence;
 use \epicerie\models\Creneau as Creneau;
 use \epicerie\models\Role as Role;
@@ -15,7 +14,7 @@ class ControleurPermanence {
   //Affiche la page de création d'un besoin
   function afficherCreationBesoin() {
 
-    $creneaux = Creneaux::select("*")->get();
+    $creneaux = Creneau::select("*")->get();
     $roles = Role::select("*")->get();
 
     $tab = array();
@@ -48,30 +47,14 @@ class ControleurPermanence {
     $perms = Permanence::where('idUtil','=',$id)->get();
     $view = new VuePermanence($perms);
     $view->render(2);
-    
+
   }
 
-    public function inscrireBesoin($idBesoin){
+  function afficherToutesLesPermanences($id) {
 
-        if (isset($_SESSION['id_connect'])) {
+    $perms = Permanence::where('idUtil','is not',null)->get();
+    $view = new VuePermanence($perms);
+    $view->render(2);
 
-            $user = $_SESSION['id_connect'];
-
-            $permanence = AssurePermanence::where('id', '=', $idBesoin)->first();
-
-            $assurePerma = AssurePermanence::where('idCreneau', '=', $permanence->idCreneau, '&&', 'idUtil', '=', $user);
-
-            if($assurePerma == null){
-
-                $permanence->idUtil = $user;
-            }
-        }
-
-        $view = new VuePermanence();
-        $view->render(1);
-    }
-
-
-
-
+  }
 }
