@@ -2,6 +2,8 @@
 
 namespace epicerie\views;
 
+use epicerie\models\Role;
+
 class VueCreneau
 {
 
@@ -9,10 +11,14 @@ class VueCreneau
 
     const AFFICHAGE_CRENEAUX = 2;
 
+    const AFFICHER_TOUT = 3;
+
     /**
      * L'item
      */
     private $creneauAffiche;
+
+    private $permanencesAffiche;
 
     /**
      * vueItem constructor.
@@ -21,9 +27,10 @@ class VueCreneau
      * @param $index : container
      */
 
-    public function __construct($arr)
+    public function __construct($arr, $perms = null)
     {
         $this->creneauAffiche = $arr;
+        $this->permanencesAffiche = $perms;
     }
 
 
@@ -85,6 +92,32 @@ class VueCreneau
                      Semaine : $creneau->semaine <br>
                      Heure de debut : $creneau->hDeb <br>
                      Heure de fin : $creneau->hFin <br>";
+            if($creneau->estActif == 0){
+                $res .= "Etat : Incatif";
+            }else{
+                $res .= "Etat : Actif";
+            }
+            $res .= "<br>";
+        }
+
+        return $res;
+    }
+
+    public function afficherTout(){
+
+        $res = $this->afficherCreneaux();
+        foreach ($this->permanencesAffiche as $perm){
+
+            // A changer, car faire des requettes dans une vue c'est horrible
+
+            $role = Role::where('id', '=', $perm->idRole)->first();
+
+            $res .= "Role : $role->label <br>";
+
+            if($perm->idUtil == null){
+                //mettre un code couleur
+                $res .= "Assure par personne <br>";
+            }
         }
         return $res;
     }
@@ -99,6 +132,9 @@ class VueCreneau
                 break;
             case (self::AFFICHAGE_CRENEAUX):
                 $content = $this->afficherCreneaux();
+                break;
+            case (self::AFFICHER_TOUT):
+                $content = $this->afficherTout();
                 break;
         }
 
