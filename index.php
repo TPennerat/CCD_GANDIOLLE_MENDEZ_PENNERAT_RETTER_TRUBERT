@@ -5,9 +5,9 @@ namespace CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN\www;
 session_start();
 
 use epicerie\controlers\ControleurBesoin;
+use epicerie\controlers\ControleurComptes;
 use \epicerie\controlers\ControleurCreneau;
 use \Illuminate\Database\Capsule\Manager as DB;
-use \epicerie\controlers\ControleurComptes as ControleurComptes;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -35,8 +35,8 @@ $app->get('/',function () {
 
 $app->get('/connexion',function () {
 
-  $cont = new ControleurComptes();
-  $cont->afficherConnexion();
+    $cont = new ControleurComptes();
+    $cont->afficherConnexion();
 
 })->name('connexion');
 
@@ -67,8 +67,8 @@ $app->get('/creerBesoin', function() {
 });
 
 $app->post('/creerBesoin', function() {
-  $c = new ControleurPermanence();
-  $c->creerBesoin();
+    $c = new ControleurPermanence();
+    $c->creerBesoin();
 })->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
@@ -139,5 +139,35 @@ $app->get('/besoin', function () {
     $c = new ControleurPermanence();
     $c->afficherToutesLesPermanences();
 })->name('besoin');
+
+
+$app->get('/
+modifierCompte', function (){
+    $c = new ControleurComptes();
+    $c->afficherFormulaireModificationCompte();
+})->name('modifierCompte');
+
+
+
+$app->post('/modifierCompte', function (){
+
+    $c = new ControleurComptes();
+    $c->modifierCompte();
+})->name('modifier');
+
+$app->get('/
+creerCompte', function (){
+    $c = new ControleurComptes();
+    $c->afficherFormulaireCreationCompte();
+})->name('modifierCompte');
+
+
+$app->post('/creerCompte', function (){
+
+    $c = new ControleurComptes();
+    $c->creerCompte();
+})->name('creerCompte');
+
+
 
 $app->run();
