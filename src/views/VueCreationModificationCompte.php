@@ -30,36 +30,36 @@ class VueCreationModificationCompte
                         Les mots de passe de sont pas identiques
                         </p>";
         }
-        $res .= "<form method='post' action='modifierCompte'>
-                <label>Nom : </label>
-                <input type='text' name='username' placeholder=$this->username>
-                <label>Mot de passe : </label>
-               <input type='password' name='mdp1' required>
-                <label>Saisir à nouveau : </label> 
-                <input type='password' name='mdp2' required>      
-               
-               
-               
-                <label>Type du compte : </label>
-                <div>
-                <input type=radio name=type value=admin checked>
-                <label for=Admin>Admin</label>
+        $res.= <<<END
+        <form class="col-12" method="post" action="creerCompte" enctype="multipart/form-data">
+          <div class="form-group col-12">
+            <label class="col-2">Nom d'utilisateur</label>
+            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="$this->username">
+          </div>
+
+            <div class="form-group col-12">
+              <label class="col-2">Type du compte : </label>
+
+              <div style="display:inline-block" class="col-2">
+                <div class="col-12">
+                  <input class="form-check-input" type="radio" name="type" value="admin" checked="">
+                  <label for="Admin">Admin</label>
                 </div>
 
-                <div>
-                <input  type=radio name=type value=utilisateur checked>
-                <label for=utilisateur>Utilisateur</label>
+                <div class="col-12">
+                  <input class="form-check-input" type="radio" name="type" value="utilisateur" checked="">
+                  <label for="utilisateur">Utilisateur</label>
                 </div>
-                
-                
-                <label for=avatar>Choisir une photo de profil :</label>
+              </div>
+            </div>
+          <div class="custom-file col-12" style="margin-bottom:10px">
+            <input style="display:inline-block" class="custom-file-input col-2" type="file" name="avatar" accept='.png, .jpeg'>
+            <label style="display:inline-block" class="offset-sm-4 col-4 custom-file-label" for="customFile">Choose file</label>
+          </div>
 
-                <input type=file id=avatar name=avatar accept='.png, .jpeg'>
-                
-                     
-               <input type='submit' class='btn' value='Modifier'>
-              
-               </form>";
+          <button type="submit" class="btn col-4 btn-primary">Submit</button>
+        </form>
+END;
         return $res;
 
     }
@@ -73,35 +73,46 @@ class VueCreationModificationCompte
                         Les mots de passe de sont pas identiques
                         </p>";
         }
-        $res.= "<form method='post' action='creerCompte'>
-                <label>Nom : </label>
-                <input type='text' name='username' placeholder=$this->username>
-                
-                <label>Mot de passe : </label>
-               <input type='password' name='mdp1' required>
-                <label>Saisir à nouveau : </label>
-       
-               <input type='password' name='mdp2' required>         
-               
-                <label>Type du compte : </label>
+        $res.= <<<END
+        <form class="col-12" method="post" action="creerCompte" enctype="multipart/form-data">
+          <div class="form-group col-12">
+            <label class="col-2">Nom d'utilisateur</label>
+            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="$this->username">
+          </div>
 
-                <div>
-                <input type=radio name=type value=admin checked>
-                <label for=Admin>Admin</label>
+          <div class="form-group col-12">
+            <label class="col-2">Mot de passe</label>
+            <input style="display:inline-block" class="form-control col-2" type="password" name="mdp1" required="" placeholder="">
+          </div>
+
+          <div class="form-group col-12">
+            <label class="col-2">Saisir à nouveau</label>
+            <input style="display:inline-block" class="form-control col-2" type="password" name="mdp2" required="" placeholder="">
+          </div>
+
+            <div class="form-group col-12">
+              <label class="col-2">Type du compte : </label>
+
+              <div style="display:inline-block" class="col-2">
+                <div class="col-12">
+                  <input class="form-check-input" type="radio" name="type" value="admin" checked="">
+                  <label for="Admin">Admin</label>
                 </div>
 
-                <div>
-                <input  type=radio name=type value=utilisateur checked>
-                <label for=utilisateur>Utilisateur</label>
+                <div class="col-12">
+                  <input class="form-check-input" type="radio" name="type" value="utilisateur" checked="">
+                  <label for="utilisateur">Utilisateur</label>
                 </div>
-                
-                
-                <label for=avatar>Choisir une photo de profil :</label>
+              </div>
+            </div>
+          <div class="custom-file col-12" style="margin-bottom:10px">
+            <input style="display:inline-block" class="custom-file-input col-2" type="file" name="avatar" accept='.png, .jpeg'>
+            <label style="display:inline-block" class="offset-sm-4 col-4 custom-file-label" for="customFile">Choose file</label>
+          </div>
 
-                <input type=file id=avatar name=avatar accept='.png, .jpeg'>
-
-               <input type='submit' class='btn' value='Creer'>
-               </form>";
+          <button type="submit" class="btn col-4 btn-primary">Submit</button>
+        </form>
+END;
 
         return $res;
 
