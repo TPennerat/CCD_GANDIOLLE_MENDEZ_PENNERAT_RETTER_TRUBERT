@@ -109,7 +109,7 @@ class ControleurComptes {
 
         $username = User::where('id', '=', $_SESSION['id_connect'])->first();
         $vue = new VueCreationModificationCompte($username);
-        $vue->render(VueCreationModificationCompte::FORMULAIRE_MODIFICATION);
+        $vue->render(VueCreationModificationCompte::AFFICHER_FORMULAIRE_MODIFICATION);
 
 
     }

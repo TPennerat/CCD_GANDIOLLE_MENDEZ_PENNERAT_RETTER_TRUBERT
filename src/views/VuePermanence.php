@@ -44,6 +44,9 @@ class VuePermanence
 
       $deco=$app->urlFor('deco');
       $inscription=$app->urlFor('besoin');
+      $creercompte=$app->urlFor('creerC');
+      $modifcompte=$app->urlFor('modifierCompte');
+      $compte=$app->urlFor('afficher1User',["id"=>$_SESSION["id_connect"]]);
 
         $user = User::where("id","=",$_SESSION["id_connect"])->first();
 
@@ -54,7 +57,7 @@ class VuePermanence
                                             <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
                                           </li>
                                           <li>
-                                            <a href="map.html">
+                                            <a href="$creercompte">
                                               <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
                                             </li>
 END;
@@ -62,11 +65,11 @@ END;
 
       <div class="account-dropdown__body">
         <div class="account-dropdown__item">
-          <a href="#">
+          <a href="$compte">
             <i class="zmdi zmdi-account"></i>Compte</a>
           </div>
           <div class="account-dropdown__item">
-            <a href="#">
+            <a href="$modifcompte">
               <i class="zmdi zmdi-settings"></i>Paramètres</a>
             </div>
             <div class="account-dropdown__footer">
