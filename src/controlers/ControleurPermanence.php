@@ -42,15 +42,16 @@ class ControleurPermanence {
   }
 
 
+
   function afficherMesPermanences() {
         $perms = Permanence::where('idUtil', '=', $_SESSION['id_connect'])->get();
         $view = new VuePermanence($perms);
         $view->render(2);
     }
 
-  function afficherToutesLesPermanences($id) {
+  function afficherToutesLesPermanences() {
 
-    $perms = Permanence::where('idUtil','is not',null)->get();
+    $perms = Permanence::where('idUtil','is',null)->get();
     $view = new VuePermanence($perms);
     $view->render(2);
 

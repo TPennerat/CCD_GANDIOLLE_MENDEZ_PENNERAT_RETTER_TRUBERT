@@ -135,5 +135,9 @@ $app->get('/deconnexion', function() {
     $c->seDeconnecter();
 })->name('deco');
 
+$app->get('/besoin', function () {
+    $c = new ControleurPermanence();
+    $c->afficherToutesLesPermanences();
+})->name('besoin');
 
 $app->run();

@@ -265,6 +265,7 @@ END;
             break;
         }
         $deco=$app->urlFor('deco');
+        $inscription=$app->urlFor('besoin');
         return <<<END
       <body class="animsition">
   <div class="page-wrapper">
@@ -580,7 +581,7 @@ END;
       <div class="row">
         <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine</h2></div>
         <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
-          <button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button>
+          <a href="$inscription"><button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button></a>
         </div>
 $adapt
       </div>
