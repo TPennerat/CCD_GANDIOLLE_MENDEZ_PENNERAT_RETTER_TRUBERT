@@ -99,11 +99,11 @@ END;
             $alt=$user->nom;
 
         $deco=$app->urlFor('deco');
-
+        $inscription=$app->urlFor('besoin');
         $creerCompte=$app->urlFor('creerCompte');
         $modifCompte=$app->urlFor('modifierCompte');
         $graphique=$app->urlFor('graphique');
-        $users = $app->urlFor('users');
+        $users = $app->urlFor('afficherUsers');
         $res = <<<END
       <!DOCTYPE html>
       <html lang="en">
@@ -307,9 +307,13 @@ END;
                                         </ul>
                                       </li>
                                       $admin
-
+                                      <li>
+                                        <a href="https://www.grandeepiceriegenerale.fr/">
+                                          <i class="fa fa-mouse-pointer"></i>Visitez notre site</a>
+                                        </li>
                                           </ul>
                                         </nav>
+
                                       </div>
                                     </aside>
                                     <!-- END MENU SIDEBAR-->
@@ -443,7 +447,6 @@ END;
 </div>-->
 <!--Notification-->
 </div>
-
 <div class="account-wrap">
   <div class="account-item clearfix js-item-menu">
     <div class="image">
@@ -624,7 +627,6 @@ END;
       <script src="$path/js/main.js"></script>
 
   </body>
-
   </html>
 END;
     }
@@ -664,7 +666,7 @@ END;
         $alt="";
 
         $deco=$app->urlFor('deco');
-        $inscription=$app->urlFor('besoin',["sem"=>$sem]);
+        $inscription=$app->urlFor('besoin');
         return <<<END
 
 <!-- MAIN CONTENT-->
