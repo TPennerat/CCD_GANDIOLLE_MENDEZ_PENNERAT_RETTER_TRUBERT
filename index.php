@@ -96,7 +96,10 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 })->name('modifierEtatCreneau');
 
 
-$app->post('/creneau/ajouterCreneau', ControleurCreneau::class.'ajouterCreneau');
+$app->post('/creneau/ajouterCreneau', function () {
+    $c = new ControleurCreneau();
+    $c->ajouterCreneau(null,null);
+});
 
 
 $app->post('/connexion',function () {
