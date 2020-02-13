@@ -4,9 +4,9 @@ namespace mywishlist\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Role extends Model
 {
-    protected $table = 'user';
+    protected $table = 'role';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
