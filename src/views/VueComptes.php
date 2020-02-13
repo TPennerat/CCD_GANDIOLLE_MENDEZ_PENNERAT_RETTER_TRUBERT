@@ -7,7 +7,8 @@ class VueComptes {
 
   public static function getHeader($app) {
 
-    $path =  $app->urlFor('racine') + "/Bootstrap";
+    $path =  $app->urlFor('racine')."/Bootstrap";
+
 
     return <<<END
     <!DOCTYPE html>
@@ -52,7 +53,7 @@ END;
 
   public static function getFooter($app) {
 
-    $path = $app->urlFor('racine') + "/Bootstrap";
+    $path = $app->urlFor('racine')."/Bootstrap";
 
     return <<<END
     <!-- Jquery JS-->
@@ -87,6 +88,8 @@ END;
 
   public function renderConnexion($app,$erreur) {
 
+    $path = $app->urlFor('racine')."/Bootstrap";
+
     $html = self::getHeader($app) . <<<END
 
     <body class="animsition">
@@ -97,7 +100,7 @@ END;
                         <div class="login-content">
                             <div class="login-logo">
                                 <a href="#">
-                                    <img src="images/icon/logo.png" alt="CoolAdmin">
+                                    <img src="$path/images/icon/logo.png" alt="CoolAdmin">
                                 </a>
                             </div>
                             <div class="login-form">
