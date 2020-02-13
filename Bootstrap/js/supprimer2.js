@@ -8,10 +8,10 @@ let changer = function changer(e) {
     }
   }
   let id = el.attr("id");
-  alert("Vous avez supprimé une permanence");
+  alert("Vous avez supprimé un besoin");
   let xhr = new XMLHttpRequest();
 xhr.open('GET',
- 'https://webetu.iutnc.univ-lorraine.fr/www/gandioll4u/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/supprimerMonOption/' + id);
+ 'https://webetu.iutnc.univ-lorraine.fr/www/gandioll4u/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/supprimerUnePermanence/' + id);
  xhr.addEventListener("load",
   slide);
 xhr.send();
@@ -19,7 +19,7 @@ xhr.send();
 
 }
 
-let elem = $('.peutEtreSupprime1')
+let elem = $('.peutEtreSupprime2')
 elem.on("click",changer)
 
 });
