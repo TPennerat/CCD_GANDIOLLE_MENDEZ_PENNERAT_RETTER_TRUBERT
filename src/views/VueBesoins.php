@@ -61,23 +61,31 @@ class VueBesoins
         $passageUnique = true;
         $ex=explode('/',Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex)-1];
-
         foreach ($this->arr as $key) {
-            if ($key->creneau->semaine == $sem ) {
-                $role = $key->role->label;
-                $jour = $key->creneau->jour;
+            if ($key->semaine == $sem) {
+                $role= $key->role->label;
+                $jour = $key->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
                 }
-                $deb = $key->creneau->hDeb . ":00";
-                $fin = $key->creneau->hFin . ":00";
-
-                if ($compJour !== 0) {
-                    $jour = "";
+                if ($key->jour !== $ancienJour) {
+                    $j = $this->jour($ancienJour);
+                    $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
+                    $content = "";
+                    $compJour = 0;
+                    $ancienJour = $jour;
                 }
 
+
+                $deb = $key->hDeb . ":00";
+                $fin = $key->hFin . ":00";
+
                 $content .= <<<END
+$content .= <<<END
 <div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
@@ -96,28 +104,48 @@ class VueBesoins
                 </div>
 
 END;
-var_dump($content);
-                $compJour++;
-                if ($jour !== $ancienJour) {
-                    $j = $this->jour($ancienJour);
-                    $html .= <<<END
-                    <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
-                      <div class="col-12" style="padding:0px">
-                       
-$content
 
-</div>
-</div>
-END;
-                    $content = "";
-                    $compJour = 0;
-                }
+                $compJour++;
+
+
             }
         }
-
+        $j = $this->jour($ancienJour);
+        $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
         return $html;
     }
 
+    public function jour($num)
+    {
+        $res = "";
+        switch ($num) {
+            case 1:
+                $res .= "Lundi";
+                break;
+            case 2:
+                $res .= "Mardi";
+                break;
+            case 3:
+                $res .= "Mercredi";
+                break;
+            case 4:
+                $res .= "Jeudi";
+                break;
+            case 5:
+                $res .= "Vendredi";
+                break;
+            case 6:
+                $res .= "Samedi";
+                break;
+            case 7:
+                $res .= "Dimanche";
+                break;
+        }
+        return $res;
+    }
     private function afficherToutesLesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";

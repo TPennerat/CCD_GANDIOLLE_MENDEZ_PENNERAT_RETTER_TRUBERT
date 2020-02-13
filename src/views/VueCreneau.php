@@ -149,7 +149,6 @@ END;
         foreach ($this->creneauAffiche as $key) {
             if ($key->semaine == $sem) {
                 $jour = $key->jour;
-                echo $jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
