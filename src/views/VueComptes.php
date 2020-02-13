@@ -103,6 +103,7 @@ END;
                                     <img src="$path/images/icon/logo.png" alt="CoolAdmin">
                                 </a>
                             </div>
+                            <div><p class="text-danger">$erreur</p></div>
                             <div class="login-form">
                                 <form action="" method="post">
                                     <div class="form-group">
