@@ -111,23 +111,30 @@ END;
             }
             $deb = $key->creneau->hDeb . ":00";
             $fin = $key->creneau->hFin . ":00";
-            $class = "c1";
-            if ($compJour === 1) {
-                $class = "c2";
+
+            if($compJour!==0){
                 $jour = "";
-            } elseif ($compJour === 2) {
-                $class = "c3";
-                $jour = "";
-            } elseif ($compJour === 3) {
-                $class = "c4";
-                $jour = "";
-            } elseif ($compJour === 4) {
-                $class = "c5";
-                $jour = "";
-            } elseif ($compJour === 5) {
-                $class = "c6";
-                $jour = "";
-                $compJour = 0;
+            }
+
+            switch ($key->role->id) {
+                case 1:
+                    $class = "c1";
+                    break;
+                case 2:
+                    $class = "c2";
+                    break;
+                case 3:
+                    $class = "c3";
+                    break;
+                case 4:
+                    $class = "c4";
+                    break;
+                case 5:
+                    $class = "c5";
+                    break;
+                case 6:
+                    $class = "c6";
+                    break;
             }
             $content .= <<<END
 <div class="col-12" style="padding:0px">
