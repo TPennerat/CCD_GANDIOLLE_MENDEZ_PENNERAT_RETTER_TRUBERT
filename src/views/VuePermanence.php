@@ -94,7 +94,10 @@ END;
 END;
     }
 
-    private function afficherMesPermanences() {
+    private function afficherMesPermanences($app) {
+
+      $path = $app->urlFor('racine')."/Bootstrap";
+
       return <<<END
       <body class="animsition">
         <div class="page-wrapper">
@@ -590,7 +593,7 @@ END;
             }
             case 2:
             {
-                $content = $this->afficherMesPermanences();
+                $content = $this->afficherMesPermanences($app);
                 break;
             }
         }
