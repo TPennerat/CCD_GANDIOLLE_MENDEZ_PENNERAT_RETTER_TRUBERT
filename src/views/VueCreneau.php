@@ -276,7 +276,7 @@ END;
 
 
     public function render($const, $erreur = -1){
-
+        $app = Slim::getInstance();
         $content = '';
         switch ($const){
             case (self::FORMULAIRE_AJOUT_CRENEAU):
@@ -291,6 +291,8 @@ END;
         }
         $ex=explode('/',Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex)-1];
+
+        $ajoutCreneau=$app->urlFor('ajouterCreneau');
         $html =<<<END
 <div class="main-content">
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
@@ -298,7 +300,7 @@ END;
       <div class="row">
         <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Créneaux de la semaine $sem</h2></div>
         <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
-          <a href="#"><button type="button" class="btn btn-outline-primary btn-lg">Créer un créneau</button></a>
+          <a href="$ajoutCreneau"><button type="button" class="btn btn-outline-primary btn-lg">Créer un créneau</button></a>
         </div>
     $content
 
