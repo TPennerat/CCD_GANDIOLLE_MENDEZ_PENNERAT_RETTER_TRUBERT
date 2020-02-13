@@ -7,6 +7,9 @@ session_start();
 use \epicerie\controlers\ControleurCreneau;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
 use \epicerie\controlers\ControleurPermanence as ControleurPermanence;
 use \epicerie\controlers\ControleurAffichage as ControleurAffichage;
 use Slim\Slim;
@@ -20,7 +23,7 @@ $db->addConnection(parse_ini_file('src/conf/conf.ini'));
 $db->setAsGlobal();
 $db->bootEloquent();
 
-
+//affichage de la racine
 $app->get('/',function () {
 
     $cont = new ControleurAffichage();
@@ -36,12 +39,6 @@ $app->get('/connexion',function () {
 
 })->name('connexion');
 
-$app->post('/connexion',function () {
-
-    $cont = new ControleurComptes();
-    $cont->verifierConnexion();
-
-})->name('co');
 
 $app->get('/afficherMesPermanences/:id', function($id) {
     $cont = new ControleurPermanence();
@@ -49,6 +46,9 @@ $app->get('/afficherMesPermanences/:id', function($id) {
 })->name('aff');
 
 $app->get('/afficherCreneaux',function() {
+
+    $c = new ControleurCreneau();
+    $c->afficherCreneaux();
 
 });
 
@@ -83,7 +83,26 @@ $app->get('/creneau/ajouterCreneau', function () {
 })->name('formulaireCreneau');
 
 
-$app->post('/creneau/ajouterCreneau', ControleurCreneau::class.':ajouterCreneau');
+
+$app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $rq, Response $rs, array $args){
+
+    $id = $args['id'];
+    $etat = $args['etat'];
+    $c = new ControleurCreneau($this);
+    return $c->modifierEtatCreneau($id, $rq, $rs, $etat);
+
+})->name('modifierEtatCreneau');
+
+
+$app->post('/creneau/ajouterCreneau', ControleurCreneau::class.'ajouterCreneau');
+
+
+$app->post('/connexion',function () {
+
+    $cont = new ControleurComptes();
+    $cont->verifierConnexion();
+
+})->name('co');
 
 
 $app->run();

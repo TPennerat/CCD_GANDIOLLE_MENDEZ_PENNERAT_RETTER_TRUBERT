@@ -2,10 +2,10 @@
 
 namespace epicerie\controlers;
 
-use \epicerie\models\Creneau;
+use epicerie\models\Creneau;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use \epicerie\views\VueCreneau;
+use epicerie\views\VueCreneau;
 
 class ControleurCreneau
 {
@@ -24,16 +24,9 @@ class ControleurCreneau
         $vue = new vueCreneau('');
 
 
-        $dernierCreneau = Creneau::tail();
 
 
-        $creneau = new Creneau();
-        $creneau->id = $dernierCreneau->idCreneau+1;
-        $creneau->hDeb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
-        $creneau->hFin = htmlspecialchars(filter_var($rq->getParams()['hfin'], FILTER_SANITIZE_STRING ));
-        $creneau->jour = htmlspecialchars(filter_var($rq->getParams()['jour'], FILTER_SANITIZE_STRING ));
-        $creneau->semaine = htmlspecialchars(filter_var($rq->getParams()['semaine'], FILTER_SANITIZE_STRING ));
-        $creneau->cycle = null;
+
 
 
         $deb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
@@ -51,13 +44,25 @@ class ControleurCreneau
             return $rs;
         }
 
+
+        $creneau = new Creneau();
+        $creneau->hDeb = $deb;
+        $creneau->hFin = $fin;
+        $creneau->jour = $_POST['jour'];
+        $creneau->semaine = $_POST['semaine'];
+        $creneau->cycle = 0;
         $creneau->save();
 
-        $lien =$this->index->router->pathFor('listeToken');
+        $lien =$this->index->router->pathFor('racine');
         return $rs->withRedirect("$lien",301);
 
+    }
 
 
+    public function afficherCreneaux(){
+        $creneaux = Creneau::get();
+        $vue = new VueCreneau($creneaux);
+        $vue->render(VueCreneau::AFFICHAGE_CRENEAUX);
     }
 
 
