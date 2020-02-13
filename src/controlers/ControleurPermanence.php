@@ -78,7 +78,7 @@ class ControleurPermanence {
 
   function afficherMesPermanences($id) {
 
-    $perms = Permanence::where('idUtil','=',$_SESSION['id_connect'])->get();
+    $perms = Permanence::join('creneau','idCreneau','=','creneau.id')->orderBy('jour','asc')->orderBy('hDeb','asc')->where('idUtil','=',$_SESSION['id_connect'])->get();
     $view = new VuePermanence($perms);
     $view->render(2);
 
@@ -86,7 +86,7 @@ class ControleurPermanence {
 
   function afficherToutesLesPermanences() {
 
-    $perms = Permanence::where('idUtil','=',null)->get();
+      $perms = Permanence::join('creneau','idCreneau','=','creneau.id')->orderBy('jour','asc')->orderBy('hDeb','asc')->where('idUtil','=',null)->get();
     $view = new VueBesoins($perms);
 
     $view->render(1);
