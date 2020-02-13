@@ -1,5 +1,6 @@
 <?php
 
+namespace CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN\www;
 /*https://webetu.iutnc.univ-lorraine.fr/www/pennerat7u/CCD_GANDIOLLE_MENDEZ_PENNERAT_RETTER_TRUBERT_JENIN/*/
 session_start();
 
@@ -17,6 +18,8 @@ $db->bootEloquent();
 
 //affichage de la racine
 $app->get('/',function () {
+
+
 
 })->name('racine');
 
