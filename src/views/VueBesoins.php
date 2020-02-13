@@ -117,14 +117,10 @@ END;
                 $fin = $key->creneau->hFin . ":00";
                 $inscription = Slim::getInstance()->urlFor('inscrBes',["id"=>$key->id]);
                 $content .= <<<END
-<<<<<<< HEAD
 <div id=$key->id class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
-=======
-<div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
-                $coin
->>>>>>> 43f2c4a22d7c99bccba920d70af9bf01215fba5e
+
                 <div class="overview__inner">
                   <div class="peutEtreSupprime2 overview-box clearfix" style="width:auto">
                     <div class="text">
@@ -182,6 +178,7 @@ END;
 
     private function afficherToutesLesPermanences($app)
     {
+        $path = $app->urlFor('racine') . "/Bootstrap";
         $adapt = $this->adapt();
         $ex = explode('/', $app->request->getPath());
         $sem = $ex[count($ex) - 1];

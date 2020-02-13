@@ -151,7 +151,7 @@ END;
       <div class="container-fluid">
         <div class="header-mobile-inner">
           <a class="logo" href="$racine">
-            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+            <img class="col-5"src="$path/images/icon/logo.png" alt="CoolAdmin" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
             <span class="hamburger-box">
@@ -515,28 +515,29 @@ END;
     {
         $html = "";
         $content = "";
-        $ancienJour=0;
+        $ancienJour = 0;
         $compJour = 0;
-        $jour=0;
         $passageUnique = true;
-        $passageUnique2 = true;
-        $ex=explode('/',Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex)-1];
+        $ex = explode('/', Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex) - 1];
         foreach ($this->arr as $key) {
-            if ($key->creneau->semaine == $sem ) {
+            if ($key->creneau->semaine == $sem) {
                 $role = $key->role->label;
-                $jour = $key->creneau->jour;
+                $jour = $key->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
                 }
-                $deb = $key->creneau->hDeb . ":00";
-                $fin = $key->creneau->hFin . ":00";
-
-                if ($compJour !== 0) {
-                    $jour = "";
+                if ($key->jour !== $ancienJour) {
+                    $j = $this->jour($ancienJour);
+                    $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
+                    $content = "";
+                    $compJour = 0;
+                    $ancienJour = $jour;
                 }
-
                 switch ($key->role->id) {
                     case 1:
                         $class = "c1";
@@ -557,6 +558,8 @@ END;
                         $class = "c6";
                         break;
                 }
+                $deb = $key->creneau->hDeb . ":00";
+                $fin = $key->creneau->hFin . ":00";
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
@@ -575,25 +578,13 @@ END;
 END;
 
                 $compJour++;
-                if ($jour !== $ancienJour) {
-                    if ($passageUnique2) {
-                        $j = $this->jour($ancienJour);
-                        $passageUnique2 = false;
-                    } else {
-                        $j = $this->jour($jour);
-
-                    }
-                    $html .= <<<END
-<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
-$content
-</div>
-END;
-                    $content = "";
-                    $compJour = 0;
-                }
             }
         }
-
+        $j = $this->jour($ancienJour);
+        $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
         return $html;
     }
 
@@ -764,7 +755,6 @@ END;
     {
         $app = Slim::getInstance();
         $content = "";
-        var_dump($selecteur);
         switch ($selecteur) {
             case 1:
             {
