@@ -24,16 +24,9 @@ class ControleurCreneau
         $vue = new vueCreneau('');
 
 
-        $dernierCreneau = Creneau::tail();
 
 
-        $creneau = new Creneau();
-        $creneau->id = $dernierCreneau->idCreneau+1;
-        $creneau->hDeb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
-        $creneau->hFin = htmlspecialchars(filter_var($rq->getParams()['hfin'], FILTER_SANITIZE_STRING ));
-        $creneau->jour = htmlspecialchars(filter_var($rq->getParams()['jour'], FILTER_SANITIZE_STRING ));
-        $creneau->semaine = htmlspecialchars(filter_var($rq->getParams()['semaine'], FILTER_SANITIZE_STRING ));
-        $creneau->cycle = null;
+
 
 
         $deb = htmlspecialchars(filter_var($rq->getParams()['hdeb'], FILTER_SANITIZE_STRING ));
@@ -51,28 +44,13 @@ class ControleurCreneau
             return $rs;
         }
 
-        $jour = htmlspecialchars(filter_var($rq->getParams()['jour'], FILTER_SANITIZE_STRING ));
-        $semaine = htmlspecialchars(filter_var($rq->getParams()['semaine'], FILTER_SANITIZE_STRING ));
-
-        if($jour < 1 || $jour > 7){
-            $html = $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU, 2);
-            $rs->getBody()->write($html);
-            return $rs;
-        }
-
-        if($semaine!='A' && $semaine!='B' && $semaine !='C' && $semaine!='D'){
-            $html = $vue->render(vueCreneau::FORMULAIRE_AJOUT_CRENEAU, 3);
-            $rs->getBody()->write($html);
-            return $rs;
-        }
 
         $creneau = new Creneau();
-        $creneau->id = $dernierCreneau->idCreneau+1;
         $creneau->hDeb = $deb;
         $creneau->hFin = $fin;
-        $creneau->jour = $jour;
-        $creneau->semaine = $semaine;
-        $creneau->cycle = null;
+        $creneau->jour = $_POST['jour'];
+        $creneau->semaine = $_POST['semaine'];
+        $creneau->cycle = 0;
         $creneau->save();
 
         $lien =$this->index->router->pathFor('racine');

@@ -48,7 +48,6 @@ class VueCreneau
                  <label>Jour : </label>
 
                     <select name=jour>
-                        <option value=\>--Choisissez le jour--</option>
                          <option value=1>Lundi</option>
                             <option value=2>Mardi</option>
                              <option value=3>Mercredi</option>
@@ -61,7 +60,6 @@ class VueCreneau
                      <label>Semaine : </label>
 
                     <select name=semaine>
-                        <option value=\\>--Choisissez la semaine--</option>
                          <option value=A>A</option>
                             <option value=B>B</option>
                              <option value=C>C</option>
@@ -69,16 +67,7 @@ class VueCreneau
         
                     </select>
                  
-                  <label for=formulaire1>Semaine du creneau : </label>     
-                   <input type=text name=semaine  placeholder=A-B-C-... required>                    
-                        
-                  
-                    <label for=formulaire1>Heure de debut : </label>           
-                    <input type=number  name=hdeb placeholder=8-10-12-... required> 
-                 
-                   <label for=formulaire1>Heure de fin : </label>           
-                 <input type=number  name=hfin placeholder=16-17-18-... required> 
-              
+ 
                  <input type=submit class=btn value=Ajouter>          
                     
                    
