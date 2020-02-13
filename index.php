@@ -6,13 +6,13 @@ session_start();
 
 use epicerie\controlers\ControleurBesoin;
 use \epicerie\controlers\ControleurCreneau;
+use epicerie\controlers\ControleurPermanence;
 use epicerie\controlers\ControleurPersonne;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \epicerie\controlers\ControleurComptes as ControleurComptes;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use \epicerie\controlers\ControleurPermanence as ControleurPermanence;
 use \epicerie\controlers\ControleurAffichage as ControleurAffichage;
 use Slim\Slim;
 
@@ -196,3 +196,10 @@ $app->get('/afficherUser/:id', function ($id){
 })->name('afficher1User');
 
 $app->run();
+
+
+$app->get('/supprimerBesoin/:id', function ($id){
+    $c = new ControleurPermanence();
+    $c->supprimerBesoin($id);
+});
+

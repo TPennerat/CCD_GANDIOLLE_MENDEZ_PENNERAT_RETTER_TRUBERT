@@ -1,6 +1,7 @@
 <?php
 namespace epicerie\controlers;
 
+use epicerie\models\AssurePermanence;
 use \epicerie\models\AssurePermanence as Permanence;
 use \epicerie\models\Creneau as Creneau;
 use \epicerie\models\Role as Role;
@@ -90,5 +91,16 @@ class ControleurPermanence {
 
     $view->render(1);
 
+  }
+
+  function supprimerBesoin($id){
+
+      $besoin = AssurePermanence::where('id', '=', $id)->first();
+      $besoin->delete();
+
+      $app = Slim::getInstance();
+      $path = $app->request()->getRootUri();
+
+      $app->redirect($app->urlFor('racine'));
   }
 }
