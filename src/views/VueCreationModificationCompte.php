@@ -18,23 +18,26 @@ class VueCreationModificationCompte
 
     public function __construct($username = null)
     {
-
         $this->username = $username;
     }
 
     public function afficherFormulaireModification($erreur = -1){
 
-        $res = "<h1>Modification compte</h1>";
+        $res = "";
         if($erreur == 1) {
             $res .= "<p class=erreur>
                         Les mots de passe de sont pas identiques
                         </p>";
         }
         $res.= <<<END
+        <div class="main-content">
+        	<div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
+        		<div class="container-fluid">
+        			<div class="row text-center">
         <form class="col-12" method="post" action="creerCompte" enctype="multipart/form-data">
           <div class="form-group col-12">
             <label class="col-2">Nom d'utilisateur</label>
-            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="$this->username">
+            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="">
           </div>
 
             <div class="form-group col-12">
@@ -67,17 +70,21 @@ END;
 
     public function afficherFormulaireCreation($erreur){
 
-        $res = "<h1>Modification compte</h1>";
+        $res = "";
         if($erreur == 1) {
             $res .= "<p class=erreur>
                         Les mots de passe de sont pas identiques
                         </p>";
         }
         $res.= <<<END
+        <div class="main-content">
+        	<div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
+        		<div class="container-fluid">
+        			<div class="row text-center">
         <form class="col-12" method="post" action="creerCompte" enctype="multipart/form-data">
           <div class="form-group col-12">
             <label class="col-2">Nom d'utilisateur</label>
-            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="$this->username">
+            <input style="display:inline-block" class="form-control col-2" type="text" name="username" placeholder="">
           </div>
 
           <div class="form-group col-12">
@@ -121,15 +128,18 @@ END;
     public function render($i, $erreur = -1){
         $content = "";
         $app = Slim::getInstance();
+        $page="";
         switch ($i){
             case (self::AFFICHER_FORMULAIRE_MODIFICATION) :
                 $content = $this->afficherFormulaireModification($erreur);
+                $page.="Modification compte";
                 break;
             case (self::FORMULAIRE_CREATION) :
                 $content = $this->afficherFormulaireCreation($erreur);
+                $page.="Création compte";
         }
 
-        $html = VuePermanence::getHeader($app) . $content . VuePermanence::getFooter($app);
+        $html = VuePermanence::getHeader($app,$page) . $content . VuePermanence::getFooter($app);
         echo $html;
     }
 
