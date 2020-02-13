@@ -144,22 +144,31 @@ END;
         $ancienJour=0;
         $compJour = 0;
         $passageUnique = true;
-        $passageUnique2 = true;
         $ex=explode('/',Slim::getInstance()->request->getPath());
         $sem = $ex[count($ex)-1];
         foreach ($this->creneauAffiche as $key) {
             if ($key->semaine == $sem) {
                 $jour = $key->jour;
+                echo $jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
                 }
+                if ($key->jour !== $ancienJour) {
+                        $j = $this->jour($ancienJour);
+                    $html .= <<<END
+<div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
+$content</div>
+END;
+                    $content = "";
+                    $compJour = 0;
+                    $ancienJour = $jour;
+                }
+
+
                 $deb = $key->hDeb . ":00";
                 $fin = $key->hFin . ":00";
 
-                if ($compJour !== 0) {
-                    $jour = "";
-                }
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div  class="overview-item overview-item--c7 aModifier" style="padding:20px;margin-bottom:10px">
@@ -184,25 +193,15 @@ END;
 END;
 
                 $compJour++;
-                echo "$jour\n\n";
-                if ($jour !== $ancienJour) {
-                    if ($passageUnique2) {
-                        $j = $this->jour($ancienJour);
-                        $passageUnique2 = false;
 
-                    } else {
-                        $j = $this->jour($jour);
 
-                    }
-                    $html .= <<<END
+            }
+        }
+        $j = $this->jour($ancienJour);
+        $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
 $content</div>
 END;
-                    $content = "";
-                    $compJour = 0;
-                }
-            }
-        }
 
         return $html;
     }
