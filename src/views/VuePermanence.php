@@ -515,20 +515,19 @@ END;
     {
         $html = "";
         $content = "";
-        $ancienJour = 0;
+        $ancienJour=0;
         $compJour = 0;
         $passageUnique = true;
-        $ex = explode('/', Slim::getInstance()->request->getPath());
-        $sem = $ex[count($ex) - 1];
+        $ex=explode('/',Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex)-1];
         foreach ($this->arr as $key) {
             if ($key->creneau->semaine == $sem) {
-                $role = $key->role->label;
-                $jour = $key->jour;
+                $jour = $key->creneau->jour;
                 if ($passageUnique) {
                     $passageUnique = false;
                     $ancienJour = $jour;
                 }
-                if ($key->jour !== $ancienJour) {
+                if ($key->creneau->jour !== $ancienJour) {
                     $j = $this->jour($ancienJour);
                     $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
@@ -538,6 +537,11 @@ END;
                     $compJour = 0;
                     $ancienJour = $jour;
                 }
+
+
+                $deb = $key->creneau->hDeb . ":00";
+                $fin = $key->creneau->hFin . ":00";
+                $role = $key->role->label;
                 switch ($key->role->id) {
                     case 1:
                         $class = "c1";
@@ -558,8 +562,6 @@ END;
                         $class = "c6";
                         break;
                 }
-                $deb = $key->creneau->hDeb . ":00";
-                $fin = $key->creneau->hFin . ":00";
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
@@ -578,6 +580,8 @@ END;
 END;
 
                 $compJour++;
+
+
             }
         }
         $j = $this->jour($ancienJour);
@@ -585,11 +589,13 @@ END;
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
 $content</div>
 END;
+
         return $html;
     }
 
     public static function getFooter($app)
     {
+
 
         $path = $app->urlFor('racine') . "/Bootstrap";
         return <<<END
