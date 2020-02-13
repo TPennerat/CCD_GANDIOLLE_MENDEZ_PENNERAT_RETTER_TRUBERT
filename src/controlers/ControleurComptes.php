@@ -131,6 +131,31 @@ class ControleurComptes {
                 }else{
                     $compte->droit = 1;
                 }
+
+                if(isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0){
+                    $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+                    $filename = $_FILES["photo"]["name"];
+                    $filetype = $_FILES["photo"]["type"];
+                    $filesize = $_FILES["photo"]["size"];
+
+                    // Vérifie l'extension du fichier
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    if(!array_key_exists($ext, $allowed)) die("Erreur : Veuillez sélectionner un format de fichier valide.");
+
+                    // Vérifie la taille du fichier - 5Mo maximum
+                    $maxsize = 5 * 1024 * 1024;
+                    if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                    // Vérifie le type MIME du fichier
+                    if(in_array($filetype, $allowed)){
+                        $compte->urlimage = $filename.".".$filetype;
+                    } else{
+                        die("Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer.");
+                    }
+                } else{
+                    die("Error: " . $_FILES["photo"]["error"]);
+                }
+
                 $compte->save();
                 Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
             }
@@ -164,15 +189,39 @@ class ControleurComptes {
                 $compte->droit = 1;
             }
             $compte->nom =  htmlspecialchars(filter_var($_POST['username'], FILTER_SANITIZE_STRING ));
+
+            // Vérifie si le fichier a été uploadé sans erreur.
+            if(isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0){
+                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+                $filename = $_FILES["photo"]["name"];
+                $filetype = $_FILES["photo"]["type"];
+                $filesize = $_FILES["photo"]["size"];
+
+                // Vérifie l'extension du fichier
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                if(!array_key_exists($ext, $allowed)) die("Erreur : Veuillez sélectionner un format de fichier valide.");
+
+                // Vérifie la taille du fichier - 5Mo maximum
+                $maxsize = 5 * 1024 * 1024;
+                if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                // Vérifie le type MIME du fichier
+                if(in_array($filetype, $allowed)){
+                    $compte->urlimage = $filename.".".$filetype;
+                } else{
+                    die("Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer.");
+                }
+            } else{
+                die("Error: " . $_FILES["photo"]["error"]);
+            }
+
             $compte->save();
             Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
 
         }else{
-
             $vue = new VueCreationModificationCompte();
             $vue->render(VueCreationModificationCompte::FORMULAIRE_CREATION, 1);
         }
-
 
     }
 
