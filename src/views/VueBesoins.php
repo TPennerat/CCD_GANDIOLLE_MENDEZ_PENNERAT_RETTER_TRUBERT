@@ -30,7 +30,7 @@ class VueBesoins
 
         }
         $html = VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
-        echo $html;
+        //echo $html;
     }
 
     public static function changeSem($sem) {
@@ -84,9 +84,8 @@ END;
                 $deb = $key->hDeb . ":00";
                 $fin = $key->hFin . ":00";
 
-                $content .= <<<END
 $content .= <<<END
-<div class="overview-item overview-item--c1"style="padding:20px;margin-bottom:10px">
+<div class="overview-item overview-item--c1" style="padding:20px;margin-bottom:10px">
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
                 <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-pencil-square-o"></i></p>
                 <div class="overview__inner">
@@ -105,6 +104,7 @@ $content .= <<<END
 
 END;
 
+                var_dump($content);
                 $compJour++;
 
 
