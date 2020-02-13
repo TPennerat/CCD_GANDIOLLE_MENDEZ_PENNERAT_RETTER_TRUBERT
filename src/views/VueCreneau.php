@@ -65,6 +65,11 @@ class VueCreneau
         return $res;
     }
 
+
+    public function ajouterCreneau(){
+
+    }
+
     public function afficherCreneaux(){
         $res = "";
         foreach ($this->creneauAffiche as $creneau){
