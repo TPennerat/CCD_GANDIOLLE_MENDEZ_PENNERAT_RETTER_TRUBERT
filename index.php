@@ -130,5 +130,10 @@ $app->get('affichagePermanences/:idCreneau', function ($idCreneau){
     $c->afficherTout($idCreneau);
 });
 
+$app->get('/deconnexion', function() {
+    $c = new ControleurComptes();
+    $c->seDeconnecter();
+})->name('deco');
+
 
 $app->run();
