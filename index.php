@@ -41,9 +41,9 @@ $app->get('/connexion',function () {
 })->name('connexion');
 
 
-$app->get('/afficherMesPermanences/:id', function($id) {
+$app->get('/afficherMesPermanences/:sem', function($sem) {
     $cont = new ControleurPermanence();
-    $cont->afficherMesPermanences($id);
+    $cont->afficherMesPermanences($sem);
 })->name('aff');
 
 $app->get('/afficherCreneaux',function() {

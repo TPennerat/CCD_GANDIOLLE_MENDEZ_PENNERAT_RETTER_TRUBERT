@@ -209,10 +209,51 @@ END;
 END;
     }
 
+    private function changeSem($sem) {
+        switch ($sem) {
+            case 1 :
+                return "A";
+                break;
+            case 2:
+                return "B";
+                break;
+            case 3:
+                return "C";
+                break;
+            case 4:
+                return "D";
+                break;
+
+        }
+    }
+
     private function afficherMesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";
         $adapt = $this->adapt();
+        $ex=explode('/',$app->request->getPath());
+        $sem = $this->changeSem($ex[count($ex)-1]);
+        $sem1=$app->urlFor("aff",["sem"=>1]);
+        $sem2=$app->urlFor("aff",["sem"=>2]);
+        $sem3=$app->urlFor("aff",["sem"=>3]);
+        $sem4=$app->urlFor("aff",["sem"=>4]);
+        $admin="";
+        $racine = $app->urlFor('racine');
+        foreach ($this->arr as $key) {
+            if ($key->role->droit !=1) {
+                $admin = <<< END
+<li>
+                                          <a href="map.html">
+                                            <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
+                                          </li>
+                                          <li>
+                                            <a href="map.html">
+                                              <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                                            </li>
+END;
+
+            }
+        }
         return <<<END
       <body class="animsition">
   <div class="page-wrapper">
@@ -221,7 +262,7 @@ END;
     <div class="header-mobile__bar">
       <div class="container-fluid">
         <div class="header-mobile-inner">
-          <a class="logo" href="index.html">
+          <a class="logo" href="$racine">
             <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
           </a>
           <button class="hamburger hamburger--slider" type="button">
@@ -244,16 +285,16 @@ END;
               <i class="fa fa-calendar-o"></i>Semaines</a>
               <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                 <li>
-                  <a href="index.html">Semaine 1</a>
+                  <a href="$sem1">Semaine A</a>
                 </li>
                 <li>
-                  <a href="index2.html">Semaine 2</a>
+                  <a href="$sem2">Semaine B</a>
                 </li>
                 <li>
-                  <a href="index3.html">Semaine 3</a>
+                  <a href="$sem3">Semaine C</a>
                 </li>
                 <li>
-                  <a href="index4.html">Semaine 4</a>
+                  <a href="$sem4">Semaine D</a>
                 </li>
               </ul>
             </li>
@@ -273,14 +314,7 @@ END;
                     <a href="calendar.html">
                       <i class="fas fa-clock"></i>Créneaux</a>
                     </li>
-                    <li>
-                      <a href="map.html">
-                        <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
-                      </li>
-                      <li>
-                        <a href="map.html">
-                          <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
-                        </li>
+                    $admin
 
                           </ul>
                         </div>
@@ -303,16 +337,16 @@ END;
                                 <i class="fas fa-tasks"></i>Planning personnel</a>
                                 <ul class="list-unstyled navbar__sub-list js-sub-list">
                                   <li>
-                                    <a href="index.html">Semaine 1</a>
+                                    <a href="$sem1">Semaine A</a>
                                   </li>
                                   <li>
-                                    <a href="index2.html">Semaine 2</a>
+                                    <a href="$sem2">Semaine B</a>
                                   </li>
                                   <li>
-                                    <a href="index3.html">Semaine 3</a>
+                                    <a href="$sem3">Semaine C</a>
                                   </li>
                                   <li>
-                                    <a href="index4.html">Semaine 4</a>
+                                    <a href="$sem4">Semaine D</a>
                                   </li>
                                 </ul>
                               </li>
