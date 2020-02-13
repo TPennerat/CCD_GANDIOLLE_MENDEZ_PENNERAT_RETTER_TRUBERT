@@ -53,11 +53,13 @@ $app->get('/afficherCreneaux',function() {
 });
 
 $app->get('/creerBesoin', function() {
-
+    $c = new ControleurPermanence();
+    $c->afficherCreationBesoin();
 });
 
 $app->post('/creerBesoin', function() {
-
+  $c = new ControleurPermanence();
+  $c->creerBesoin();
 })->name('creerBesoin');
 
 $app->get('/inscriptionBesoin/:id', function($id) {
