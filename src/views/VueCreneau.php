@@ -22,6 +22,8 @@ class VueCreneau
     public function __construct($arr)
     {
         $this->creneauAffiche = $arr;
+        $this->rq= $rq;
+        $this->index=$index;
     }
 
 
@@ -32,6 +34,8 @@ class VueCreneau
         switch ($erreur){
             case(1) :
                 $res .=  "<h2 class=erreur> ERREUR DANS LE CHEVAUCHEMENT DES CRENEAUX </h2>";
+                break;
+            default :
                 break;
         }
         $res .= "<section>
