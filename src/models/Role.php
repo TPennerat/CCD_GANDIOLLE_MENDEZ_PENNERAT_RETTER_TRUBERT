@@ -10,16 +10,8 @@ class Role extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function permRole()
-    {
-        return $this->hasOneThrough(
-            '\epicerie\models\Creneau',
-            '\epicerie\models\Role',
-            'id', // Foreign key on users table...
-            'id', // Foreign key on history table...
-            'id', // Local key on suppliers table...
-            'id' // Local key on users table...
-        );
+    public function estAssure (d) {
+        return $this->belongsTo("AssurePermanence","id");
     }
 
 }
