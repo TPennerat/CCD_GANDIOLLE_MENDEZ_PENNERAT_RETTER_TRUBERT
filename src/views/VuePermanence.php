@@ -117,7 +117,8 @@ END;
           <meta name="keywords" content="au theme template">
 
           <!-- Title Page-->
-          <title>EpircerieGenerale</title>
+          <title>CoBoard</title>
+          <link rel="icon" type="image/png" href="$path/images/icon/logo_fav.png">
 
           <!-- Fontfaces CSS-->
           <link href="$path/css/font-face.css" rel="stylesheet" media="all">
@@ -306,7 +307,10 @@ END;
                                         </ul>
                                       </li>
                                       $admin
-
+                                      <li>
+                                        <a href="https://www.grandeepiceriegenerale.fr/"  target = "_blank">
+                                          <i class="fa fa-mouse-pointer"></i>Visitez notre site</a>
+                                        </li>
                                           </ul>
                                         </nav>
                                       </div>
