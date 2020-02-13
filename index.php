@@ -41,9 +41,9 @@ $app->get('/connexion',function () {
 })->name('connexion');
 
 
-$app->get('/afficherMesPermanences/:id', function($id) {
+$app->get('/afficherMesPermanences/:sem', function($sem) {
     $cont = new ControleurPermanence();
-    $cont->afficherMesPermanences($id);
+    $cont->afficherMesPermanences($sem);
 })->name('aff');
 
 $app->get('/afficherCreneaux',function() {
@@ -111,7 +111,7 @@ $app->get('/creneau/listeCreneaux/{id}/modifierEtat/{etat}', function (Request $
 
 $app->post('/creneau/ajouterCreneau', function () {
     $c = new ControleurCreneau();
-    $c->ajouterCreneau(null,null);
+    $c->ajouterCreneau();
 });
 
 
@@ -129,6 +129,11 @@ $app->get('affichagePermanences/:idCreneau', function ($idCreneau){
     $c= new ControleurCreneau();
     $c->afficherTout($idCreneau);
 });
+
+$app->get('/deconnexion', function() {
+    $c = new ControleurComptes();
+    $c->seDeconnecter();
+})->name('deco');
 
 
 $app->run();

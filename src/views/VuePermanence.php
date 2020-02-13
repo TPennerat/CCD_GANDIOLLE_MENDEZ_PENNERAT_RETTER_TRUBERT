@@ -101,34 +101,44 @@ END;
         $jour=0;
         $passageUnique = true;
         $passageUnique2 = true;
+        $ex=explode('/',Slim::getInstance()->request->getPath());
+        $sem = $ex[count($ex)-1];
         foreach ($this->arr as $key) {
-            $role = $key->role->label;
-            $jour = $key->creneau->jour;
-            if ($passageUnique) {
-                $passageUnique=false;
-                $ancienJour=$jour;
-            }
-            $deb = $key->creneau->hDeb . ":00";
-            $fin = $key->creneau->hFin . ":00";
-            $class = "c1";
-            if ($compJour === 1) {
-                $class = "c2";
-                $jour = "";
-            } elseif ($compJour === 2) {
-                $class = "c3";
-                $jour = "";
-            } elseif ($compJour === 3) {
-                $class = "c4";
-                $jour = "";
-            } elseif ($compJour === 4) {
-                $class = "c5";
-                $jour = "";
-            } elseif ($compJour === 5) {
-                $class = "c6";
-                $jour = "";
-                $compJour = 0;
-            }
-            $content .= <<<END
+            if ($key->creneau->semaine == $sem ) {
+                $role = $key->role->label;
+                $jour = $key->creneau->jour;
+                if ($passageUnique) {
+                    $passageUnique = false;
+                    $ancienJour = $jour;
+                }
+                $deb = $key->creneau->hDeb . ":00";
+                $fin = $key->creneau->hFin . ":00";
+
+                if ($compJour !== 0) {
+                    $jour = "";
+                }
+
+                switch ($key->role->id) {
+                    case 1:
+                        $class = "c1";
+                        break;
+                    case 2:
+                        $class = "c2";
+                        break;
+                    case 3:
+                        $class = "c3";
+                        break;
+                    case 4:
+                        $class = "c4";
+                        break;
+                    case 5:
+                        $class = "c5";
+                        break;
+                    case 6:
+                        $class = "c6";
+                        break;
+                }
+                $content .= <<<END
 <div class="col-12" style="padding:0px">
             <div class="overview-item overview-item--$class" style="padding:20px;margin-bottom:10px">
               <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-times"></i></p>
@@ -145,21 +155,22 @@ END;
           </div>
 END;
 
-            $compJour++;
-            if ($jour!==$ancienJour) {
-                if ($passageUnique2) {
-                    $j = $this->jour($ancienJour);
-                    $passageUnique2 = false;
-                } else {
-                    $j = $this->jour($jour);
+                $compJour++;
+                if ($jour !== $ancienJour) {
+                    if ($passageUnique2) {
+                        $j = $this->jour($ancienJour);
+                        $passageUnique2 = false;
+                    } else {
+                        $j = $this->jour($jour);
 
-                }
-                $html.=<<<END
+                    }
+                    $html .= <<<END
 <div class="col" style="padding:5px"><h3 class="text-center h4">$j</h3>
 $content</div>
 END;
-                $content="";
-                $compJour=0;
+                    $content = "";
+                    $compJour = 0;
+                }
             }
         }
 
@@ -201,13 +212,62 @@ END;
 END;
     }
 
+    public static function changeSem($sem) {
+        switch ($sem) {
+            case 1 :
+                return "A";
+                break;
+            case 2:
+                return "B";
+                break;
+            case 3:
+                return "C";
+                break;
+            case 4:
+                return "D";
+                break;
+
+        }
+        return 'A';
+    }
+
     private function afficherMesPermanences($app)
     {
         $path = $app->urlFor('racine') . "/Bootstrap";
         $adapt = $this->adapt();
+        $ex=explode('/',$app->request->getPath());
+        $sem = $ex[count($ex)-1];
+        $sem1=$app->urlFor("aff",["sem"=>"A"]);
+        $sem2=$app->urlFor("aff",["sem"=>"B"]);
+        $sem3=$app->urlFor("aff",["sem"=>"C"]);
+        $sem4=$app->urlFor("aff",["sem"=>"D"]);
+        $admin="";
+        $racine = $app->urlFor('racine');
+        $img="";
+        $alt="";
+        foreach ($this->arr as $key) {
+            if ($key->user->droit !=1) {
+                $admin = <<< END
+<li>
+                                          <a href="map.html">
+                                            <i class="far fa-calendar-alt"></i>Planning général</a> <!--Que pour administrateur-->
+                                          </li>
+                                          <li>
+                                            <a href="map.html">
+                                              <i class="fas fa-pencil-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
+                                            </li>
+END;
+
+            }
+            $img=$app->urlFor('racine').'/web/img/'.$key->user->urlimage;
+            $alt=$key->user->nom;
+            break;
+        }
+        $deco=$app->urlFor('deco');
         return <<<END
       <body class="animsition">
   <div class="page-wrapper">
+<<<<<<< HEAD
     <!-- HEADER MOBILE-->
     <header class="header-mobile d-block d-lg-none">
       <div class="header-mobile__bar">
@@ -227,6 +287,49 @@ END;
       <nav class="navbar-mobile">
         <div class="container-fluid">
           <ul class="navbar-mobile__list list-unstyled">
+=======
+  <!-- HEADER MOBILE-->
+  <header class="header-mobile d-block d-lg-none">
+    <div class="header-mobile__bar">
+      <div class="container-fluid">
+        <div class="header-mobile-inner">
+          <a class="logo" href="$racine">
+            <img class="col-5"src="images/icon/logo.png" alt="CoolAdmin" />
+          </a>
+          <button class="hamburger hamburger--slider" type="button">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar-mobile">
+      <div class="container-fluid">
+        <ul class="navbar-mobile__list list-unstyled">
+          <li>
+            <a href="calendar.html">
+              <i class="fas fa-tasks"></i>Planning personnel</a>
+            </li>
+          <li class="has-sub">
+            <a class="js-arrow" href="#">
+              <i class="fa fa-calendar-o"></i>Semaines</a>
+              <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                <li>
+                  <a href="$sem1">Semaine A</a>
+                </li>
+                <li>
+                  <a href="$sem2">Semaine B</a>
+                </li>
+                <li>
+                  <a href="$sem3">Semaine C</a>
+                </li>
+                <li>
+                  <a href="$sem4">Semaine D</a>
+                </li>
+              </ul>
+            </li>
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
             <li>
               <a href="calendar.html">
                 <i class="fas fa-calendar-alt"></i>Planning personnel</a>
@@ -262,6 +365,7 @@ END;
                     <a href="form.html">
                       <i class="far fa-check-square"></i>Utilisateurs</a>
                     </li>
+<<<<<<< HEAD
                     <li>
                       <a href="calendar.html">
                         <i class="fas fa-calendar-alt"></i>Créneaux</a>
@@ -274,6 +378,9 @@ END;
                           <a href="map.html">
                             <i class="fas fa-map-marker-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
                           </li>
+=======
+                    $admin
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
 
                             </ul>
                           </div>
@@ -288,19 +395,74 @@ END;
                             <img src="images/icon/logo.png" alt="Cool Admin" />
                           </a>
                         </div>
+<<<<<<< HEAD
                         <div class="menu-sidebar__content js-scrollbar1">
                           <nav class="navbar-sidebar">
                             <ul class="list-unstyled navbar__list">
+=======
+                      </nav>
+                    </header>
+                    <!-- END HEADER MOBILE-->
+
+                    <!-- MENU SIDEBAR-->
+                    <aside class="menu-sidebar d-none d-lg-block">
+                      <div class="logo">
+                        <a href="#">
+                          <img src="$path/images/icon/logo.png" alt="Cool Admin" />
+                        </a>
+                      </div>
+                      <div class="menu-sidebar__content js-scrollbar1">
+                        <nav class="navbar-sidebar">
+                          <ul class="list-unstyled navbar__list">
+                            <li class="has-sub">
+                              <a class="js-arrow" href="#">
+                                <i class="fas fa-tasks"></i>Planning personnel</a>
+                                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                  <li>
+                                    <a href="$sem1">Semaine A</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem2">Semaine B</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem3">Semaine C</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem4">Semaine D</a>
+                                  </li>
+                                </ul>
+                              </li>
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
                               <li>
                                 <a href="calendar.html">
                                   <i class="fas fa-calendar-alt"></i>Planning personnel</a>
                                 </li>
+<<<<<<< HEAD
                               <li class="active has-sub">
                                 <a class="js-arrow" href="#">
                                   <i class="fas fa-tachometer-alt"></i>Cycles</a>
                                   <ul class="list-unstyled navbar__sub-list js-sub-list">
                                     <li>
                                       <a href="index.html">Cycle 1</a>
+=======
+                                  <li class="has-sub">
+                                    <a class="js-arrow" href="#">
+                                      <i class="fa fa-heart"></i>Besoins</a>
+                                      <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        <li>
+                                    <a href="$sem1">Semaine A</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem2">Semaine B</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem3">Semaine C</a>
+                                  </li>
+                                  <li>
+                                    <a href="$sem4">Semaine D</a>
+                                  </li>
+                                      </ul>
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
                                     </li>
                                     <li>
                                       <a href="index2.html">Cycle 2</a>
@@ -325,6 +487,7 @@ END;
                                       <a href="form.html">
                                         <i class="far fa-check-square"></i>Utilisateurs</a>
                                       </li>
+<<<<<<< HEAD
                                       <li>
                                         <a href="calendar.html">
                                           <i class="fas fa-calendar-alt"></i>Créneaux</a>
@@ -337,6 +500,9 @@ END;
                                             <a href="map.html">
                                               <i class="fas fa-map-marker-alt"></i>Créer un compte</a> <!--Que pour administrateur-->
                                             </li>
+=======
+                                      $admin
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
 
                                             </ul>
                                           </nav>
@@ -370,7 +536,7 @@ END;
                                               </div>
                                               <div class="mess__item">
                                               <div class="image img-cir img-40">
-                                              <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                              <img src="$path/images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                             </div>
                                             <div class="content">
                                             <h6>Michelle Moreno</h6>
@@ -380,7 +546,7 @@ END;
                                         </div>
                                         <div class="mess__item">
                                         <div class="image img-cir img-40">
-                                        <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                        <img src="$path/images/icon/avatar-04.jpg" alt="Diane Myers" />
                                       </div>
                                       <div class="content">
                                       <h6>Diane Myers</h6>
@@ -402,7 +568,7 @@ END;
                           </div>
                           <div class="email__item">
                           <div class="image img-cir img-40">
-                          <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+                          <img src="$path/images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
                         </div>
                         <div class="content">
                         <p>Meeting about new dashboard...</p>
@@ -411,7 +577,7 @@ END;
                     </div>
                     <div class="email__item">
                     <div class="image img-cir img-40">
-                    <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+                    <img src="$path/images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
                   </div>
                   <div class="content">
                   <p>Meeting about new dashboard...</p>
@@ -420,7 +586,7 @@ END;
               </div>
               <div class="email__item">
               <div class="image img-cir img-40">
-              <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+              <img src="$path/images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
             </div>
             <div class="content">
             <p>Meeting about new dashboard...</p>
@@ -477,23 +643,22 @@ END;
 <div class="account-wrap">
   <div class="account-item clearfix js-item-menu">
     <div class="image">
-      <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+      <img src="$img" alt="$alt" />
     </div>
     <div class="content">
-      <a class="js-acc-btn" href="#">john doe</a>
+      <a class="js-acc-btn" href="#">$alt</a>
     </div>
     <div class="account-dropdown js-dropdown">
       <div class="info clearfix">
         <div class="image">
           <a href="#">
-            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+            <img src="$img" alt="$alt" />
           </a>
         </div>
         <div class="content">
           <h5 class="name">
-            <a href="#">john doe</a>
+            <a href="#">$alt</a>
           </h5>
-          <span class="email">johndoe@example.com</span>
         </div>
       </div>
       <div class="account-dropdown__body">
@@ -506,7 +671,7 @@ END;
               <i class="zmdi zmdi-settings"></i>Paramètres</a>
             </div>
             <div class="account-dropdown__footer">
-              <a href="#">
+              <a href="$deco">
                 <i class="zmdi zmdi-power"></i>Se déconnecter</a>
               </div>
             </div>
@@ -524,7 +689,12 @@ END;
   <div class="section__content section__content--p30" style="min-width:900px;padding:10px;">
     <div class="container-fluid">
       <div class="row">
+<<<<<<< HEAD
         <div class="col-md-12" style="margin-bottom:20px">
+=======
+        <div class="col-md-12 text-center"><h2 class="h1" style="font-weight:bold">Planning personnel de la semaine</h2></div>
+        <div class="col-md-12" style="margin-left:20px;margin-bottom:20px">
+>>>>>>> ef103c9a719f4a095cc237909df2c5e2cdb617a3
           <button type="button" class="btn btn-outline-primary btn-lg">S'inscrire à une permanence</button>
         </div>
 $adapt

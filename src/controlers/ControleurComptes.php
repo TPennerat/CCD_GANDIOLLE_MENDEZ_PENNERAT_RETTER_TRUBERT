@@ -97,4 +97,9 @@ class ControleurComptes {
       }
   }
 
+  public function seDeconnecter(){
+      unset($_SESSION['id_connect']);
+      Slim::getInstance()->redirect(Slim::getInstance()->urlFor('racine'));
+  }
+
 }
