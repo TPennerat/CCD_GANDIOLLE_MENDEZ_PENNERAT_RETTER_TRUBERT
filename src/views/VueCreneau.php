@@ -137,7 +137,7 @@ END;
         return $res;
     }
 
-    public function adapt()
+    public function adapt($path)
     {
         $html = "";
         $content = "";
@@ -162,9 +162,9 @@ END;
                 }
                 $content .= <<<END
 <div class="col-12" style="padding:0px">
-            <div class="overview-item overview-item--c7" style="padding:20px;margin-bottom:10px">
+            <div  class="overview-item overview-item--c7 aModifier" style="padding:20px;margin-bottom:10px">
 
-              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right fa fa-refresh"></i></p>
+              <p style="font-weight:bold;font-size:1rem;color: white"><i class="pull-right aModifier2 fa fa-refresh"></i></p>
               <div class="overview__inner">
                 <div class="overview-box clearfix" style="width:auto">
                   <div class="text">
@@ -180,6 +180,7 @@ END;
               </div>
             </div>
           </div>
+          <script type="text/javascript" src="$path/js/toggle.js"> </script>
 END;
 
                 $compJour++;
@@ -283,7 +284,7 @@ END;
                 $content = $this->afficherFormulaireAjoutCreneau($erreur);
                 break;
             case (self::AFFICHAGE_CRENEAUX):
-                $content = $this->adapt();
+                $content = $this->adapt($app->urlFor('racine') . "/Bootstrap");
                 break;
             case (self::AFFICHER_TOUT_CRENEAU):
                 $content = $this->afficherToutCreneau();

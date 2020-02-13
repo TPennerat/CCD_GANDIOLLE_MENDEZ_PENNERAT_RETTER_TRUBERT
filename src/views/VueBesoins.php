@@ -29,8 +29,7 @@ class VueBesoins
             }
 
         }
-        //VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
-        $html = $content;
+        $html = VuePermanence::getHeader($app,"Besoins") . $content . VuePermanence::getFooter($app);
         echo $html;
     }
 
